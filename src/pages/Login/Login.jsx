@@ -3,9 +3,11 @@ import { useState, useEffect } from "react"
 import { Eye, EyeOff, Sun, Moon } from "lucide-react"
 import { useThemeLogos, toggleTheme } from "../../hooks/Theme/useTheme"
 import { supabase } from "../../lib/supabase";
+import { useAuth } from "../../hooks/Auth/useAuth";
 
 export default function Login() {
     const { currentLogo } = useThemeLogos();
+    const { loginComMicrosoft, verificarSessao } = useAuth();
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [senhaVisivel, setSenhaVisivel] = useState(false)
@@ -21,35 +23,6 @@ export default function Login() {
         toggleTheme()
         setTemaEscuro((atual) => !atual)
     }
-
-    async function loginComMicrosoft() {
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: "azure",
-            options: {
-                scopes: "email",
-                redirectTo: window.location.origin,
-            },
-        });
-
-        if (error) {
-            console.error("Erro ao entrar com Microsoft:", error.message);
-        }
-    }
-
-    useEffect(() => {
-        async function verificarSessao() {
-            const { data, error } = await supabase.auth.getSession();
-
-            if (error) {
-                console.error("Erro ao verificar sessão:", error.message);
-                return;
-            }
-
-            console.log("Sessão atual:", data.session);
-        }
-
-        verificarSessao();
-    }, []);
 
     return (
         <>
@@ -70,9 +43,22 @@ export default function Login() {
                     <h2 className={style.tituloEntrar}>Entrar</h2>
                     <p className={style.descricaoEntrar}>Digite suas credenciais para acessar o portal</p>
 
-                    <form className={style.loginForm}>
-                        <button type="button" className={style.botaoMicrosoft} onClick={loginComMicrosoft}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Logo Microsoft" className={style.logoMicrosoft} />Entrar com Microsoft</button>
+                    <form className={style.loginForm} onSubmit={(e) => e.preventDefault()}>
+                        <button
+                            type="button"
+                            className={style.botaoMicrosoft}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                loginComMicrosoft();
+                            }}
+                        >
+                            <img
+                                src="https://cdn-icons-png.flaticon.com/512/732/732221.png"
+                                alt="Logo Microsoft"
+                                className={style.logoMicrosoft}
+                            />
+                            Entrar com Microsoft
+                        </button>
                         <div className={style.divisorOu}><span>ou</span></div>
                         <label className={style.rotuloCampo} htmlFor="email">Email</label>
                         <input
