@@ -7,25 +7,25 @@ export function useAuth() {
     const [loading, setLoading] = useState(true);
 
     async function loginComMicrosoft() {
-        console.log("Clicou no login Microsoft");
+    console.log("Clicou no login Microsoft");
 
-        const { data, error } = await supabase.auth.signInWithOAuth({
-            provider: "azure",
-            options: {
-                scopes: "openid email profile User.Read",
-                redirectTo: `${window.location.origin}/auth/callback`,
-                queryParams: {
-                    prompt: "select_account",
-                },
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "azure",
+        options: {
+            scopes: "email",
+            redirectTo: `${window.location.origin}/auth/callback`,
+            queryParams: {
+                prompt: "consent",
             },
-        });
+        },
+    });
 
-        console.log("Resposta OAuth:", data);
+    console.log("Resposta OAuth:", data);
 
-        if (error) {
-            console.error("Erro ao entrar com Microsoft:", error.message);
-        }
+    if (error) {
+        console.error("Erro ao entrar com Microsoft:", error.message);
     }
+}
 
     async function logout() {
         const { error } = await supabase.auth.signOut();
