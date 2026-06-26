@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './pages/Login/Login'
 import Home from './pages/Home/Home'
 import AuthCallback from "./pages/AuthCallback/AuthCallback";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
 
@@ -13,7 +14,9 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
-        <Route path="/home" element={<Home />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Home />} />
+        </Route>
       </Routes>
     </Router>
   )
