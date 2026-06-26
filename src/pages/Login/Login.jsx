@@ -1,29 +1,53 @@
 import style from "./Login.module.css"
-import LogoBranco from "../../assets/logos/horizontal/Logo_Cagen_Horiz__Verde_Escuro_e_Branco.png"
 import { useState } from "react"
-import { Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff, Sun, Moon } from "lucide-react"
+import { useThemeLogos, toggleTheme } from "../../hooks/Theme/useTheme"
 
 export default function Login() {
+    const { currentLogo } = useThemeLogos();
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [senhaVisivel, setSenhaVisivel] = useState(false)
+    const [temaEscuro, setTemaEscuro] = useState(
+        document.documentElement.getAttribute("data-theme") === "dark"
+    )
 
     function alternarVisibilidadeSenha() {
         setSenhaVisivel(!senhaVisivel)
     }
 
+    function alternarTema() {
+        toggleTheme()
+        setTemaEscuro((atual) => !atual)
+    }
+
     return (
         <>
             <div className={style.loginContainer}>
-                <img className={style.logo} src={LogoBranco} alt="Logo Unicagen" />
+                <button
+                    type="button"
+                    className={style.botaoAlternarTema}
+                    onClick={alternarTema}
+                    aria-label="Alternar tema"
+                >
+                    {temaEscuro ? <Sun size={18} /> : <Moon size={18} />}
+                </button>
+
+                <img className={style.logo} src={currentLogo} alt="Logo Unicagen" />
                 <h1 className={style.tituloPlataforma}>UNICAGEN</h1>
                 <h4 className={style.subtituloPlataforma}>Casagrande Engenharia</h4>
-
                 <div className={style.loginCard}>
                     <h2 className={style.tituloEntrar}>Entrar</h2>
                     <p className={style.descricaoEntrar}>Digite suas credenciais para acessar o portal</p>
 
                     <form className={style.loginForm}>
+                        <button type="button" className={style.botaoMicrosoft}>
+                            <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Logo Microsoft" className={style.logoMicrosoft} />
+                            Entrar com Microsoft
+                        </button>
+                        <div className={style.divisorOu}>
+                            <span>ou</span>
+                        </div>
                         <label className={style.rotuloCampo} htmlFor="email">Email</label>
                         <input
                             id="email"
@@ -32,6 +56,7 @@ export default function Login() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
+                            disabled
                         />
 
                         <div className={style.linhaSenha}>
@@ -46,6 +71,7 @@ export default function Login() {
                                 value={senha}
                                 onChange={(e) => setSenha(e.target.value)}
                                 required
+                                disabled
                             />
                             <button
                                 type="button"
@@ -57,20 +83,13 @@ export default function Login() {
                             </button>
                         </div>
 
-                        <button type="submit" className={style.botaoEntrar}>Entrar</button>
-
-                        <div className={style.divisorOu}>
-                            <span>ou</span>
-                        </div>
-
-                        <button type="button" className={style.botaoMicrosoft}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Logo Microsoft" className={style.logoMicrosoft} />
-                            Entrar com Microsoft
+                        <button type="submit" className={style.botaoEntrar} disabled>
+                            Entrar
                         </button>
                     </form>
                 </div>
 
-                <p className={style.textoAcessoConvite}>Acesso apenas por convite</p>
+                <p className={style.textoAcessoConvite}>Acesso apenas por autenticação Microsoft</p>
             </div>
         </>
     )
