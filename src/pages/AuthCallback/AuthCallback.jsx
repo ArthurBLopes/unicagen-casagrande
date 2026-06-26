@@ -1,52 +1,66 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
 
 export default function AuthCallback() {
     const navigate = useNavigate();
-    const executou = useRef(false);
+    const [mensagem, setMensagem] = useState("Finalizando login...");
 
     useEffect(() => {
-        if (executou.current) return;
-        executou.current = true;
+        const searchParams = new URLSearchParams(window.location.search);
+        const hashParams = new URLSearchParams(window.location.hash.replace("#", ""));
 
-        async function finalizarLogin() {
-            console.log("URL atual:", window.location.href);
+        const erro =
+            searchParams.get("error") ||
+            hashParams.get("error");
 
-            const params = new URLSearchParams(window.location.search);
-            const code = params.get("code");
+        const descricao =
+            searchParams.get("error_description") ||
+            hashParams.get("error_description");
 
-            console.log("Code recebido:", code);
+        if (erro) {
+            console.error("Erro no callback:", {
+                erro,
+                descricao,
+                url: window.location.href,
+            });
 
-            if (!code) {
-                console.error("Nenhum code veio na URL");
+            setMensagem(descricao || "Erro ao finalizar login.");
+
+            setTimeout(() => {
                 navigate("/login", { replace: true });
-                return;
-            }
+            }, 2500);
 
-            const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-
-            console.log("Resultado exchangeCodeForSession:", data);
-            console.log("Erro exchangeCodeForSession:", error);
-
-            if (error) {
-                navigate("/login", { replace: true });
-                return;
-            }
-
-            const { data: sessionData } = await supabase.auth.getSession();
-
-            console.log("Sessão depois do callback:", sessionData.session);
-
-            if (sessionData.session) {
-                navigate("/home", { replace: true });
-            } else {
-                navigate("/login", { replace: true });
-            }
+            return;
         }
 
-        finalizarLogin();
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((event, session) => {
+            console.log("Auth event:", event, session);
+
+            if ((event === "SIGNED_IN" || event === "INITIAL_SESSION") && session) {
+                navigate("/home", { replace: true });
+            }
+
+            if (event === "SIGNED_OUT") {
+                navigate("/login", { replace: true });
+            }
+        });
+
+        supabase.auth.getSession().then(({ data, error }) => {
+            console.log("Sessão no callback:", data.session);
+            console.log("Erro getSession:", error);
+
+            if (data.session) {
+                navigate("/home", { replace: true });
+            }
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        };
     }, [navigate]);
 
-    return <p>Finalizando login...</p>;
+    return <p>{mensagem}</p>;
 }
