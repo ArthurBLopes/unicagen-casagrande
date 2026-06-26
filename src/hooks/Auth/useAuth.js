@@ -7,37 +7,27 @@ export function useAuth() {
     const [loading, setLoading] = useState(true);
 
     async function loginComMicrosoft() {
-    console.log("Clicou no login Microsoft");
+        console.log("Clicou no login Microsoft");
 
-    const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "azure",
-        options: {
-            scopes: "openid email profile User.Read",
-            redirectTo: `${window.location.origin}/auth/callback`,
-            queryParams: {
-                prompt: "consent",
+        const { data, error } = await supabase.auth.signInWithOAuth({
+            provider: "azure",
+            options: {
+                scopes: "openid email profile User.Read",
+                redirectTo: `${window.location.origin}/auth/callback`,
+                queryParams: {
+                    prompt: "consent",
+                },
             },
-        },
-    });
+        });
 
-    console.log("Resposta OAuth:", data);
-
-    if (error) {
-        console.error("Erro ao entrar com Microsoft:", error.message);
-    }
-}
-
-    async function logout() {
-        const { error } = await supabase.auth.signOut();
+        console.log("Resposta OAuth:", data);
 
         if (error) {
-            console.error("Erro ao sair:", error.message);
-            return;
+            console.error("Erro ao entrar com Microsoft:", error.message);
         }
-
-        setSession(null);
-        setUser(null);
     }
+
+    //
 
     useEffect(() => {
         async function verificarSessao() {
@@ -69,11 +59,35 @@ export function useAuth() {
         };
     }, []);
 
+    //
+
+    useEffect(() => {
+        async function carregarUsuario() {
+            const { data } = await supabase.auth.getUser();
+            setUser(data.user);
+        }
+
+        carregarUsuario();
+    }, []);
+
+    //
+
+    async function sair() {
+        await supabase.auth.signOut();
+        window.location.href = "/login";
+    }
+
+    async function getNome() {
+        const { data } = await supabase.auth.getUser();
+        return data.user?.user_metadata?.full_name || null;
+    }
+
     return {
         session,
         user,
         loading,
         loginComMicrosoft,
-        logout,
+        sair,
+        getNome,
     };
 }
