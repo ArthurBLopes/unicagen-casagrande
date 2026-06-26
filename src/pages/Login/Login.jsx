@@ -2,6 +2,7 @@ import style from "./Login.module.css"
 import { useState } from "react"
 import { Eye, EyeOff, Sun, Moon } from "lucide-react"
 import { useThemeLogos, toggleTheme } from "../../hooks/Theme/useTheme"
+import { supabase } from "../../lib/supabase";
 
 export default function Login() {
     const { currentLogo } = useThemeLogos();
@@ -19,6 +20,20 @@ export default function Login() {
     function alternarTema() {
         toggleTheme()
         setTemaEscuro((atual) => !atual)
+    }
+
+    async function loginComMicrosoft() {
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: "azure",
+            options: {
+                scopes: "email",
+                redirectTo: window.location.origin,
+            },
+        });
+
+        if (error) {
+            console.error("Erro ao entrar com Microsoft:", error.message);
+        }
     }
 
     return (
@@ -41,13 +56,9 @@ export default function Login() {
                     <p className={style.descricaoEntrar}>Digite suas credenciais para acessar o portal</p>
 
                     <form className={style.loginForm}>
-                        <button type="button" className={style.botaoMicrosoft}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Logo Microsoft" className={style.logoMicrosoft} />
-                            Entrar com Microsoft
-                        </button>
-                        <div className={style.divisorOu}>
-                            <span>ou</span>
-                        </div>
+                        <button type="button" className={style.botaoMicrosoft} onClick={loginComMicrosoft}>
+                        <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Logo Microsoft" className={style.logoMicrosoft}/>Entrar com Microsoft</button>
+                        <div className={style.divisorOu}><span>ou</span></div>
                         <label className={style.rotuloCampo} htmlFor="email">Email</label>
                         <input
                             id="email"
