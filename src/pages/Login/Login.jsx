@@ -1,5 +1,5 @@
 import style from "./Login.module.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Eye, EyeOff, Sun, Moon } from "lucide-react"
 import { useThemeLogos, toggleTheme } from "../../hooks/Theme/useTheme"
 import { supabase } from "../../lib/supabase";
@@ -36,6 +36,21 @@ export default function Login() {
         }
     }
 
+    useEffect(() => {
+        async function verificarSessao() {
+            const { data, error } = await supabase.auth.getSession();
+
+            if (error) {
+                console.error("Erro ao verificar sessão:", error.message);
+                return;
+            }
+
+            console.log("Sessão atual:", data.session);
+        }
+
+        verificarSessao();
+    }, []);
+
     return (
         <>
             <div className={style.loginContainer}>
@@ -57,7 +72,7 @@ export default function Login() {
 
                     <form className={style.loginForm}>
                         <button type="button" className={style.botaoMicrosoft} onClick={loginComMicrosoft}>
-                        <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Logo Microsoft" className={style.logoMicrosoft}/>Entrar com Microsoft</button>
+                            <img src="https://cdn-icons-png.flaticon.com/512/732/732221.png" alt="Logo Microsoft" className={style.logoMicrosoft} />Entrar com Microsoft</button>
                         <div className={style.divisorOu}><span>ou</span></div>
                         <label className={style.rotuloCampo} htmlFor="email">Email</label>
                         <input
