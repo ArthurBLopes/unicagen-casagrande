@@ -5,15 +5,20 @@ import Login from './pages/Login/Login'
 import Home from './pages/Home/Home'
 import AuthCallback from "./pages/AuthCallback/AuthCallback";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import PublicRoute from "./routes/PublicRoute";
 
 function App() {
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login replace />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
+
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
         </Route>
