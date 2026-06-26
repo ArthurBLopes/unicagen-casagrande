@@ -12,7 +12,7 @@ export function useAuth() {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "azure",
         options: {
-            scopes: "email",
+            scopes: "openid email profile User.Read",
             redirectTo: `${window.location.origin}/auth/callback`,
             queryParams: {
                 prompt: "consent",

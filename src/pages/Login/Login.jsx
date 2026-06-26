@@ -1,13 +1,12 @@
 import style from "./Login.module.css"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Eye, EyeOff, Sun, Moon } from "lucide-react"
 import { useThemeLogos, toggleTheme } from "../../hooks/Theme/useTheme"
-import { supabase } from "../../lib/supabase";
 import { useAuth } from "../../hooks/Auth/useAuth";
 
 export default function Login() {
     const { currentLogo } = useThemeLogos();
-    const { loginComMicrosoft, verificarSessao } = useAuth();
+    const { loginComMicrosoft } = useAuth();
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [senhaVisivel, setSenhaVisivel] = useState(false)
