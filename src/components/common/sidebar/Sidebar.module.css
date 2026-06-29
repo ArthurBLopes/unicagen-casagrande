@@ -1,0 +1,244 @@
+.botaoMenuMobile {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    z-index: 90;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    background-color: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #5c6b45;
+    overflow: hidden;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease, background-color 0.2s ease, border-color 0.2s ease;
+    z-index: 100;
+}
+
+.mobileAberto {
+    transform: translateX(0);
+}
+
+.botaoToggle {
+    display: none;
+}
+
+.botaoFecharMobile {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.blocoLogo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.textoMarca {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.nomePlataforma {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fafcff;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.nomeEmpresa {
+    font-size: 14px;
+    color: #aabf86;
+    margin: 2px 0 0;
+    white-space: nowrap;
+}
+
+.rotuloMenu {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fafcff;
+    opacity: 0.8;
+    margin: 18px 0 6px;
+    padding: 0 20px;
+}
+
+.navegacao {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 12px;
+    overflow-y: auto;
+}
+
+.item,
+.itemAtivo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    font-family: Sora, sans-serif;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #fafcff;
+    opacity: 0.7;
+    transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.item:hover {
+    opacity: 1;
+    background-color: var(--border-color);
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #aabf86;
+}
+
+.label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* DESKTOP */
+@media (min-width: 1024px) {
+    .botaoMenuMobile,
+    .botaoFecharMobile {
+        display: none;
+    }
+
+    .sidebar {
+        position: relative;
+        height: 100vh;
+        width: auto;
+        transform: none;
+        border-right: 1px solid var(--border-color);
+        background-color: var(--bg-card);
+        z-index: auto;
+    }
+
+    .nomePlataforma {
+        color: var(--text-color);
+    }
+
+    .nomeEmpresa {
+        color: var(--text-color2);
+    }
+
+    .rotuloMenu {
+        color: var(--text-color2);
+    }
+
+    .item,
+    .itemAtivo {
+        color: var(--text-color);
+    }
+
+    .expandida {
+        width: 320px;
+    }
+
+    .colapsada {
+        width: 76px;
+    }
+
+    .colapsada .cabecalho {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .colapsada .navegacao {
+        align-items: center;
+    }
+
+    .colapsada .item,
+    .colapsada .itemAtivo {
+        justify-content: center;
+        width: 44px;
+        padding: 10px;
+    }
+
+    .botaoToggle {
+        display: flex;
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background-color: transparent;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .botaoToggle:hover {
+        border-color: var(--text-color2);
+        color: var(--text-color2);
+    }
+
+    .icon {
+        color: #5c6b45;
+    }
+
+    .itemAtivo {
+        opacity: 1;
+        color: var(--text-color2);
+        background-color: color-mix(in srgb, var(--text-color2) 16%, transparent);
+        font-weight: 600;
+    }
+}

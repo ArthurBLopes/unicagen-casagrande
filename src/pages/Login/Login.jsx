@@ -1,8 +1,9 @@
 import style from "./Login.module.css"
 import { useState } from "react"
 import { Eye, EyeOff, Sun, Moon } from "lucide-react"
-import { useThemeLogos, toggleTheme } from "../../hooks/Theme/useTheme"
-import { useAuth } from "../../hooks/Auth/useAuth";
+import { useThemeLogos, toggleTheme } from "../../hooks/theme/useTheme"
+import { useAuth } from "../../hooks/auth/useAuth";
+import ButtonTheme from "../../components/common/buttonTheme/ButtonTheme";
 
 export default function Login() {
     const { currentLogo } = useThemeLogos();
@@ -10,30 +11,16 @@ export default function Login() {
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [senhaVisivel, setSenhaVisivel] = useState(false)
-    const [temaEscuro, setTemaEscuro] = useState(
-        document.documentElement.getAttribute("data-theme") === "dark"
-    )
 
     function alternarVisibilidadeSenha() {
         setSenhaVisivel(!senhaVisivel)
     }
 
-    function alternarTema() {
-        toggleTheme()
-        setTemaEscuro((atual) => !atual)
-    }
 
     return (
         <>
             <div className={style.loginContainer}>
-                <button
-                    type="button"
-                    className={style.botaoAlternarTema}
-                    onClick={alternarTema}
-                    aria-label="Alternar tema"
-                >
-                    {temaEscuro ? <Sun size={18} /> : <Moon size={18} />}
-                </button>
+                <ButtonTheme />
 
                 <img className={style.logo} src={currentLogo} alt="Logo Unicagen" />
                 <h1 className={style.tituloPlataforma}>UNICAGEN</h1>

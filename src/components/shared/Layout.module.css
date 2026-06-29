@@ -1,0 +1,18 @@
+.appContainer {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.conteudoPrincipal {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    width: 100%;
+}
+
