@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import LogoBranco from "../../assets/logos/horizontal/Logo_Cagen_Horiz__Verde_Escuro_e_Branco.png";
-import LogoPreto from "../../assets/logos/horizontal/Logo_Cagen_Horiz__Verde_Escuro_e_Grafite.png";
+import logoBranco from "../../assets/logos/horizontal/Logo_Cagen_Horiz__Verde_Escuro_e_Branco.png";
+import logoPreto from "../../assets/logos/horizontal/Logo_Cagen_Horiz__Verde_Escuro_e_Grafite.png";
+import escudoVerde from "../../assets/logos/escudos/escudo_cagen.png";
+import escudoVerdeClaro from "../../assets/logos/escudos/escudo_verde_claro.png";
 
 export function toggleTheme() {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
@@ -9,8 +11,10 @@ export function toggleTheme() {
   localStorage.setItem("theme", novoTema);
 }
 
-export function useThemeLogos({ logoTemaEscuro = LogoBranco, logoTemaClaro = LogoPreto, } = {}) {
-  const [currentLogo, setCurrentLogo] = useState(logoTemaClaro);
+export function useThemeLogos({ logoTemaEscuro = logoBranco, logoTemaClaro = logoPreto, } = {}) {
+  const [logoAtual, setlogoAtual] = useState(logoTemaClaro);
+  const [logoSidebar, setLogoSidebar] = useState(escudoVerde);
+  
 
   useEffect(() => {
     const updateLogos = () => {
@@ -22,7 +26,8 @@ export function useThemeLogos({ logoTemaEscuro = LogoBranco, logoTemaClaro = Log
 
       const isDark = document.documentElement.getAttribute("data-theme") === "dark";
 
-      setCurrentLogo(isDark ? logoTemaEscuro : logoTemaClaro);
+      setlogoAtual(isDark ? logoTemaEscuro : logoTemaClaro);
+      setLogoSidebar(isDark ? escudoVerdeClaro : escudoVerde);
     };
 
     updateLogos();
@@ -38,19 +43,20 @@ export function useThemeLogos({ logoTemaEscuro = LogoBranco, logoTemaClaro = Log
   }, [logoTemaEscuro, logoTemaClaro]);
 
   return {
-    currentLogo,
+    logoAtual,
+    logoSidebar,
   };
 }
 
 export function useThemeLogosFooter() {
-  const [currentLogo, setCurrentLogo] = useState(LogoPreto);
+  const [logoAtual, setlogoAtual] = useState(logoPreto);
   const [linkedinColor, setLinkedinColor] = useState("black");
 
   useEffect(() => {
     const updateAssets = () => {
       const isDark = document.documentElement.getAttribute("data-theme") === "dark";
 
-      setCurrentLogo(isDark ? LogoBranco : LogoPreto);
+      setlogoAtual(isDark ? logoBranco : logoPreto);
       setLinkedinColor(isDark ? "white" : "black");
     };
 
@@ -67,7 +73,7 @@ export function useThemeLogosFooter() {
   }, []);
 
   return {
-    currentLogo,
+    logoAtual,
     linkedinColor,
   };
 }

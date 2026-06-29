@@ -2,13 +2,14 @@ import { NavLink } from "react-router-dom"
 import { useState } from "react"
 import { PanelLeft } from "lucide-react"
 import { RiMenu2Fill, RiCloseFill } from "react-icons/ri"
-import LogoUnicagen from "../../../assets/logos/escudos/escudo_cagen.png"
 import styles from "./Sidebar.module.css"
 import { opcoes } from "../../../mocks/sidebar/MockSidebar"
+import { useThemeLogos } from "../../../hooks/theme/useTheme"
 
 export default function Sidebar() {
     const [expandida, setExpandida] = useState(true)
     const [menuMobileAberto, setMenuMobileAberto] = useState(false)
+    const { logoSidebar } = useThemeLogos()
 
     function fecharMenuMobile() {
         setMenuMobileAberto(false)
@@ -19,7 +20,6 @@ export default function Sidebar() {
             <button
                 className={styles.botaoMenuMobile}
                 onClick={() => setMenuMobileAberto(true)}
-                aria-label="Abrir menu"
             >
                 <RiMenu2Fill size={40} />
             </button>
@@ -29,7 +29,7 @@ export default function Sidebar() {
             >
                 <div className={styles.cabecalho}>
                     <div className={styles.blocoLogo}>
-                        <img src={LogoUnicagen} alt="Logo Unicagen" className={styles.logo} />
+                        <img src={logoSidebar} alt="Logo Unicagen" className={styles.logo} />
                         {expandida && (
                             <div className={styles.textoMarca}>
                                 <p className={styles.nomePlataforma}>UNICAGEN</p>
@@ -52,7 +52,7 @@ export default function Sidebar() {
                         onClick={fecharMenuMobile}
                         aria-label="Fechar menu"
                     >
-                        <RiCloseFill size={26} />
+                        <RiCloseFill color="#ffffff" size={26} />
                     </button>
                 </div>
 
