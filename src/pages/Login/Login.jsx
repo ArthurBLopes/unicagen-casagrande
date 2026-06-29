@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Eye, EyeOff, Sun, Moon } from "lucide-react"
 import { useThemeLogos, toggleTheme } from "../../hooks/theme/useTheme"
 import { useAuth } from "../../hooks/auth/useAuth";
-import ButtonTheme from "../../components/common/buttonTheme/ButtonTheme";
+import ButtonTheme from "../../components/common/buttonTheme/ButtonTheme.jsx";
 
 export default function Login() {
     const { logoAtual } = useThemeLogos();

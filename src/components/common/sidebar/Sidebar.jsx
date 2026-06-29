@@ -6,13 +6,13 @@ import styles from "./Sidebar.module.css";
 import { opcoes } from "../../../mocks/sidebar/mockSidebar";
 import { useThemeLogos } from "../../../hooks/theme/useTheme";
 import { logos } from "../../../mocks/logos/mockLogos.js";
+//import { useMobileMenu } from "../../../hooks/mobileMenu/useMobileMenu.js";
 
 export default function Sidebar() {
     const [expandida, setExpandida] = useState(true)
     const [menuMobileAberto, setMenuMobileAberto] = useState(false)
     const { logoSidebarExpandida, logoSidebarColapsada } = useThemeLogos()
-    const anoAtual = new Date().getFullYear();
-
+    const anoAtual = new Date().getFullYear()
 
     function fecharMenuMobile() {
         setMenuMobileAberto(false)
@@ -28,7 +28,7 @@ export default function Sidebar() {
             </button>
 
             <div
-                className={`${styles.sidebar} ${expandida ? styles.expandida : styles.colapsada} ${menuMobileAberto ? styles.mobileAberto : ""}`}
+                className={`${styles.sidebar} ${expandida || menuMobileAberto ? styles.expandida : styles.colapsada} ${menuMobileAberto ? styles.mobileAberto : ""}`}
             >
                 <div className={styles.cabecalho}>
                     <div className={styles.blocoLogo}>
@@ -54,7 +54,7 @@ export default function Sidebar() {
                     </button>
                 </div>
 
-                {expandida && <p className={styles.rotuloMenu}>Menu</p>}
+                {(expandida || menuMobileAberto) && <p className={styles.rotuloMenu}>Menu</p>}
 
                 <nav className={styles.navegacao}>
                     {opcoes.map((opcao) => (
@@ -66,11 +66,11 @@ export default function Sidebar() {
                             title={!expandida ? opcao.titulo : undefined}
                         >
                             <span className={styles.icon}>{opcao.icon}</span>
-                            {expandida && <span className={styles.label}>{opcao.titulo}</span>}
+                            {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
                         </NavLink>
                     ))}
                 </nav>
-                {expandida && <p className={styles.rodape}>© {anoAtual} Casagrande Engenharia</p>}
+                {(expandida || menuMobileAberto) && <p className={styles.rodape}>© {anoAtual} Casagrande Engenharia</p>}
             </div>
         </>
     )

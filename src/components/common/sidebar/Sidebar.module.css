@@ -193,6 +193,7 @@
         border-right: 1px solid var(--border-color);
         background-color: var(--bg-color2);
         z-index: auto;
+        transition: transform 0.25s ease, background-color 0.2s ease, border-color 0.2s ease;
     }
 
     .nomePlataforma {
