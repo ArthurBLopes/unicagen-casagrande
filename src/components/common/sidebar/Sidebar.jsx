@@ -3,7 +3,7 @@ import { useState } from "react"
 import { PanelLeft } from "lucide-react"
 import { RiMenu2Fill, RiCloseFill } from "react-icons/ri"
 import styles from "./Sidebar.module.css"
-import { opcoes } from "../../../mocks/sidebar/MockSidebar"
+import { opcoes } from "../../../mocks/sidebar/mockSidebar"
 import { useThemeLogos } from "../../../hooks/theme/useTheme"
 
 export default function Sidebar() {
