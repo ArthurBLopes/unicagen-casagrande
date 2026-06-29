@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import logoBranco from "../../assets/logos/horizontal/Logo_Cagen_Horiz__Verde_Escuro_e_Branco.png";
-import logoPreto from "../../assets/logos/horizontal/Logo_Cagen_Horiz__Verde_Escuro_e_Grafite.png";
-import escudoVerde from "../../assets/logos/escudos/escudo_cagen.png";
-import escudoVerdeClaro from "../../assets/logos/escudos/escudo_verde_claro.png";
+import { logos } from "../../mocks/logos/mockLogos.js";
 
 export function toggleTheme() {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
@@ -11,11 +8,11 @@ export function toggleTheme() {
   localStorage.setItem("theme", novoTema);
 }
 
-export function useThemeLogos({ logoTemaEscuro = logoBranco, logoTemaClaro = logoPreto, } = {}) {
-  const [logoAtual, setlogoAtual] = useState(logoTemaClaro);
-  const [logoSidebar, setLogoSidebar] = useState(escudoVerde);
+export function useThemeLogos() {
+  const [logoAtual, setlogoAtual] = useState(logos.horizontal[0].src);
+  const [logoSidebarExpandida, setLogoSidebarExpandida] = useState(logos.horizontal[0].src);
+  const [logoSidebarColapsada, setLogoSidebarColapsada] = useState(logos.escudos[0].src);
   
-
   useEffect(() => {
     const updateLogos = () => {
       const savedTheme = localStorage.getItem("theme") || "light";
@@ -26,8 +23,9 @@ export function useThemeLogos({ logoTemaEscuro = logoBranco, logoTemaClaro = log
 
       const isDark = document.documentElement.getAttribute("data-theme") === "dark";
 
-      setlogoAtual(isDark ? logoTemaEscuro : logoTemaClaro);
-      setLogoSidebar(isDark ? escudoVerdeClaro : escudoVerde);
+      setlogoAtual(isDark ? logos.horizontal[1].src : logos.horizontal[0].src);
+      setLogoSidebarExpandida(isDark ? logos.horizontal[1].src : logos.horizontal[0].src);
+      setLogoSidebarColapsada(isDark ? logos.escudos[1].src : logos.escudos[0].src);
     };
 
     updateLogos();
@@ -40,23 +38,24 @@ export function useThemeLogos({ logoTemaEscuro = logoBranco, logoTemaClaro = log
     });
 
     return () => observer.disconnect();
-  }, [logoTemaEscuro, logoTemaClaro]);
+  }, []);
 
   return {
     logoAtual,
-    logoSidebar,
+    logoSidebarExpandida,
+    logoSidebarColapsada,
   };
 }
 
 export function useThemeLogosFooter() {
-  const [logoAtual, setlogoAtual] = useState(logoPreto);
+  const [logoAtual, setlogoAtual] = useState(logos.horizontal[0].src);
   const [linkedinColor, setLinkedinColor] = useState("black");
 
   useEffect(() => {
     const updateAssets = () => {
       const isDark = document.documentElement.getAttribute("data-theme") === "dark";
 
-      setlogoAtual(isDark ? logoBranco : logoPreto);
+      setlogoAtual(isDark ? logos.horizontal[1].src : logos.horizontal[0].src);
       setLinkedinColor(isDark ? "white" : "black");
     };
 

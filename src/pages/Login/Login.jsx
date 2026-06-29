@@ -6,7 +6,7 @@ import { useAuth } from "../../hooks/auth/useAuth";
 import ButtonTheme from "../../components/common/buttonTheme/ButtonTheme";
 
 export default function Login() {
-    const { currentLogo } = useThemeLogos();
+    const { logoAtual } = useThemeLogos();
     const { loginComMicrosoft } = useAuth();
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
@@ -22,7 +22,7 @@ export default function Login() {
             <div className={style.loginContainer}>
                 <ButtonTheme />
 
-                <img className={style.logo} src={currentLogo} alt="Logo Unicagen" />
+                <img className={style.logo} src={logoAtual} alt="Logo Unicagen" />
                 <h1 className={style.tituloPlataforma}>UNICAGEN</h1>
                 <h4 className={style.subtituloPlataforma}>Casagrande Engenharia</h4>
                 <div className={style.loginCard}>

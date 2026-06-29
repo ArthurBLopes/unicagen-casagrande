@@ -1,15 +1,18 @@
-import { NavLink } from "react-router-dom"
-import { useState } from "react"
-import { PanelLeft } from "lucide-react"
-import { RiMenu2Fill, RiCloseFill } from "react-icons/ri"
-import styles from "./Sidebar.module.css"
-import { opcoes } from "../../../mocks/sidebar/mockSidebar"
-import { useThemeLogos } from "../../../hooks/theme/useTheme"
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { PanelLeft } from "lucide-react";
+import { RiMenu2Fill, RiCloseFill } from "react-icons/ri";
+import styles from "./Sidebar.module.css";
+import { opcoes } from "../../../mocks/sidebar/mockSidebar";
+import { useThemeLogos } from "../../../hooks/theme/useTheme";
+import { logos } from "../../../mocks/logos/mockLogos.js";
 
 export default function Sidebar() {
     const [expandida, setExpandida] = useState(true)
     const [menuMobileAberto, setMenuMobileAberto] = useState(false)
-    const { logoSidebar } = useThemeLogos()
+    const { logoSidebarExpandida, logoSidebarColapsada } = useThemeLogos()
+    const anoAtual = new Date().getFullYear();
+
 
     function fecharMenuMobile() {
         setMenuMobileAberto(false)
@@ -29,13 +32,8 @@ export default function Sidebar() {
             >
                 <div className={styles.cabecalho}>
                     <div className={styles.blocoLogo}>
-                        <img src={logoSidebar} alt="Logo Unicagen" className={styles.logo} />
-                        {expandida && (
-                            <div className={styles.textoMarca}>
-                                <p className={styles.nomePlataforma}>UNICAGEN</p>
-                                <p className={styles.nomeEmpresa}>Casagrande Engenharia</p>
-                            </div>
-                        )}
+                        { expandida ? <img src={logoSidebarExpandida} alt="Logo Unicagen" className={styles.logo} /> : <img src={logoSidebarColapsada} alt="Logo Unicagen" className={styles.logoColapsada} />}
+                        <img src={logos.horizontal[3].src} alt="Logo Unicagen" className={styles.logoMobile} />
                     </div>
 
                     <button
@@ -72,6 +70,7 @@ export default function Sidebar() {
                         </NavLink>
                     ))}
                 </nav>
+                {expandida && <p className={styles.rodape}>© {anoAtual} Casagrande Engenharia</p>}
             </div>
         </>
     )
