@@ -24,7 +24,7 @@ export default function Sidebar() {
                 className={styles.botaoMenuMobile}
                 onClick={() => setMenuMobileAberto(true)}
             >
-                <RiMenu2Fill size={35} />
+                <RiMenu2Fill size={38} />
             </button>
 
             <div

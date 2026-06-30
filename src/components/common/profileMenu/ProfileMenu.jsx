@@ -10,7 +10,7 @@ export default function ProfileMenu() {
     const { user, sair } = useAuth();
     const nome = user?.user_metadata?.full_name || "Não identificado";
     const email = user?.email || "Email não encontrado";
-    const inicial = nome.charAt(0).toUpperCase();
+    const inicial = nome.split(" ")[0]?.charAt(0).toUpperCase() || "N";
 
     function executarAcao(action) {
         setAberto(false);

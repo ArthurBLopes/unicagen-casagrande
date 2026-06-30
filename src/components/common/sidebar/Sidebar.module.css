@@ -1,6 +1,6 @@
 .botaoMenuMobile {
     position: fixed;
-    top: 40px;
+    top: 45px;
     left: 40px;
     z-index: 90;
     display: flex;
