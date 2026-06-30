@@ -4,6 +4,7 @@ import Sidebar from "../common/sidebar/Sidebar";
 import { useThemeLogos, toggleTheme } from "../../hooks/theme/useTheme";
 import { useState } from "react";
 import ButtonTheme from "../../components/common/buttonTheme/ButtonTheme";
+import ProfileMenu from "../../components/common/profileMenu/ProfileMenu";
 
 export default function Layout() {
 
@@ -19,6 +20,7 @@ export default function Layout() {
             <Sidebar />
             <main className={styles.conteudoPrincipal}>
                 <ButtonTheme />
+                <ProfileMenu />
                 <Outlet />
             </main>
         </div>

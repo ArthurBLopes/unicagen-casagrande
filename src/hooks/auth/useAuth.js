@@ -61,25 +61,9 @@ export function useAuth() {
 
     //
 
-    useEffect(() => {
-        async function carregarUsuario() {
-            const { data } = await supabase.auth.getUser();
-            setUser(data.user);
-        }
-
-        carregarUsuario();
-    }, []);
-
-    //
-
     async function sair() {
         await supabase.auth.signOut();
         window.location.href = "/login";
-    }
-
-    async function getNome() {
-        const { data } = await supabase.auth.getUser();
-        return data.user?.user_metadata?.full_name || null;
     }
 
     return {
@@ -88,6 +72,5 @@ export function useAuth() {
         loading,
         loginComMicrosoft,
         sair,
-        getNome,
     };
 }

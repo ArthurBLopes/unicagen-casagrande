@@ -1,0 +1,103 @@
+.profileMenu {
+    position: fixed;
+    top: 40px;
+    right: 96px;
+    z-index: 10;
+}
+
+.botaoAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    color: var(--text-color2);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.botaoAvatar:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: scale(1.05);
+}
+
+.menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 240px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+}
+
+.cabecalhoMenu {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nomeUsuario {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.emailUsuario {
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.6;
+    margin: 2px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.listaOpcoes {
+    list-style: none;
+    margin: 0;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.opcao,
+.opcaoSair {
+    width: 100%;
+    text-align: left;
+    padding: 9px 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.opcao {
+    color: var(--text-color);
+}
+
+.opcao:hover {
+    background-color: var(--border-color);
+}
+
+.opcaoSair {
+    color: var(--text-color2);
+    font-weight: 600;
+}
+
+.opcaoSair:hover {
+    background-color: color-mix(in srgb, var(--text-color2) 14%, transparent);
+}
