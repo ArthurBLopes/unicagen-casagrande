@@ -22,7 +22,7 @@ export const opcoes = [
             caminho: "/favoritos",
         },
         {
-            titulo: "SUGESTÕES",
+            titulo: "AJUDA E SUGESTÕES",
             icon: <GrContact size={25} />,
             caminho: "/contact",
         },
