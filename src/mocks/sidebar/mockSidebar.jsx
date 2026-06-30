@@ -1,7 +1,5 @@
 import { RiHome9Line } from "react-icons/ri";
-import { MdWebStories, MdFavoriteBorder } from "react-icons/md";
-import { GrContact } from "react-icons/gr";
-import { TbWorldWww } from "react-icons/tb";
+import { Bookmark, GraduationCap, GlobeCheck, Info } from "lucide-react";
 import LogoCagen from "../../assets/logos/escudos/escudo_cagen.png";
 
 export const opcoes = [
@@ -13,22 +11,22 @@ export const opcoes = [
         },
         {
             titulo: "TRILHAS DE APRENDIZADO",
-            icon: <MdWebStories size={25} />,
+            icon: <GraduationCap />,
             caminho: "/trilhas",
         },
         {
-            titulo: "FAVORITOS",
-            icon: <MdFavoriteBorder size={25} />,
+            titulo: "SALVOS",
+            icon: <Bookmark />,
             caminho: "/favoritos",
         },
         {
             titulo: "AJUDA E SUGESTÕES",
-            icon: <GrContact size={25} />,
+            icon: <Info />,
             caminho: "/contact",
         },
         {
             titulo: "CAGEN",
-            icon: <TbWorldWww size={25} />,
+            icon: <GlobeCheck />,
             caminho: "https://cagen.com.br/",
         },
     ];
