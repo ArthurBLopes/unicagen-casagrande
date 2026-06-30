@@ -28,6 +28,11 @@ export default function Sidebar() {
             </button>
 
             <div
+                className={`${styles.reservaDesktop} ${expandida ? styles.expandida : styles.colapsada}`}
+                aria-hidden="true"
+            />
+
+            <div
                 className={`${styles.sidebar} ${expandida || menuMobileAberto ? styles.expandida : styles.colapsada} ${menuMobileAberto ? styles.mobileAberto : ""}`}
             >
                 <div className={styles.cabecalho}>

@@ -160,6 +160,10 @@
     padding: 12px 0;
 }
 
+.reservaDesktop {
+    display: none;
+}
+
 /* DESKTOP */
 @media (min-width: 1024px) {
     .botaoMenuMobile,
@@ -184,7 +188,6 @@
     }
 
     .sidebar {
-        position: fixed;
         height: 100vh;
         width: auto;
         transform: none;
@@ -273,5 +276,11 @@
 
     .rodape {
         color: var(--text-color2);
+    }
+
+    .reservaDesktop {
+        display: block;
+        flex-shrink: 0;
+        height: 100vh;
     }
 }
