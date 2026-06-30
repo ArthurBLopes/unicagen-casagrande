@@ -21,7 +21,7 @@
     color: var(--text-color);
     box-sizing: border-box;
     padding: 24px 16px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: transform 0.25s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .logo {
