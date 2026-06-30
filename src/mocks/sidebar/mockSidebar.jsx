@@ -24,7 +24,7 @@ export const opcoes = [
         {
             titulo: "SUGESTÕES",
             icon: <GrContact size={25} />,
-            caminho: "/sugestoes",
+            caminho: "/contact",
         },
         {
             titulo: "CAGEN",

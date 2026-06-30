@@ -7,6 +7,7 @@ import AuthCallback from "./pages/authCallback/AuthCallback";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import Layout from './components/shared/Layout';
+import Contact from "./pages/contact/Contact";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
           </Route>
         </Route>
       </Routes>
