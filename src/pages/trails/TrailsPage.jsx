@@ -1,7 +1,6 @@
 import Trail from "../../components/features/trails/Trail";
 import styles from "./TrailsPage.module.css";
-
-const trilhas = []
+import { trilhas } from "../../mocks/trails/mockTrails";
 
 export default function TrailsPage() {
     return (

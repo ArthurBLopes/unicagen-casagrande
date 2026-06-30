@@ -184,7 +184,7 @@
     }
 
     .sidebar {
-        position: relative;
+        position: fixed;
         height: 100vh;
         width: auto;
         transform: none;

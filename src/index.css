@@ -13,10 +13,6 @@ body,
     transition: transform 0.25s ease, background-color 0.2s ease;
 }
 
-body {
-    overflow: hidden;
-}
-
 :root{
   --bg-color: #d9d9d9;
   --bg-color2: #ffffff;
