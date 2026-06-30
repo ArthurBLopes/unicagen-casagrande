@@ -1,5 +1,6 @@
 import { FaRegFolderOpen } from "react-icons/fa6";
 import { RxOpenInNewWindow } from "react-icons/rx";
+import styles from "./Trail.module.css";
 
 export default function Trail({ trilha }) {
     return (

@@ -6,7 +6,7 @@ export const opcoes = [
         {
             titulo: "INÍCIO",
             icon: <RiHome9Line size={25} />,
-            caminho: "/home",
+            caminho: "/inicio",
 
         },
         {
@@ -22,7 +22,7 @@ export const opcoes = [
         {
             titulo: "AJUDA E SUGESTÕES",
             icon: <Info />,
-            caminho: "/contact",
+            caminho: "/contato",
         },
         {
             titulo: "CAGEN",

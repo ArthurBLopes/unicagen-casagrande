@@ -8,6 +8,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import Layout from './components/shared/Layout';
 import Contact from "./pages/contact/Contact";
+import TrailsPage from './pages/trails/TrailsPage';
 
 function App() {
 
@@ -23,8 +24,9 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/inicio" element={<Home />} />
+            <Route path="/contato" element={<Contact />} />
+            <Route path="/trilhas" element={<TrailsPage />} />
           </Route>
         </Route>
       </Routes>

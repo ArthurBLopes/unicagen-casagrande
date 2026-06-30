@@ -1,5 +1,6 @@
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa";
+import styles from "./CourseCard.module.css";
 
 export default function CourseCard({ curso, onClick }) {
     return (
