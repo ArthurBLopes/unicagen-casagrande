@@ -1,0 +1,163 @@
+.sectionTrail {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 100%;
+    margin-top: 42px;
+}
+
+.sectionTrail::before {
+    content: "Trilha de aprendizado";
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: fit-content;
+    margin-bottom: 2px;
+
+    font-family: "Sora", sans-serif;
+    font-size: 10.5px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: var(--trail-color);
+}
+
+.sectionTrail h2 {
+    position: relative;
+
+    width: fit-content;
+    max-width: 760px;
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+
+    color: var(--text-color);
+}
+
+.sectionTrail h2::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+
+    width: 44px;
+    height: 2px;
+
+    border-radius: 999px;
+    background-color: var(--trail-color);
+
+    opacity: 0.75;
+}
+
+.sectionTrail > p {
+    max-width: 640px;
+    margin: 12px 0 10px;
+
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    line-height: 1.75;
+
+    color: color-mix(in srgb, var(--text-color) 64%, transparent);
+}
+
+.coursesContainer {
+    display: flex;
+    gap: 18px;
+
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 4px 2px 14px;
+    margin-top: 6px;
+
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--trail-color) 45%, transparent) transparent;
+}
+
+.coursesContainer > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+}
+
+.coursesContainer::-webkit-scrollbar {
+    height: 8px;
+}
+
+.coursesContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.coursesContainer::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--trail-color) 35%, transparent);
+}
+
+.coursesContainer::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--trail-color) 55%, transparent);
+}
+
+@media (min-width: 900px) {
+    .sectionTrail {
+        margin-top: 52px;
+    }
+
+    .coursesContainer {
+        gap: 20px;
+        padding-bottom: 18px;
+    }
+}
+
+@media (max-width: 599px) {
+    .sectionTrail {
+        margin-top: 36px;
+        gap: 8px;
+    }
+
+    .sectionTrail::before {
+        font-size: 10px;
+    }
+
+    .sectionTrail h2 {
+        font-size: 1.75rem;
+    }
+
+    .sectionTrail > p {
+        font-size: 13.5px;
+        line-height: 1.7;
+        margin-top: 10px;
+    }
+
+    .coursesContainer {
+        gap: 14px;
+        padding: 2px 0 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .coursesContainer {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}

@@ -20,8 +20,14 @@ export default function CourseCard({ curso, onClick }) {
             </div>
             <div className={styles.acoes}>
                 <p className={styles.dataPublicacao}><FaRegClock size={16} /> {curso.dataPublicacao}</p>
-                <button className={styles.botaoAcessar} onClick={onClick}>Acessar</button>
-                <button className={styles.botaoAcessarConteudo}><MdOutlineOpenInNew size={24} /></button>
+                <button className={styles.botaoAcessar} onClick={(event) => {
+                    event.stopPropagation(); 
+                    onClick();
+                    }}>Acessar</button>
+                <button className={styles.botaoAcessarConteudo} onClick={(event) => {
+                    event.stopPropagation();
+                    onClick();
+                    }}><MdOutlineOpenInNew size={24} /></button>
             </div>
         </div>
     );
