@@ -1,0 +1,157 @@
+.trailContainer {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    background-color: var(--bg-color3);
+    color: var(--text-color);
+    cursor: pointer;
+    transition:border-color 0.2s ease,background-color 0.2s ease,box-shadow 0.2s ease;
+}
+
+.trailContainer::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background-color: var(--trail-color, var(--text-color2));
+    opacity: 0.85;
+}
+
+.trailContainer::after {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    right: -78px;
+    top: -78px;
+    border-radius: 50%;
+    background-color: var(--trail-color, var(--text-color2));
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.trailContainer:hover {
+    border-color: color-mix(in srgb, var(--trail-color, var(--text-color2)) 28%, var(--border-color));
+    box-shadow: 0 12px 28px -24px rgba(0, 0, 0, 0.35);
+}
+
+.trailHeader {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.iconBox {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background-color: color-mix(in srgb, var(--trail-color, var(--text-color2)) 13%, transparent);
+    color: var(--trail-color, var(--text-color2));
+}
+
+.trailIcon {
+    color: currentColor;
+}
+
+.trailTitle {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.32rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--text-color);
+}
+
+.trailDescription {
+    position: relative;
+    z-index: 1;
+    max-width: 420px;
+    margin: 0;
+    font-family: "Sora", sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+
+    color: color-mix(in srgb, var(--text-color) 64%, transparent);
+}
+
+.trailFooter {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    font-family: "Sora", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--trail-color, var(--text-color2));
+}
+
+.trailOpenIcon {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.trailContainer:hover .trailOpenIcon {
+    transform: translate(2px, -2px);
+}
+
+/* Tablet */
+@media (min-width: 600px) {
+    .trailContainer {
+        min-height: 200px;
+        padding: 24px;
+        border-radius: 20px;
+    }
+
+    .trailTitle {
+        font-size: 1.4rem;
+    }
+
+    .trailDescription {
+        font-size: 13.5px;
+        line-height: 1.75;
+    }
+
+    .iconBox {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .trailContainer {
+        min-height: 210px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
