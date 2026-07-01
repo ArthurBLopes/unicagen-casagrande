@@ -1,5 +1,5 @@
 .botaoMenuMobile {
-    position: fixed;
+    position: absolute;
     top: 45px;
     left: 40px;
     z-index: 90;
@@ -9,7 +9,7 @@
     border-radius: 8px;
     border: none;
     background-color: transparent;
-    color: var(--text-color);
+    color: var(--text-color2);
     cursor: pointer;
 }
 
@@ -169,6 +169,7 @@
     .botaoMenuMobile,
     .botaoFecharMobile {
         display: none;
+        position: fixed;
     }
 
     .logo {

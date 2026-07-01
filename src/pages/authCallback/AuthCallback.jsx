@@ -40,7 +40,7 @@ export default function AuthCallback() {
             console.log("Auth event:", event, session);
 
             if ((event === "SIGNED_IN" || event === "INITIAL_SESSION") && session) {
-                navigate("/home", { replace: true });
+                navigate("/inicio", { replace: true });
             }
 
             if (event === "SIGNED_OUT") {
@@ -53,7 +53,7 @@ export default function AuthCallback() {
             console.log("Erro getSession:", error);
 
             if (data.session) {
-                navigate("/home", { replace: true });
+                navigate("/inicio", { replace: true });
             }
         });
 

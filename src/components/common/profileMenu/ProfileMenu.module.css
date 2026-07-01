@@ -4,7 +4,7 @@
 }
 
 .profileMenu {
-    position: fixed;
+    position: absolute;
     top: 40px;
     right: 96px;
     z-index: 10;
@@ -106,4 +106,10 @@
 
 .opcaoSair:hover {
     background-color: color-mix(in srgb, var(--text-color2) 14%, transparent);
+}
+
+@media (min-width: 768px) {
+    .profileMenu {
+        position: fixed;
+    }
 }
