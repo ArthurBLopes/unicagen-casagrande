@@ -38,7 +38,7 @@ export default function Sidebar() {
                 <div className={styles.cabecalho}>
                     <div className={styles.blocoLogo}>
                         { expandida ? <img src={logoSidebarExpandida} alt="Logo Unicagen" className={styles.logo} /> : <img src={logoSidebarColapsada} alt="Logo Unicagen" className={styles.logoColapsada} />}
-                        <img src={logos.horizontal[3].src} alt="Logo Unicagen" className={styles.logoMobile} />
+                        <img src={logos.animados[0].src} alt="Logo Unicagen" className={styles.logoMobile} />
                     </div>
 
                     <button

@@ -14,6 +14,8 @@ import verticalPreto from '../../assets/logos/vertical/Logo_Cagen_Vert__Preto.pn
 import verticalVerdeClaroBranco from '../../assets/logos/vertical/Logo_Cagen_Vert__Verde_Claro_e_Branco.png';
 import verticalVerdeEscuroBranco from '../../assets/logos/vertical/Logo_Cagen_Vert__Verde_Escuro_e_Branco.png';
 
+import logoAnimadaBranco from "../../assets/logos/gifs/casagrande_logo_white_transparent_crisp.webp";
+
 export const logos = {
   escudos: [
     { nome: "Verde", src: escudoVerde },
@@ -32,5 +34,8 @@ export const logos = {
     { nome: "Preto", src: verticalPreto },
     { nome: "VerdeClaroBranco", src: verticalVerdeClaroBranco },
     { nome: "VerdeEscuroBranco", src: verticalVerdeEscuroBranco },
+  ],
+  animados: [
+    { nome: "Branco", src: logoAnimadaBranco },
   ],
 };

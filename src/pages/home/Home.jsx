@@ -19,7 +19,7 @@ export default function Home() {
         <div className={styles.container}>
             <main className={styles.main}>
                 <h2>Olá, {primeiroNome}</h2>
-                <p>Bem-vindo(a) à plataforma de aprendizado da <span className={styles.titulo}>Universidade Casagrande</span>! 
+                <p>Bem-vindo(a) à plataforma de aprendizado da <span className={styles.titulo}>UNIVERSIDADE CASAGRANDE</span>! 
                 Explore as trilhas de aprendizado, descubra novos conteúdos e aproveite ao máximo sua jornada.</p>
 
                 {trilhas.map((trilha) => {
