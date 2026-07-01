@@ -1,10 +1,14 @@
+.containerPage {
+    background-color: var(--bg-color2);
+    transition: background-color 0.2s ease;
+}
+
 .containerSugestao {
     position: relative;
     overflow: hidden;
     padding: 26px;
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    background-color: var(--contact-card);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.035);
 }
 
@@ -31,7 +35,6 @@
     line-height: 1;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-
     color: var(--text-color2);
 }
 
@@ -51,7 +54,7 @@
     margin: -8px 0 6px;
     font-size: 14.5px;
     line-height: 1.75;
-    color: var(--contact-muted);
+    font-family: Sora, sans-serif;
 }
 
 .containerSugestao {
@@ -60,7 +63,6 @@
     padding: 26px;
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    background-color: var(--contact-card);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.035);
 }
 
@@ -105,13 +107,14 @@
     margin: 0;
     font-size: 13.5px;
     line-height: 1.75;
-    color: var(--contact-muted);
+    font-family: Sora, sans-serif;
 }
 
 .containerSugestao p + p {
     margin-top: 18px;
     padding-top: 16px;
     border-top: 1px solid var(--border-color);
+    font-family: Sora, sans-serif;
 }
 
 .containerSugestao p:last-child {
@@ -204,9 +207,7 @@
     text-align: left;
     color: var(--text-color);
     cursor: pointer;
-    transition:
-        color 0.18s ease,
-        opacity 0.18s ease;
+    transition: color 0.18s ease, opacity 0.18s ease;
 }
 
 .perguntaTitulo::after {
@@ -223,10 +224,7 @@
     font-size: 19px;
     font-weight: 500;
     line-height: 1;
-    transition:
-        transform 0.2s ease,
-        background-color 0.2s ease,
-        color 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .perguntaTitulo:hover {
@@ -255,7 +253,7 @@
     padding: 0 48px 18px 0;
     font-size: 13.5px;
     line-height: 1.75;
-    color: var(--contact-muted);
+    font-family: Sora, sans-serif;
 }
 
 .containerFaq {
