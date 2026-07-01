@@ -1,51 +1,70 @@
 .container {
     width: 100%;
     min-height: 100%;
-    padding: 60px 24px 72px;
+
+    padding: 60px clamp(24px, 4vw, 64px) 72px;
+
     background-color: var(--bg-color2);
     color: var(--text-color);
+
     font-family: "Sora", sans-serif;
-    transition:background-color 0.2s ease,color 0.2s ease,border-color 0.2s ease;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .main {
     width: 100%;
-    max-width: 1320px;
+    max-width: none;
+    margin: 0;
+
     display: flex;
     flex-direction: column;
 }
 
 .main > h2 {
     position: relative;
+
     max-width: 860px;
     margin: 0;
+
     font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(2.1rem, 5vw, 3.4rem);
     font-weight: 400;
     line-height: 1.08;
     letter-spacing: -0.04em;
+
     color: var(--text-color);
 }
 
 .main > h2::before {
     content: "Universidade corporativa";
+
     display: block;
+
     margin-bottom: 14px;
+
     font-family: "Sora", sans-serif;
     font-size: 11px;
     font-weight: 800;
     line-height: 1;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+
     color: var(--text-color2);
 }
 
 .main > h2::after {
     content: "";
+
     display: block;
+
     width: 46px;
     height: 2px;
     margin-top: 18px;
+
     border-radius: 999px;
     background-color: var(--text-color2);
     opacity: 0.75;
@@ -54,8 +73,10 @@
 .main > p {
     max-width: 760px;
     margin: 18px 0 8px;
+
     font-size: 14.8px;
     line-height: 1.8;
+
     color: color-mix(in srgb, var(--text-color) 64%, transparent);
 }
 
@@ -63,27 +84,207 @@
     font-family: "Sora", sans-serif;
     font-size: 1em;
     font-weight: 800;
-    color: var(--text-color2);
     letter-spacing: 2px;
+
+    color: var(--text-color2);
 }
 
+/* Busca e filtros */
+
+.searchArea {
+    width: 100%;
+    max-width: none;
+
+    margin: 30px 0 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.searchBox {
+    width: 100%;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 0 16px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+
+    background-color: var(--bg-color3);
+    color: var(--text-color);
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.searchBox:focus-within {
+    border-color: color-mix(in srgb, var(--text-color2) 36%, var(--border-color));
+    box-shadow: 0 8px 22px -20px rgba(0, 0, 0, 0.32);
+}
+
+.searchBox svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+
+    color: var(--text-color2);
+    opacity: 0.85;
+}
+
+.searchBox input {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    font-family: "Sora", sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+
+    color: var(--text-color);
+}
+
+.searchBox input::placeholder {
+    color: color-mix(in srgb, var(--text-color) 46%, transparent);
+}
+
+.filters {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.filterButton {
+    height: 46px;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    padding: 0 15px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+
+    background-color: var(--bg-color3);
+    color: var(--text-color);
+
+    font-family: "Sora", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: default;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.filterButton span {
+    flex: 1;
+
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.filterButton svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+
+    color: var(--text-color2);
+    opacity: 0.85;
+}
+
+.filterButton:hover {
+    border-color: color-mix(in srgb, var(--text-color2) 30%, var(--border-color));
+    background-color: color-mix(in srgb, var(--bg-color3) 90%, var(--text-color2));
+}
+
+/* Tablet */
+
+/* Tablet e mobile grande: 600px até 1023px */
+@media (min-width: 600px) and (max-width: 1023px) {
+    .container {
+        padding: 123px clamp(36px, 6vw, 56px) 72px;
+    }
+
+    .searchArea {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        max-width: 100%;
+        margin-top: 32px;
+    }
+
+    .filters {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+}
+
+/* Desktop */
+
 @media (min-width: 1024px) {
+    .container {
+        padding: 60px clamp(40px, 4vw, 64px) 72px;
+    }
+
+    .main {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
     .main > p {
         font-size: 15px;
     }
-}
 
-@media (min-width: 1280px) {
-    .container {
-        padding-inline: 64px;
+    .searchArea {
+        display: grid;
+        grid-template-columns: minmax(0, 1.6fr) minmax(360px, 0.9fr);
+        align-items: center;
+        gap: 12px;
+
+        width: 100%;
+        max-width: none;
+        margin-top: 32px;
+    }
+
+    .filters {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .searchBox,
+    .filterButton {
+        height: 50px;
     }
 }
+
+/* Mobile */
 
 @media (max-width: 599px) {
-    .container {
-        padding: 126px 36px 64px;
-    }
-
     .main > h2 {
         font-size: 2rem;
     }
@@ -98,7 +299,68 @@
         line-height: 1.72;
         margin-top: 16px;
     }
+
+    .searchArea {
+        margin-top: 24px;
+        margin-bottom: 12px;
+        gap: 10px;
+    }
+
+    .searchBox {
+        height: 46px;
+        padding: 0 14px;
+        border-radius: 13px;
+    }
+
+    .searchBox input {
+        font-size: 13px;
+    }
+
+    .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .filterButton {
+        height: 44px;
+        padding: 0 12px;
+        border-radius: 13px;
+
+        font-size: 12.2px;
+    }
+
+    .filterButton svg {
+        width: 15px;
+        height: 15px;
+    }
 }
+
+@media (max-width: 380px) {
+    .filterButton {
+        font-size: 11.6px;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 839px) {
+    .container {
+        padding: 123px clamp(28px, 6vw, 45px) 72px;
+    }
+}
+
+@media (max-width: 599px) {
+    .container {
+        padding: 126px 36px 64px;
+    }
+}
+
+@media (max-width: 380px) {
+    .container {
+        padding-inline: 28px;
+    }
+}
+
+/* Acessibilidade */
 
 @media (prefers-reduced-motion: reduce) {
     *,
