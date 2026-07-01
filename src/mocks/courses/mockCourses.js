@@ -10,6 +10,16 @@
 // (https://img.youtube.com/vi/ID_DO_VIDEO/hqdefault.jpg), seja um placeholder qualquer.
 // O <img src={curso.imagem} /> não muda nada quando trocar pra dado real.
 
+import ap_casagrande from "../../assets/imagens_temp/ap_casagrande.jpeg";
+import fluxo_desenvolvimento from "../../assets/imagens_temp/dev_de_projetos.png";
+import fundamentos_oaes from "../../assets/imagens_temp/fund_obras_arte.png";
+import normas from "../../assets/imagens_temp/introducao_normas_eng.png";
+import planilhas from "../../assets/imagens_temp/planilhas_protensao.png";
+import sap2000vba from "../../assets/imagens_temp/sap_vba.png";
+import sap2000avancado from "../../assets/imagens_temp/sap_2000_avançado.png";
+import bim_tandem from "../../assets/imagens_temp/bim_autodesk.png";
+import bim_collaborate from "../../assets/imagens_temp/bim_cob_pro.png";
+
 export const cursos = [
     {
         id: 1,
@@ -22,7 +32,7 @@ export const cursos = [
             "Apresentação institucional da Casagrande Engenharia, mostrando a empresa, sua cultura, equipe e principais projetos ao longo dos anos.",
         corpo:
             "Vídeo institucional para novos colaboradores conhecerem a história, os valores e a estrutura da Casagrande Engenharia antes de iniciar as trilhas técnicas.",
-        imagem: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+        imagem: ap_casagrande,
         tags: ["Videoaulas"],
         dataPublicacao: "há 3 meses",
         publicado: "30 de março de 2026",
@@ -39,7 +49,7 @@ export const cursos = [
         descricao:
             "Esta aula apresenta o processo de desenvolvimento de projetos da CAGEN, estruturando os fluxos, etapas e responsabilidades com foco na padronização, melhoria da qualidade das entregas e aumento da eficiência entre as equipes.",
         corpo: "Visão geral do fluxo ponta a ponta de um projeto, desde a entrada do escopo até a entrega final.",
-        imagem: "https://img.youtube.com/vi/ysz5S6PUM-U/hqdefault.jpg",
+        imagem: fluxo_desenvolvimento,
         tags: ["Videoaulas"],
         dataPublicacao: "há 3 meses",
         publicado: "28 de março de 2026",
@@ -56,7 +66,7 @@ export const cursos = [
         descricao:
             "A aula apresenta uma introdução ao projeto de estruturas de pontes (OAEs - Obras de Arte Especiais), abordando conceitos fundamentais, tipos de estruturas e o processo completo de desenvolvimento de um projeto estrutural.",
         corpo: "Conceitos introdutórios de pontes e viadutos, tipos de seções e etapas de projeto.",
-        imagem: "https://picsum.photos/seed/oaes/640/360",
+        imagem: fundamentos_oaes,
         tags: ["Youtube", "Videoaulas"],
         dataPublicacao: "há 3 meses",
         publicado: "25 de março de 2026",
@@ -74,7 +84,7 @@ export const cursos = [
             "Aprenda a utilizar planilhas de protensão para dimensionamento estrutural neste treinamento técnico detalhado.",
         corpo:
             "Treinamento técnico conduzido sobre o uso de planilhas de protensão, com foco na aplicação prática dessas ferramentas para o cálculo e dimensionamento de estruturas protendidas.",
-        imagem: "https://picsum.photos/seed/protensao/640/360",
+        imagem: planilhas,
         tags: ["Videoaulas"],
         dataPublicacao: "há 8 dias",
         publicado: "22 de junho de 2026",
@@ -91,7 +101,7 @@ export const cursos = [
         descricao:
             "Aprenda a automatizar projetos estruturais utilizando VBA para manipular o SAP2000, aumentando sua produtividade.",
         corpo: "Curso prático de automação via VBA, cobrindo desde conceitos básicos de API até rotinas completas de automação de modelos.",
-        imagem: "https://picsum.photos/seed/sap2000vba/640/360",
+        imagem: sap2000vba,
         tags: ["Videoaulas"],
         dataPublicacao: "há 5 meses",
         publicado: "30 de janeiro de 2026",
@@ -108,7 +118,7 @@ export const cursos = [
         descricao:
             "Aprenda técnicas avançadas de modelagem, análise não-linear e dimensionamento estrutural com o SAP2000.",
         corpo: "Aprofundamento em análises não-lineares, dinâmicas e modelos complexos no SAP2000.",
-        imagem: "https://picsum.photos/seed/sap2000avancado/640/360",
+        imagem: sap2000avancado,
         tags: ["Videoaulas"],
         dataPublicacao: "há 5 meses",
         publicado: "28 de janeiro de 2026",
@@ -125,7 +135,7 @@ export const cursos = [
         descricao:
             "Descubra como o Autodesk Tandem utiliza dados BIM para criar réplicas digitais inteligentes, otimizando a gestão de ativos.",
         corpo: "Webinar sobre digital twins aplicados à engenharia, com exemplos de uso do Autodesk Tandem.",
-        imagem: "https://picsum.photos/seed/tandem/640/360",
+        imagem: bim_tandem,
         tags: ["Webinar"],
         dataPublicacao: "há 2 meses",
         publicado: "15 de abril de 2026",
@@ -142,7 +152,7 @@ export const cursos = [
         descricao:
             "Participe do webinar da Autodesk e descubra como o BIM Collaborate Pro transforma a colaboração em projetos de infraestrutura.",
         corpo: "Demonstração prática do BIM Collaborate Pro em projetos de infraestrutura e gestão pública.",
-        imagem: "https://picsum.photos/seed/collaboratepro/640/360",
+        imagem: bim_collaborate,
         tags: ["Webinar"],
         dataPublicacao: "há 2 meses",
         publicado: "10 de abril de 2026",
@@ -159,7 +169,7 @@ export const cursos = [
         descricao:
             "Panorama das principais normas técnicas (ABNT) utilizadas no dia a dia dos projetos estruturais da empresa.",
         corpo: "Aula introdutória sobre as normas mais utilizadas no setor e como consultá-las no fluxo de projeto.",
-        imagem: "https://picsum.photos/seed/normas/640/360",
+        imagem: normas,
         tags: ["Videoaulas"],
         dataPublicacao: "há 1 mês",
         publicado: "20 de maio de 2026",
