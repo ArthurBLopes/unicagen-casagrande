@@ -1,0 +1,16 @@
+.backContainer > .backButton {
+    background-color: transparent;
+    border: none;
+    color: var(--text-color2);
+    cursor: pointer;
+    position: relative;
+    left: 50px;
+    padding: 0px;
+    top: 112px;
+}
+
+@media (min-width: 1024px) {
+    .backContainer > .backButton {
+        display: none;
+    }
+}

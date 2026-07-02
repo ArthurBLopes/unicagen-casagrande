@@ -1,0 +1,265 @@
+.detalhesPage {
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--bg-color2);
+    color: var(--text-color);
+    font-family: "Sora", sans-serif;
+    transition:background-color 0.2s ease,color 0.2s ease,border-color 0.2s ease;
+}
+
+.cursoDetalhes {
+    padding: 138px 51px 72px;
+}
+
+.titulo {
+    position: relative;
+    max-width: 860px;
+    margin: 0 0 36px;
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.05em;
+    color: var(--text-color);
+    opacity: 0.88;
+}
+
+.titulo::before {
+    content: "confira os detalhes do curso";
+    display: block;
+    margin-bottom: 14px;
+    font-family: "Sora", sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+}
+
+.titulo::after {
+    content: "";
+
+    display: block;
+    width: 46px;
+    height: 2px;
+    margin-top: 18px;
+
+    border-radius: 999px;
+    background-color: var(--text-color2);
+    opacity: 0.75;
+}
+
+.cursoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.cursoImagem {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    display: block;
+}
+
+.cursoConteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.cursoTrilha {
+    display: inline-flex;
+    align-self: flex-start;
+    margin: 0 0 14px;
+    padding: 5px 12px;
+
+    border-radius: 999px;
+    background-color: #afde5e;
+
+    font-family: "Sora", sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.04em;
+
+    color: #2a3d10;
+}
+
+.cursoTitulo {
+    margin: 0 0 10px;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+
+    color: var(--text-color);
+}
+
+.datas {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.cursoData {
+    margin: 0;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+
+    color: color-mix(in srgb, var(--text-color) 50%, transparent);
+}
+
+.cursoDescricao {
+    margin: 0 0 22px;
+
+    font-size: 14px;
+    line-height: 1.8;
+
+    color: color-mix(in srgb, var(--text-color) 68%, transparent);
+}
+
+.cursoTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 28px;
+}
+
+.cursoTag {
+    padding: 5px 10px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+
+    font-family: "Sora", sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    line-height: 1;
+
+    color: color-mix(in srgb, var(--text-color) 60%, transparent);
+}
+
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.botaoAcessarConteudo {
+    flex: 1;
+    min-width: 160px;
+    padding: 13px 20px;
+
+    border: none;
+    border-radius: 12px;
+    background-color: var(--text-color2);
+    cursor: pointer;
+
+    font-family: "Sora", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+
+    color: var(--bg-color2);
+
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.botaoAcessarConteudo:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+.botaoAcessarConteudo:active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.botaoAcessarMaterial {
+    flex: 1;
+    min-width: 160px;
+    padding: 13px 20px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: transparent;
+    cursor: pointer;
+
+    font-family: "Sora", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+
+    color: var(--text-color);
+
+    transition: border-color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+}
+
+.botaoAcessarMaterial:hover {
+    border-color: color-mix(in srgb, var(--text-color2) 50%, var(--border-color));
+    background-color: color-mix(in srgb, var(--text-color2) 6%, transparent);
+    transform: translateY(-1px);
+}
+
+.botaoAcessarMaterial:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 380px) {
+    .cursoDetalhes {
+        padding-inline: 24px;
+    }
+}
+
+@media (min-width: 600px) {
+    .cursoDetalhes {
+        padding: 118px clamp(36px, 5vw, 56px) 80px;
+    }
+}
+
+@media (min-width: 768px) {
+    .cursoDetalhes {
+        padding: 80px 51px 72px;
+    }
+
+    .cursoContainer {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: start;
+        gap: 40px;
+    }
+
+    .cursoImagem {
+        border-radius: 18px;
+        position: sticky;
+        top: 24px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .cursoContainer {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 52px;
+    }
+
+    .cursoTitulo {
+        font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
+}
