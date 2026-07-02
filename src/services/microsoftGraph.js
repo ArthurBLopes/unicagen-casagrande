@@ -1,6 +1,11 @@
 import { supabase } from "../lib/supabase";
 
+const CACHE_KEY = "unicagen_account_created_at";
+
 export async function buscarDataCriacaoContaMicrosoft() {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) return cached;
+
     const { data, error } = await supabase.auth.getSession();
 
     if (error) {
@@ -29,6 +34,9 @@ export async function buscarDataCriacaoContaMicrosoft() {
     }
 
     const usuarioMicrosoft = await response.json();
+    const createdDateTime = usuarioMicrosoft.createdDateTime;
 
-    return usuarioMicrosoft.createdDateTime;
+    localStorage.setItem(CACHE_KEY, createdDateTime);
+
+    return createdDateTime;
 }

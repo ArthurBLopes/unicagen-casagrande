@@ -13,8 +13,12 @@ export default function Profile() {
 
     useEffect(() => {
         async function fetchData() {
-            const data = await buscarDataCriacaoContaMicrosoft();
-            setDataCriacaoConta(data);
+            try {
+                const data = await buscarDataCriacaoContaMicrosoft();
+                setDataCriacaoConta(data);
+            } catch (err) {
+                console.warn("Não foi possível buscar data de criação da conta:", err.message);
+            }
         }
         fetchData();
     }, []);
@@ -30,7 +34,7 @@ export default function Profile() {
                 <div className={styles.avatar} aria-hidden="true">{inicial}</div>
                 <div className={styles.userInfo}>
                     <p className={styles.name}>{nome}</p>
-                    <p className={styles.typeUser}>Usuário</p>
+                    <p className={styles.typeUser}>MEMBRO</p>
                 </div>
                 <p className={styles.company}>Você é colaborador da <span className={styles.companyName}>Casagrande Engenharia</span>.</p>
                 <p className={styles.email}>{email}</p>

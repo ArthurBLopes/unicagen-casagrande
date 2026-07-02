@@ -5,7 +5,7 @@ import styles from "./CourseCard.module.css";
 import { useNavigate } from "react-router-dom";
 
 export default function CourseCard({ curso }) {
-    
+
     const navigate = useNavigate();
 
     function detalhesCurso() {
@@ -35,7 +35,7 @@ export default function CourseCard({ curso }) {
                     }}>Acessar</button>
                 <button className={styles.botaoAcessarConteudo} onClick={(event) => {
                     event.stopPropagation();
-                    detalhesCurso();
+                    window.open(curso.linkMaterial, "_blank");
                     }}><MdOutlineOpenInNew size={24} /></button>
             </div>
         </div>
