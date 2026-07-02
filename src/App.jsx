@@ -10,6 +10,7 @@ import Layout from './components/shared/Layout';
 import Contact from "./pages/contact/Contact";
 import TrailsPage from './pages/trails/TrailsPage';
 import Profile from './pages/profile/Profile';
+import DetailsCourse from './pages/detailsCourse/detailsCourse';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/contato" element={<Contact />} />
             <Route path="/trilhas" element={<TrailsPage />} />
             <Route path="/perfil" element={<Profile />} />
+            <Route path="/curso/:id" element={<DetailsCourse />} />
           </Route>
         </Route>
       </Routes>

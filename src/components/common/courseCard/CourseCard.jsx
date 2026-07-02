@@ -1,10 +1,19 @@
 import { MdOutlineOpenInNew } from "react-icons/md";
+import { useState } from "react";
 import { FaRegClock } from "react-icons/fa";
 import styles from "./CourseCard.module.css";
+import { useNavigate } from "react-router-dom";
 
-export default function CourseCard({ curso, onClick }) {
+export default function CourseCard({ curso }) {
+    
+    const navigate = useNavigate();
+
+    function detalhesCurso() {
+        navigate(`/curso/${curso.id}`);
+    }
+
     return (
-        <div className={styles.card} onClick={onClick}>
+        <div className={styles.card} onClick={detalhesCurso}>
             <div className={styles.trilha}>{curso.trilha}</div>
             <img src={curso.imagem} alt={curso.titulo} className={styles.imagem} />
             <div className={styles.conteudo}>
@@ -22,11 +31,11 @@ export default function CourseCard({ curso, onClick }) {
                 <p className={styles.dataPublicacao}><FaRegClock size={16} /> {curso.dataPublicacao}</p>
                 <button className={styles.botaoAcessar} onClick={(event) => {
                     event.stopPropagation(); 
-                    onClick();
+                    detalhesCurso();
                     }}>Acessar</button>
                 <button className={styles.botaoAcessarConteudo} onClick={(event) => {
                     event.stopPropagation();
-                    onClick();
+                    detalhesCurso();
                     }}><MdOutlineOpenInNew size={24} /></button>
             </div>
         </div>

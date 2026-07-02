@@ -1,5 +1,5 @@
 import { useNavigation } from "react-router-dom";
-import styles from "./Back.module.css";
+import styles from "./BackPage.module.css";
 import { MdArrowBackIos } from "react-icons/md";
 
 export default function BackPage() {
