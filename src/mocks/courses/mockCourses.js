@@ -36,7 +36,7 @@ export const cursos = [
         tags: ["Videoaulas"],
         dataPublicacao: "há 3 meses",
         publicado: "30 de março de 2026",
-        linkConteudo: "https://youtu.be/36-3N1c4K0M?si=RT05PTNUn2KL5-GA",
+        linkConteudo: "https://youtu.be/H190JGuhTMQ?si=I8XXo-ji2XU0EaeH",
         linkMaterial: "https://drive.google.com/file/d/1nBd3_54aLYMmEoFthkNk3GPt3pKYIeN8/view?usp=sharing",
     },
     {

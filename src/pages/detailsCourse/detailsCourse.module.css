@@ -72,11 +72,12 @@
     overflow: hidden;
     background: linear-gradient(135deg, color-mix(in srgb, var(--bg-color3) 80%, var(--text-color2) 8%), var(--bg-color3));
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: translateZ(0);
     transition: box-shadow 0.28s ease,border-color 0.28s ease,transform 0.28s ease;
 }
 
 .cursoVideo:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
 }
 
 .cursoVideo iframe {
@@ -84,7 +85,6 @@
     height: 100%;
     border: none;
     display: block;
-    background-color: #000;
 }
 
 .cursoConteudo {
