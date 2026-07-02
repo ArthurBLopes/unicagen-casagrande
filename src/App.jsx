@@ -9,6 +9,7 @@ import PublicRoute from "./routes/PublicRoute";
 import Layout from './components/shared/Layout';
 import Contact from "./pages/contact/Contact";
 import TrailsPage from './pages/trails/TrailsPage';
+import Profile from './pages/profile/Profile';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/inicio" element={<Home />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="/trilhas" element={<TrailsPage />} />
+            <Route path="/perfil" element={<Profile />} />
           </Route>
         </Route>
       </Routes>

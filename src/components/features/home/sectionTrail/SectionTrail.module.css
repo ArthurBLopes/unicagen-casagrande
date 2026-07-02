@@ -71,6 +71,7 @@
     scroll-snap-type: x proximity;
     scroll-behavior: smooth;
     touch-action: pan-y;
+    flex-wrap: wrap;
 }
 
 .coursesContainer > * {
