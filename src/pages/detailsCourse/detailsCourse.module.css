@@ -39,12 +39,10 @@
 
 .titulo::after {
     content: "";
-
     display: block;
     width: 46px;
     height: 2px;
     margin-top: 18px;
-
     border-radius: 999px;
     background-color: var(--text-color2);
     opacity: 0.75;
@@ -65,6 +63,30 @@
     display: block;
 }
 
+.cursoVideo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    border: 1px solid color-mix(in srgb, var(--text-color2) 25%, var(--border-color));
+    overflow: hidden;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--bg-color3) 80%, var(--text-color2) 8%), var(--bg-color3));
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: box-shadow 0.28s ease,border-color 0.28s ease,transform 0.28s ease;
+}
+
+.cursoVideo:hover {
+    transform: translateY(-2px);
+}
+
+.cursoVideo iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background-color: #000;
+}
+
 .cursoConteudo {
     display: flex;
     flex-direction: column;
@@ -76,28 +98,23 @@
     align-self: flex-start;
     margin: 0 0 14px;
     padding: 5px 12px;
-
     border-radius: 999px;
     background-color: #afde5e;
-
     font-family: "Sora", sans-serif;
     font-size: 10.5px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: 0.04em;
-
     color: #2a3d10;
 }
 
 .cursoTitulo {
     margin: 0 0 10px;
-
     font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(1.4rem, 3.5vw, 2rem);
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: -0.03em;
-
     color: var(--text-color);
 }
 
@@ -110,20 +127,16 @@
 
 .cursoData {
     margin: 0;
-
     font-size: 12px;
     font-weight: 500;
     line-height: 1;
-
     color: color-mix(in srgb, var(--text-color) 50%, transparent);
 }
 
 .cursoDescricao {
     margin: 0 0 22px;
-
     font-size: 14px;
     line-height: 1.8;
-
     color: color-mix(in srgb, var(--text-color) 68%, transparent);
 }
 
@@ -136,15 +149,12 @@
 
 .cursoTag {
     padding: 5px 10px;
-
     border: 1px solid var(--border-color);
     border-radius: 999px;
-
     font-family: "Sora", sans-serif;
     font-size: 10.5px;
     font-weight: 700;
     line-height: 1;
-
     color: color-mix(in srgb, var(--text-color) 60%, transparent);
 }
 
@@ -158,19 +168,15 @@
     flex: 1;
     min-width: 160px;
     padding: 13px 20px;
-
     border: none;
     border-radius: 12px;
     background-color: var(--text-color2);
     cursor: pointer;
-
     font-family: "Sora", sans-serif;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.02em;
-
     color: var(--bg-color2);
-
     transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
@@ -188,19 +194,15 @@
     flex: 1;
     min-width: 160px;
     padding: 13px 20px;
-
     border: 1px solid var(--border-color);
     border-radius: 12px;
     background-color: transparent;
     cursor: pointer;
-
     font-family: "Sora", sans-serif;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.02em;
-
     color: var(--text-color);
-
     transition: border-color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
 }
 
