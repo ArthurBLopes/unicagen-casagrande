@@ -24,13 +24,18 @@ export default function Profile() {
     const ano = data ? data.getFullYear() : null;
 
     return (
-        <div>
-            <h1 className={styles.profileTitle}>Perfil do Usuário</h1>
-            <div className={styles.profileContainer}>
-                <p className={styles.profileImg}>{inicial}</p>
-                <p className={styles.profileWelcome}>Welcome, {nome}!</p>
-                <p className={styles.profileEmail}>{email}</p>
-                <p className={styles.profileAccess}><Calendar size={16} /> Acesso autorizado desde {nomeMes} de {ano}</p>
+        <div className={styles.container}>
+            <h1 className={styles.title}>Perfil do Usuário</h1>
+            <div className={styles.card}>
+                <div className={styles.avatar} aria-hidden="true">{inicial}</div>
+                <div className={styles.userInfo}>
+                    <p className={styles.name}>{nome}</p>
+                    <p className={styles.typeUser}>Usuário</p>
+                </div>
+                <p className={styles.company}>Você é colaborador da <span className={styles.companyName}>Casagrande Engenharia</span>.</p>
+                <p className={styles.email}>{email}</p>
+                <div className={styles.divider} />
+                <p className={styles.access}><Calendar size={15} /> Acesso autorizado desde {nomeMes} de {ano}</p>
             </div>
         </div>
     )
