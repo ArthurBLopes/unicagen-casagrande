@@ -218,24 +218,24 @@
 
 @media (max-width: 380px) {
     .cursoDetalhes {
-        padding-inline: 24px;
-    }
+        padding: 138px 51px 72px;
+    }   
 }
 
 @media (min-width: 600px) {
     .cursoDetalhes {
-        padding: 118px clamp(36px, 5vw, 56px) 80px;
+        padding: 140px clamp(36px, 8vw, 56px) 80px;
     }
 }
 
 @media (min-width: 768px) {
     .cursoDetalhes {
-        padding: 80px 51px 72px;
+        padding: 140px 51px 72px;
     }
 
     .cursoContainer {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        display: flex;
+        flex-wrap: wrap;
         align-items: start;
         gap: 40px;
     }
@@ -248,7 +248,11 @@
 }
 
 @media (min-width: 1024px) {
+    .cursoDetalhes {
+        padding: 80px 51px 72px;
+    }
     .cursoContainer {
+        display: grid;
         grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
         gap: 52px;
     }
