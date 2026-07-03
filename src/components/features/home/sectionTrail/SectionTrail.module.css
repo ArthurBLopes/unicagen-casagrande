@@ -71,7 +71,7 @@
     scroll-snap-type: x proximity;
     scroll-behavior: smooth;
     touch-action: pan-y;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .coursesContainer > * {
@@ -92,6 +92,7 @@
     .coursesContainer {
         gap: 20px;
         padding-bottom: 18px;
+        flex-wrap: wrap;
     }
 }
 

@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import CourseCard from "../../../common/courseCard/CourseCard";
 import styles from "./SectionTrail.module.css";
+import { useSwipeable } from "react-swipeable";
 
 export default function SectionTrail({ trilha, cursos }) {
     const navigate = useNavigate();
