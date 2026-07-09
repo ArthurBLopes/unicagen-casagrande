@@ -1,0 +1,60 @@
+name: Deploy UniCagen no DreamHost
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-unicagen
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v6
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Gerar build
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Configurar chave SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DREAMHOST_SSH_KEY }}
+          DREAMHOST_HOST: ${{ secrets.DREAMHOST_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$DREAMHOST_HOST" >> ~/.ssh/known_hosts
+
+      - name: Enviar site para o DreamHost
+        env:
+          DREAMHOST_HOST: ${{ secrets.DREAMHOST_HOST }}
+          DREAMHOST_USER: ${{ secrets.DREAMHOST_USER }}
+          DREAMHOST_PATH: ${{ secrets.DREAMHOST_PATH }}
+        run: |
+          rsync -az --delete \
+            --exclude=".dh-diag" \
+            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes" \
+            dist/ \
+            "$DREAMHOST_USER@$DREAMHOST_HOST:$DREAMHOST_PATH/"
