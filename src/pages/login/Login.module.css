@@ -1,14 +1,3 @@
-
-@font-face {
-    font-family: Georgia;
-    src: url("../../assets/fonts/Georgia\ Regular.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: Indivisible;
-    src: url("../../assets/fonts/Indivisible-Light.ttf") format("truetype");
-}
-
 .loginContainer {
     min-height: 100%;
     width: 100%;

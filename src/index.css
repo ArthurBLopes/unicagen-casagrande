@@ -32,3 +32,13 @@ html[data-theme="dark"]{
   --text-color2: #aabf86;
   --border-color: rgba(255,255,255,0.1);
 }
+
+@font-face {
+    font-family: "Georgia";
+    src: url("./assets/fonts/Georgia Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Indivisible";
+    src: url("./assets/fonts/Indivisible-Light.ttf") format("truetype");
+}
