@@ -1,8 +1,3 @@
-@font-face {
-    font-family: Indivisible;
-    src: url("../../assets/fonts/Indivisible-Light.ttf") format("truetype");
-}
-
 .profileMenu {
     position: absolute;
     top: 40px;
