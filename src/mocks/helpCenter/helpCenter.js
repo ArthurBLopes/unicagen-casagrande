@@ -3,21 +3,6 @@ export const helpContent = {
         title: "Conta e Acesso",
         questions: [
             {
-                question: "Como faço login na UniCagen?",
-                answer:
-                    "O acesso é feito exclusivamente com a sua conta Microsoft corporativa da Casagrande Engenharia. Na tela de login, clique em 'Entrar com Microsoft' e use o mesmo e-mail e senha que você já utiliza no Outlook e nos demais sistemas da empresa."
-            },
-            {
-                question: "Preciso criar um cadastro ou uma senha para a UniCagen?",
-                answer:
-                    "Não. A UniCagen não possui cadastro nem senha próprios — o acesso é controlado pela sua conta Microsoft da empresa. Se você tem um e-mail corporativo ativo, já pode entrar na plataforma normalmente."
-            },
-            {
-                question: "Estou com erro ao entrar com a conta Microsoft",
-                answer:
-                    "Verifique se você está usando seu e-mail corporativo e se sua conta Microsoft está ativa. Se o erro persistir, entre em contato com o RH ou com o setor de TI para verificar o acesso."
-            },
-            {
                 question: "Meu nome ou foto de perfil estão errados",
                 answer:
                     "Essas informações vêm diretamente da sua conta Microsoft da empresa. Para corrigi-las, solicite a atualização junto ao RH ou à TI; a alteração é refletida automaticamente na UniCagen."
