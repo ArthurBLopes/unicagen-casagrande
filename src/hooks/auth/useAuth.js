@@ -20,8 +20,6 @@ export function useAuth() {
             },
         });
 
-        console.log("Resposta OAuth:", data);
-
         if (error) {
             console.error("Erro ao entrar com Microsoft:", error.message);
         }

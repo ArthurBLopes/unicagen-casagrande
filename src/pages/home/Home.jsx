@@ -4,6 +4,9 @@ import SectionTrail from "../../components/features/home/sectionTrail/SectionTra
 import { trilhas } from "../../mocks/trails/mockTrails";
 import { getCursosPorTrilha } from "../../mocks/courses/mockCourses";
 import styles from "./Home.module.css";
+import { listarTreinamentos } from "../../services/treinamentosService";
+import { listarTrilhas } from "../../services/trilhasService";
+import { listarTreinamentosTrilhas } from "../../services/treinamentosTrilhasService";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
@@ -11,6 +14,18 @@ export default function Home() {
     const { user } = useAuth();
     const nome = user?.user_metadata?.full_name || "Não Identificado";
     const primeiroNome = nome.split(" ")[0];
+
+    listarTreinamentos().then((cursos) => {
+        console.log("Cursos buscados:", cursos);
+    });
+
+    listarTrilhas().then((trilhas) => {
+        console.log("Trilhas buscadas:", trilhas);
+    });
+
+    listarTreinamentosTrilhas().then((treinamentosTrilhas) => {
+        console.log("Treinamentos_Trilhas buscados:", treinamentosTrilhas);
+    });
 
     return (
         <div className={styles.container}>
