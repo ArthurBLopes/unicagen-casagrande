@@ -7,6 +7,8 @@ import styles from "./Home.module.css";
 import { listarTreinamentos } from "../../services/treinamentosService";
 import { listarTrilhas } from "../../services/trilhasService";
 import { listarTreinamentosTrilhas } from "../../services/treinamentosTrilhasService";
+import { listarTrilhasComTreinamentos } from "../../services/treinamentosTrilhasService";
+import { useMemo } from "react";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
@@ -15,7 +17,7 @@ export default function Home() {
     const nome = user?.user_metadata?.full_name || "Não Identificado";
     const primeiroNome = nome.split(" ")[0];
 
-    listarTreinamentos().then((cursos) => {
+    /*listarTreinamentos().then((cursos) => {
         console.log("Cursos buscados:", cursos);
     });
 
@@ -25,7 +27,14 @@ export default function Home() {
 
     listarTreinamentosTrilhas().then((treinamentosTrilhas) => {
         console.log("Treinamentos_Trilhas buscados:", treinamentosTrilhas);
-    });
+    });*/
+
+
+    const trilhasComTreinamentos = useMemo(() => {
+        listarTrilhasComTreinamentos().then((trilhasComTreinamentos) => {
+            console.log("Trilhas com Treinamentos buscadas:", trilhasComTreinamentos);
+        });
+    }, []);
 
     return (
         <div className={styles.container}>
