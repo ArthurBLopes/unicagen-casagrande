@@ -72,11 +72,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                {trilhas.map((trilha) => {
-                    const cursosDaTrilha = getCursosPorTrilha(trilha.id).slice(
-                        0,
-                        LIMITE_CURSOS_POR_TRILHA
-                    );
+                {trilhasComTreinamentos.map((trilha) => {
+                    const cursosDaTrilha = trilha.treinamentos.slice(0,LIMITE_CURSOS_POR_TRILHA);
 
                     if (cursosDaTrilha.length === 0) return null;
 
