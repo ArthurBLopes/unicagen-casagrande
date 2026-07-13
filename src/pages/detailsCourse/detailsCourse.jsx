@@ -1,18 +1,25 @@
 import styles from "./detailsCourse.module.css";
 import { useParams } from "react-router-dom";
-import { cursos } from "../../mocks/courses/mockCourses";
 import BackPage from "../../components/common/back/BackPage";
 import useScrollTop from "../../hooks/useScrollTop/useScrollTop";
+import { listarTreinamentos } from "../../services/treinamentosService";
+import { listarTrilhas } from "../../services/trilhasService";
+import { useState, useEffect } from "react";
 
-export default function DetailsCourse() {
-
+export default function DetailsCourse({ trilha }) {
+    const [treinamentos, setTreinamentos] = useState([]);
     const { id } = useParams();
-    const curso = cursos.find(curso => curso.id === parseInt(id));
+    const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
+    
     useScrollTop();
-    console.log("Curso encontrado:", curso);
 
-    const linkMaterialVideo = curso?.linkConteudo?.includes("https://youtu.be") ? "video" : "documento";
-    console.log("Tipo de material:", linkMaterialVideo);
+    useEffect(() => {
+        const fetchTreinamentos = async () => {
+            const dados = await listarTreinamentos();
+            setTreinamentos(dados);
+        };
+        fetchTreinamentos();
+    }, []);
 
     function getYouTubeEmbedUrl(url) {
         const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^&?/]+)/;
@@ -22,43 +29,43 @@ export default function DetailsCourse() {
 
         return `https://www.youtube.com/embed/${match[1]}`;
     }
-
+    
     return (
         <div className={styles.detalhesPage}>
             <BackPage />
             <div className={styles.cursoDetalhes}>
-                <p className={styles.titulo}>{curso?.titulo.toUpperCase()}</p>
+                <p className={styles.titulo}>{treinamento?.titulo.toUpperCase()}</p>
                 <div className={styles.cursoContainer}>
-                    {curso?.linkConteudo && linkMaterialVideo === "video" && (
+                    {treinamento?.link_conteudo && (
                         <div className={styles.cursoVideo}>
                             <iframe
-                                src={getYouTubeEmbedUrl(curso.linkConteudo)}
-                                title={curso.titulo}
+                                src={getYouTubeEmbedUrl(treinamento.link_conteudo)}
+                                title={treinamento.titulo}
                                 frameBorder="0"
                             ></iframe>
                         </div>
                     )}
-                    {curso?.linkConteudo && linkMaterialVideo === "documento" && (
-                        <img src={curso.imagem} alt={curso.titulo} className={styles.cursoImagem} />
+                    {treinamento?.link_imagem && (
+                        <img src={treinamento.link_imagem} alt={treinamento.titulo} className={styles.cursoImagem} />
                     )}
                     <div className={styles.cursoConteudo}>
-                        <p className={styles.cursoTrilha}>{curso?.trilha}</p>
-                        <h1 className={styles.cursoTitulo}>{curso?.titulo}</h1>
+                        <p className={styles.cursoTrilha}>{trilha}</p>
+                        <h1 className={styles.cursoTitulo}>{treinamento?.titulo}</h1>
                         <div className={styles.datas}>
-                            <p className={styles.cursoData}>{curso?.dataPublicacao}</p>
+                            <p className={styles.cursoData}>{treinamento?.dataPublicacao}</p>
                         </div>
-                        <p className={styles.cursoDescricao}>{curso?.descricao}</p>
-                        {curso?.tags && curso.tags.length > 0 && (
+                        <p className={styles.cursoDescricao}>{treinamento?.descricao}</p>
+                        {treinamento?.tags && treinamento.tags.length > 0 && (
                             <div className={styles.cursoTags}>
-                                {curso.tags.map((tag, index) => (
+                                {treinamento.tags.map((tag, index) => (
                                     <span key={index} className={styles.cursoTag}>{tag}</span>
                                 ))}
                             </div>
                         )}
                         <div className={styles.acoes}>
-                            <button className={styles.botaoAcessarConteudo} onClick={() => window.open(curso?.linkConteudo, "_blank")}>Acessar Conteúdo</button>
-                            {curso?.linkMaterial && (
-                                <button className={styles.botaoAcessarMaterial} onClick={() => window.open(curso.linkMaterial, "_blank")}>Acessar Material</button>
+                            <button className={styles.botaoAcessarConteudo} onClick={() => window.open(treinamento?.link_conteudo, "_blank")}>Acessar Conteúdo</button>
+                            {treinamento?.link_material && (
+                                <button className={styles.botaoAcessarMaterial} onClick={() => window.open(treinamento.link_material, "_blank")}>Acessar Material</button>
                             )}
                         </div>
                     </div>

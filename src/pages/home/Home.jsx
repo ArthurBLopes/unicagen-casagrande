@@ -1,14 +1,9 @@
 import { Search, ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useAuth } from "../../hooks/auth/useAuth";
 import SectionTrail from "../../components/features/home/sectionTrail/SectionTrail";
-import { trilhas } from "../../mocks/trails/mockTrails";
-import { getCursosPorTrilha } from "../../mocks/courses/mockCourses";
 import styles from "./Home.module.css";
-import { listarTreinamentos } from "../../services/treinamentosService";
-import { listarTrilhas } from "../../services/trilhasService";
-import { listarTreinamentosTrilhas } from "../../services/treinamentosTrilhasService";
 import { listarTrilhasComTreinamentos } from "../../services/treinamentosTrilhasService";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
@@ -16,25 +11,26 @@ export default function Home() {
     const { user } = useAuth();
     const nome = user?.user_metadata?.full_name || "Não Identificado";
     const primeiroNome = nome.split(" ")[0];
+    const [trilhasComTreinamentos, setTrilhasComTreinamentos] = useState([]);
+    const [erroCarregamento, setErroCarregamento] = useState(false);
 
-    /*listarTreinamentos().then((cursos) => {
-        console.log("Cursos buscados:", cursos);
-    });
+    useEffect(() => {
+        const carregarTrilhasComTreinamentos = async () => {
+            try {
+                const dados = await listarTrilhasComTreinamentos();
+                setTrilhasComTreinamentos(Array.isArray(dados) ? dados : []);
+                setErroCarregamento(false);
+            } catch (error) {
+                console.error("Erro ao carregar trilhas com treinamentos:", error);
+                setTrilhasComTreinamentos([]);
+                setErroCarregamento(true);
+            }
+        };
 
-    listarTrilhas().then((trilhas) => {
-        console.log("Trilhas buscadas:", trilhas);
-    });
-
-    listarTreinamentosTrilhas().then((treinamentosTrilhas) => {
-        console.log("Treinamentos_Trilhas buscados:", treinamentosTrilhas);
-    });*/
-
-
-    const trilhasComTreinamentos = useMemo(() => {
-        listarTrilhasComTreinamentos().then((trilhasComTreinamentos) => {
-            console.log("Trilhas com Treinamentos buscadas:", trilhasComTreinamentos);
-        });
+        carregarTrilhasComTreinamentos();
     }, []);
+
+    console.log("trilhasComTreinamentos:", trilhasComTreinamentos);
 
     return (
         <div className={styles.container}>
@@ -72,9 +68,12 @@ export default function Home() {
                     </div>
                 </div>
 
-                {trilhasComTreinamentos.map((trilha) => {
-                    const cursosDaTrilha = trilha.treinamentos.slice(0,LIMITE_CURSOS_POR_TRILHA);
+                {erroCarregamento && (
+                    <p>Não foi possível carregar as trilhas no momento.</p>
+                )}
 
+                {trilhasComTreinamentos.map((trilha) => {
+                    const cursosDaTrilha = (trilha.treinamentos || []).slice(0, LIMITE_CURSOS_POR_TRILHA);
                     if (cursosDaTrilha.length === 0) return null;
 
                     return (

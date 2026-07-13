@@ -4,7 +4,7 @@ import { FaRegClock } from "react-icons/fa";
 import styles from "./CourseCard.module.css";
 import { useNavigate } from "react-router-dom";
 
-export default function CourseCard({ curso }) {
+export default function CourseCard({ curso, trilha }) {
 
     const navigate = useNavigate();
 
@@ -14,7 +14,6 @@ export default function CourseCard({ curso }) {
 
     return (
         <div className={styles.card} onClick={detalhesCurso}>
-            <div className={styles.trilha}>{curso.trilha}</div>
             <img src={curso.imagem} alt={curso.titulo} className={styles.imagem} />
             <div className={styles.conteudo}>
                 <h3 className={styles.titulo}>{curso.titulo}</h3>

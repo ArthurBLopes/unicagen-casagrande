@@ -68,6 +68,15 @@ const listarTrilhasComTreinamentos = async () => {
         treinamentos: trilha.treinamentos_trilhas.map((item) => item.treinamentos),
     }));
 
+    const trilhaOnboarding = data.find((trilha) => trilha.titulo === "Onboarding");
+    trilhasFormatadas.pop(trilhaOnboarding);
+    trilhaOnboarding && trilhasFormatadas.unshift({
+        id: trilhaOnboarding.id,
+        titulo: trilhaOnboarding.titulo,
+        descricao: trilhaOnboarding.descricao,
+        treinamentos: trilhaOnboarding.treinamentos_trilhas.map((item) => item.treinamentos),
+    });
+
     return trilhasFormatadas;
 };
 

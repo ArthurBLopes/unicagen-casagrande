@@ -38,6 +38,7 @@ export default function SectionTrail({ trilha, cursos }) {
                         <CourseCard
                             key={curso.id}
                             curso={curso}
+                            trilha={trilha.titulo}
                             onClick={() => navigate(`/cursos/${curso.id}`, { state: curso })}
                         />
                     ))}
