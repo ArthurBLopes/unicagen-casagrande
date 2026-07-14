@@ -9,4 +9,19 @@ const listarUsuarios = async () => {
     return data
 }
 
-export { listarUsuarios }
+const buscarUsuarioPorId = async (id) => {
+    const { data, error } = await supabase
+        .from("usuarios")
+        .select("id, nome, email, regra")
+        .eq("id", id)
+        .single();
+
+    if (error) {
+        console.error(error);
+        return null;
+    }
+
+    return data;
+};
+
+export { listarUsuarios, buscarUsuarioPorId };
