@@ -3,6 +3,7 @@ import { useAuth } from '../../hooks/auth/useAuth';
 import styles from './Profile.module.css'
 import { buscarDataCriacaoContaMicrosoft } from '../..//services/microsoftGraph';
 import { Calendar } from "lucide-react";
+import { listarUsuarios } from '../../services/usuariosService';
 
 export default function Profile() {
     const { user } = useAuth();
@@ -10,6 +11,10 @@ export default function Profile() {
     const email = user?.email || "Email não encontrado";
     const inicial = nome.split(" ")[0]?.charAt(0).toUpperCase() || "N";
     const [dataCriacaoConta, setDataCriacaoConta] = useState(null);
+    const [funcao, setFuncao] = useState(null);
+
+    const usuarios = listarUsuarios();
+    console.log(usuarios);
 
     useEffect(() => {
         async function fetchData() {
