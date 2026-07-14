@@ -1,5 +1,5 @@
 import styles from "./detailsCourse.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import BackPage from "../../components/common/back/BackPage";
 import useScrollTop from "../../hooks/useScrollTop/useScrollTop";
 import { listarTreinamentos } from "../../services/treinamentosService";
@@ -11,6 +11,8 @@ import { FaRegClock } from "react-icons/fa";
 export default function DetailsCourse() {
     const [treinamentos, setTreinamentos] = useState([]);
     const { id } = useParams();
+    const location = useLocation();
+    const { trilha } = location.state || {};
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
     const dataPublicacaoFormatada = treinamento ? formatarData(new Date(treinamento.data_publicacao)) : "";
     
@@ -52,7 +54,7 @@ export default function DetailsCourse() {
                         <img src={treinamento.link_imagem} alt={treinamento.titulo} className={styles.cursoImagem} />
                     )}
                     <div className={styles.cursoConteudo}>
-                        <p className={styles.cursoTrilha}>Não definido</p>
+                        <p className={styles.cursoTrilha}>{trilha?.titulo || "Não definido"}</p>
                         <h1 className={styles.cursoTitulo}>{treinamento?.titulo}</h1>
                         <div className={styles.datas}>
                             <p className={styles.cursoData}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>

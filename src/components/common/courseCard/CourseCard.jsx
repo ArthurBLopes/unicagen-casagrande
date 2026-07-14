@@ -11,12 +11,12 @@ export default function CourseCard({ curso, trilha }) {
     const dataPublicacaoFormatada = formatarData(curso.data_publicacao);
 
     function detalhesCurso() {
-        navigate(`/curso/${curso.id}`);
+        navigate(`/curso/${curso.id}`, { state: { trilha } });
     }
 
     return (
         <div className={styles.card} onClick={detalhesCurso}>
-            <p className={styles.trilha}>{trilha || "Não definido"}</p>
+            <p className={styles.trilha}>{trilha?.titulo || "Não definido"}</p>
             <img src={curso.imagem} alt={curso.titulo} className={styles.imagem} />
             <div className={styles.conteudo}>
                 <h3 className={styles.titulo}>{curso.titulo}</h3>
