@@ -14,6 +14,8 @@ export default function CourseCard({ curso, trilha }) {
         navigate(`/curso/${curso.id}`, { state: { trilha } });
     }
 
+    console.log("Curso:", curso);
+
     return (
         <div className={styles.card} onClick={detalhesCurso}>
             <p className={styles.trilha}>{trilha?.titulo || "Não definido"}</p>
