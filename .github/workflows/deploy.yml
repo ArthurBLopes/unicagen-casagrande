@@ -55,6 +55,7 @@ jobs:
         run: |
           rsync -az --delete \
             --exclude=".dh-diag" \
+            --exclude="uploads/" \
             -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes" \
             dist/ \
             "$DREAMHOST_USER@$DREAMHOST_HOST:$DREAMHOST_PATH/"
