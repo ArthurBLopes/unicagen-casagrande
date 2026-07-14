@@ -15,7 +15,7 @@ export default function DetailsCourse() {
     const { trilha } = location.state || {};
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
     const dataPublicacaoFormatada = treinamento ? formatarData(new Date(treinamento.data_publicacao)) : "";
-    const linkVideo = treinamento?.link_conteudo?.includes("https://youtu.be") ? "video" : "documento";
+    const linkVideo = treinamento?.link_conteudo?.includes("https://youtu.be") ? "video" : "outro";
     console.log(linkVideo);
     
     useScrollTop();
@@ -54,8 +54,8 @@ export default function DetailsCourse() {
                             ></iframe>
                         </div>
                     )}
-                    {treinamento?.imagem && (
-                        <img src={treinamento.imagem} alt={treinamento.titulo} className={styles.cursoImagem} />
+                    {linkVideo === "outro" && (
+                        <img src={treinamento?.imagem} alt={treinamento?.titulo} className={styles.cursoImagem} />
                     )}
                     <div className={styles.cursoConteudo}>
                         <p className={styles.cursoTrilha}>{trilha?.titulo || "Não definido"}</p>
