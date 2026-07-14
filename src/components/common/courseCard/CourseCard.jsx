@@ -3,14 +3,12 @@ import { useState } from "react";
 import { FaRegClock } from "react-icons/fa";
 import styles from "./CourseCard.module.css";
 import { useNavigate } from "react-router-dom";
+import { formatarData } from "../../../utils/formatarData";
 
 export default function CourseCard({ curso, trilha }) {
 
     const navigate = useNavigate();
-    const dias = Math.floor((new Date() - new Date(curso.data_publicacao)) / (1000 * 60 * 60 * 24));
-    const mes = new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(curso.data_publicacao));
-    const ano = new Date(curso.data_publicacao).getFullYear();
-    const dataPublicacaoFormatada = dias < 30 ? (dias === 0 ? "Hoje" : `${dias} dias atrás`) : `${mes} de ${ano}`;
+    const dataPublicacaoFormatada = formatarData(curso.data_publicacao);
 
     function detalhesCurso() {
         navigate(`/curso/${curso.id}`);

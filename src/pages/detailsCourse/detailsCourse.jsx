@@ -5,11 +5,13 @@ import useScrollTop from "../../hooks/useScrollTop/useScrollTop";
 import { listarTreinamentos } from "../../services/treinamentosService";
 import { listarTrilhas } from "../../services/trilhasService";
 import { useState, useEffect } from "react";
+import { formatarData } from "../../utils/formatarData";
 
 export default function DetailsCourse({ trilha }) {
     const [treinamentos, setTreinamentos] = useState([]);
     const { id } = useParams();
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
+    const dataPublicacaoFormatada = formatarData(treinamento?.data_publicacao);
     
     useScrollTop();
 
@@ -52,7 +54,7 @@ export default function DetailsCourse({ trilha }) {
                         <p className={styles.cursoTrilha}>{trilha}</p>
                         <h1 className={styles.cursoTitulo}>{treinamento?.titulo}</h1>
                         <div className={styles.datas}>
-                            <p className={styles.cursoData}>{treinamento?.dataPublicacao}</p>
+                            <p className={styles.cursoData}>{dataPublicacaoFormatada}</p>
                         </div>
                         <p className={styles.cursoDescricao}>{treinamento?.descricao}</p>
                         {treinamento?.tags && treinamento.tags.length > 0 && (

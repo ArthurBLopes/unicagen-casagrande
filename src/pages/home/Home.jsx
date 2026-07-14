@@ -30,8 +30,6 @@ export default function Home() {
         carregarTrilhasComTreinamentos();
     }, []);
 
-    console.log("Trilhas com treinamentos carregadas:", trilhasComTreinamentos);
-
     return (
         <div className={styles.container}>
             <main className={styles.main}>
