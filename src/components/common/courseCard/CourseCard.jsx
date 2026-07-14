@@ -33,14 +33,16 @@ export default function CourseCard({ curso, trilha }) {
             </div>
             <div className={styles.acoes}>
                 <p className={styles.dataPublicacao}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>
-                <button className={styles.botaoAcessar} onClick={(event) => {
+                <button className={styles.botaoAcessar} title="Acessar conteúdo do treinamento" onClick={(event) => {
                     event.stopPropagation(); 
                     detalhesCurso();
                     }}>Acessar</button>
-                <button className={styles.botaoAcessarConteudo} onClick={(event) => {
-                    event.stopPropagation();
-                    window.open(curso.link_material, "_blank");
+                {curso?.link_material && (
+                    <button className={styles.botaoAcessarConteudo} title="Acessar material do treinamento" onClick={(event) => {
+                        event.stopPropagation();
+                        window.open(curso.link_material, "_blank");
                     }}><MdOutlineOpenInNew size={24} /></button>
+                )}
             </div>
         </div>
     );
