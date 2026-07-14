@@ -13,7 +13,7 @@
     height: 3rem;
     border-radius: 50%;
     border: 1px solid var(--border-color);
-    background-color: transparent;
+    background-color: var(--bg-color2);
     color: var(--text-color2);
     font-size: 17px;
     font-weight: 700;
@@ -23,7 +23,6 @@
 }
 
 .botaoAvatar:hover {
-    background-color: rgba(255, 255, 255, 0.08);
     transform: scale(1.05);
 }
 
