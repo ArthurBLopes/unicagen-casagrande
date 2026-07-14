@@ -15,6 +15,8 @@ export default function DetailsCourse() {
     const { trilha } = location.state || {};
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
     const dataPublicacaoFormatada = treinamento ? formatarData(new Date(treinamento.data_publicacao)) : "";
+    const linkVideo = treinamento?.link_conteudo?.includes("https://youtu.be") ? "video" : "documento";
+    console.log(linkVideo);
     
     useScrollTop();
 
@@ -41,17 +43,19 @@ export default function DetailsCourse() {
             <div className={styles.cursoDetalhes}>
                 <p className={styles.titulo}>{treinamento?.titulo.toUpperCase()}</p>
                 <div className={styles.cursoContainer}>
-                    {treinamento?.link_conteudo && (
+                     {linkVideo === "video" && (
                         <div className={styles.cursoVideo}>
                             <iframe
                                 src={getYouTubeEmbedUrl(treinamento.link_conteudo)}
                                 title={treinamento.titulo}
                                 frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
                             ></iframe>
                         </div>
                     )}
-                    {treinamento?.link_imagem && (
-                        <img src={treinamento.link_imagem} alt={treinamento.titulo} className={styles.cursoImagem} />
+                    {treinamento?.imagem && (
+                        <img src={treinamento.imagem} alt={treinamento.titulo} className={styles.cursoImagem} />
                     )}
                     <div className={styles.cursoConteudo}>
                         <p className={styles.cursoTrilha}>{trilha?.titulo || "Não definido"}</p>

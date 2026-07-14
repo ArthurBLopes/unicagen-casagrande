@@ -40,7 +40,7 @@ export default function Profile() {
     const inicial = usuario?.nome?.split(" ")[0]?.charAt(0).toUpperCase() || "N";
     const nome = usuario?.nome || "Nome não encontrado";
     const email = usuario?.email || "Email não encontrado";
-    const cargo = usuario?.regra || "Cargo não encontrado";
+    const cargo = usuario?.regra || "ND";
     const data = dataCriacaoConta ? new Date(dataCriacaoConta) : null;
     const nomeMes = data ? new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(data) : null;
     const ano = data ? data.getFullYear() : null;
