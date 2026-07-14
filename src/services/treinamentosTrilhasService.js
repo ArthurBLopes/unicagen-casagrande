@@ -25,8 +25,9 @@ const listarTreinamentosDaTrilha = async (trilhaId) => {
                 id,
                 titulo,
                 descricao,
-                url_video,
-                url_material
+                link_conteudo,
+                link_material,
+                data_publicacao
             )
         `)
         .eq("trilha_id", trilhaId);
@@ -52,7 +53,8 @@ const listarTrilhasComTreinamentos = async () => {
                     titulo,
                     descricao,
                     link_conteudo,
-                    link_material
+                    link_material,
+                    data_publicacao
                 )
             )
         `)

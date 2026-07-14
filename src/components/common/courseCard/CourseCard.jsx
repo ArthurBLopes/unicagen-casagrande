@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 export default function CourseCard({ curso, trilha }) {
 
     const navigate = useNavigate();
+    const dias = Math.floor((new Date() - new Date(curso.data_publicacao)) / (1000 * 60 * 60 * 24));
+    const mes = new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(curso.data_publicacao));
+    const ano = new Date(curso.data_publicacao).getFullYear();
+    const dataPublicacaoFormatada = dias < 30 ? (dias === 0 ? "Hoje" : `${dias} dias atrás`) : `${mes} de ${ano}`;
 
     function detalhesCurso() {
         navigate(`/curso/${curso.id}`);
@@ -27,14 +31,14 @@ export default function CourseCard({ curso, trilha }) {
                 )}
             </div>
             <div className={styles.acoes}>
-                <p className={styles.dataPublicacao}><FaRegClock size={16} /> {curso.dataPublicacao}</p>
+                <p className={styles.dataPublicacao}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>
                 <button className={styles.botaoAcessar} onClick={(event) => {
                     event.stopPropagation(); 
                     detalhesCurso();
                     }}>Acessar</button>
                 <button className={styles.botaoAcessarConteudo} onClick={(event) => {
                     event.stopPropagation();
-                    window.open(curso.linkMaterial, "_blank");
+                    window.open(curso.link_material, "_blank");
                     }}><MdOutlineOpenInNew size={24} /></button>
             </div>
         </div>
