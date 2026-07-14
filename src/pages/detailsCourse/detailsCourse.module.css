@@ -131,6 +131,9 @@
     font-weight: 500;
     line-height: 1;
     color: color-mix(in srgb, var(--text-color) 50%, transparent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .cursoDescricao {

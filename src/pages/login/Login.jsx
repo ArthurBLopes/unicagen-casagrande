@@ -16,7 +16,6 @@ export default function Login() {
         setSenhaVisivel(!senhaVisivel)
     }
 
-
     return (
         <>
             <div className={style.loginContainer}>

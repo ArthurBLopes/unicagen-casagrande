@@ -6,12 +6,13 @@ import { listarTreinamentos } from "../../services/treinamentosService";
 import { listarTrilhas } from "../../services/trilhasService";
 import { useState, useEffect } from "react";
 import { formatarData } from "../../utils/formatarData";
+import { FaRegClock } from "react-icons/fa";
 
-export default function DetailsCourse({ trilha }) {
+export default function DetailsCourse() {
     const [treinamentos, setTreinamentos] = useState([]);
     const { id } = useParams();
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
-    const dataPublicacaoFormatada = formatarData(treinamento?.data_publicacao);
+    const dataPublicacaoFormatada = treinamento ? formatarData(new Date(treinamento.data_publicacao)) : "";
     
     useScrollTop();
 
@@ -51,10 +52,10 @@ export default function DetailsCourse({ trilha }) {
                         <img src={treinamento.link_imagem} alt={treinamento.titulo} className={styles.cursoImagem} />
                     )}
                     <div className={styles.cursoConteudo}>
-                        <p className={styles.cursoTrilha}>{trilha}</p>
+                        <p className={styles.cursoTrilha}>Não definido</p>
                         <h1 className={styles.cursoTitulo}>{treinamento?.titulo}</h1>
                         <div className={styles.datas}>
-                            <p className={styles.cursoData}>{dataPublicacaoFormatada}</p>
+                            <p className={styles.cursoData}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>
                         </div>
                         <p className={styles.cursoDescricao}>{treinamento?.descricao}</p>
                         {treinamento?.tags && treinamento.tags.length > 0 && (
