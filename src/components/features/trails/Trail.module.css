@@ -83,9 +83,7 @@
     max-width: 420px;
     margin: 0;
     font-family: "Sora", sans-serif;
-    font-size: 13px;
-    line-height: 1.7;
-
+    text-align: justify;
     color: color-mix(in srgb, var(--text-color) 64%, transparent);
 }
 
