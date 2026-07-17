@@ -2,8 +2,7 @@ import { Search, ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useAuth } from "../../hooks/auth/useAuth";
 import SectionTrail from "../../components/features/home/sectionTrail/SectionTrail";
 import styles from "./Home.module.css";
-import { listarTrilhasComTreinamentos } from "../../services/treinamentosTrilhasService";
-import { useEffect, useState } from "react";
+import { useTrilhasComTreinamentos } from "../../hooks/trailsCourses/useTrilhasComTreinamentos";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
@@ -11,24 +10,8 @@ export default function Home() {
     const { user } = useAuth();
     const nome = user?.user_metadata?.full_name || "Não Identificado";
     const primeiroNome = nome.split(" ")[0];
-    const [trilhasComTreinamentos, setTrilhasComTreinamentos] = useState([]);
-    const [erroCarregamento, setErroCarregamento] = useState(false);
 
-    useEffect(() => {
-        const carregarTrilhasComTreinamentos = async () => {
-            try {
-                const dados = await listarTrilhasComTreinamentos();
-                setTrilhasComTreinamentos(Array.isArray(dados) ? dados : []);
-                setErroCarregamento(false);
-            } catch (error) {
-                console.error("Erro ao carregar trilhas com treinamentos:", error);
-                setTrilhasComTreinamentos([]);
-                setErroCarregamento(true);
-            }
-        };
-
-        carregarTrilhasComTreinamentos();
-    }, []);
+    const { trilhasComTreinamentos, erroCarregamento } = useTrilhasComTreinamentos();
 
     return (
         <div className={styles.container}>

@@ -1,5 +1,4 @@
 import { MdOutlineOpenInNew } from "react-icons/md";
-import { useState } from "react";
 import { FaRegClock } from "react-icons/fa";
 import styles from "./CourseCard.module.css";
 import { useNavigate } from "react-router-dom";
@@ -13,8 +12,6 @@ export default function CourseCard({ curso, trilha }) {
     function detalhesCurso() {
         navigate(`/curso/${curso.id}`, { state: { trilha } });
     }
-
-    console.log("Curso:", curso);
 
     return (
         <div className={styles.card} onClick={detalhesCurso}>

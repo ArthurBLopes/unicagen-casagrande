@@ -8,7 +8,7 @@ export const trilhas = [
         slug: "onboarding",
         titulo: "Onboarding",
         descricao: "Trilha de integração e fundamentos da CAGEN",
-        cor: "#9CCB3B", // verde-limão, cor do badge "Onboarding" no site original
+        cor: "#9CCB3B",
     },
     {
         id: 2,

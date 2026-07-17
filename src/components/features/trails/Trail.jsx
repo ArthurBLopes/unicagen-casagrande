@@ -3,6 +3,7 @@ import { RxOpenInNewWindow } from "react-icons/rx";
 import styles from "./Trail.module.css";
 
 export default function Trail({ trilha }) {
+
     return (
         <div
             className={styles.trailContainer}

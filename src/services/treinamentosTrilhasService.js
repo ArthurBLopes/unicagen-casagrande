@@ -1,5 +1,4 @@
 import { supabase } from "../lib/supabase";
-import { useState } from "react"
 
 const listarTreinamentosTrilhas = async () => {
     const { data, error } = await supabase.from("treinamentos_trilhas").select("*")
@@ -48,6 +47,7 @@ const listarTrilhasComTreinamentos = async () => {
             id,
             titulo,
             descricao,
+            cor,
             treinamentos_trilhas (
                 treinamentos (
                     id,
@@ -69,16 +69,24 @@ const listarTrilhasComTreinamentos = async () => {
         id: trilha.id,
         titulo: trilha.titulo,
         descricao: trilha.descricao,
+        cor: trilha.cor,
         treinamentos: trilha.treinamentos_trilhas.map((item) => item.treinamentos),
     }));
 
-    const trilhaOnboarding = data.find((trilha) => trilha.titulo === "Onboarding");
-    trilhasFormatadas.pop(trilhaOnboarding);
-    trilhaOnboarding && trilhasFormatadas.unshift({
-        id: trilhaOnboarding.id,
-        titulo: trilhaOnboarding.titulo,
-        descricao: trilhaOnboarding.descricao,
-        treinamentos: trilhaOnboarding.treinamentos_trilhas.map((item) => item.treinamentos),
+    const prioridade = {
+        "Onboarding": 0,
+        "Formação Inicial": 1,
+    };
+
+    trilhasFormatadas.sort((a, b) => {
+        const prioridadeA = prioridade[a.titulo] ?? Number.MAX_SAFE_INTEGER;
+        const prioridadeB = prioridade[b.titulo] ?? Number.MAX_SAFE_INTEGER;
+
+        if (prioridadeA !== prioridadeB) {
+            return prioridadeA - prioridadeB;
+        }
+
+        return 0;
     });
 
     return trilhasFormatadas;
