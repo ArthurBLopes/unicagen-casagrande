@@ -88,6 +88,12 @@
     margin-top: 28px;
 }
 
+.botaoTrilha {
+    background: none;
+    border: none;
+}
+
+
 /* Celulares muito pequenos */
 @media (max-width: 380px) {
     .container {

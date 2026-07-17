@@ -11,6 +11,7 @@ import Contact from "./pages/contact/Contact";
 import TrailsPage from './pages/trails/TrailsPage';
 import Profile from './pages/profile/Profile';
 import DetailsCourse from './pages/detailsCourse/detailsCourse';
+import Courses from './pages/courses/Courses';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/trilhas" element={<TrailsPage />} />
             <Route path="/perfil" element={<Profile />} />
             <Route path="/curso/:id" element={<DetailsCourse />} />
+            <Route path="/trilha/:id" element={<Courses />} />
           </Route>
         </Route>
       </Routes>
