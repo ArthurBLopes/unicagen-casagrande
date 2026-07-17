@@ -15,7 +15,7 @@ export default function CourseCard({ curso, trilha }) {
 
     return (
         <div className={styles.card} onClick={detalhesCurso}>
-            <p className={styles.trilha}>{trilha?.titulo || "Não definido"}</p>
+            <p className={styles.trilha} style={{ "--trail-color": trilha.cor || "var(--text-color2)" }}>{trilha?.titulo || "Não definido"}</p>
             <img src={curso.imagem} alt={curso.titulo} className={styles.imagem} />
             <div className={styles.conteudo}>
                 <h3 className={styles.titulo}>{curso.titulo}</h3>
@@ -30,7 +30,7 @@ export default function CourseCard({ curso, trilha }) {
             </div>
             <div className={styles.acoes}>
                 <p className={styles.dataPublicacao}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>
-                <button className={styles.botaoAcessar} title="Acessar conteúdo do treinamento" onClick={(event) => {
+                <button className={styles.botaoAcessar} style={{ "--trail-color": trilha.cor || "var(--text-color2)" }} title="Acessar conteúdo do treinamento" onClick={(event) => {
                     event.stopPropagation(); 
                     detalhesCurso();
                     }}>Acessar</button>
