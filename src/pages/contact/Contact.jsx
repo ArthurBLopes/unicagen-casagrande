@@ -18,6 +18,7 @@ export default function Contact() {
             <div className={styles.containerPage}>
                 <h1 className={styles.titulo}>Central de Ajuda / Sugestões de aula</h1>
                 <p className={styles.texto}>Se você tiver alguma dúvida, sugestão ou feedback sobre o nosso site, por favor, entre em contato conosco ou procure ajuda através dos tópicos disponíveis.</p>
+                <div className={styles.containerContent}>
                 <div className={styles.containerSugestao}>
                     <MdLightbulb size={30} className={styles.iconeIdeia} />
                     <h2 className={styles.subtitulo}>Envie sua sugestão</h2>
@@ -48,6 +49,7 @@ export default function Contact() {
                             ))}
                         </div>
                     ))}
+                </div>
                 </div>
             </div>
         </>

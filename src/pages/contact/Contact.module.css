@@ -53,10 +53,17 @@
 
 .texto {
     max-width: 720px;
-    margin: -8px 0 6px;
+    margin: 20px 0 20px 0;
     font-size: 14.5px;
     line-height: 1.75;
     font-family: Sora, sans-serif;
+}
+
+.containerContent {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 36px;
 }
 
 .containerSugestao {
@@ -259,15 +266,12 @@
 .containerFaq {
     display: flex;
     flex-direction: row;
-    width: 100%;
     flex-wrap: wrap;
     gap: 22px;
 }
 
 @media (min-width: 840px) {
     .containerPage {
-        display: grid;
-        grid-template-columns: minmax(260px, 320px) minmax(0, 780px);
         align-items: start;
         column-gap: 32px;
         row-gap: 24px;
@@ -287,16 +291,21 @@
     }
 }
 
-@media (min-width: 1024px) {
-    .containerPage {
-        padding: 64px 56px 96px;
-    }
-}
-
 @media (min-width: 1280px) {
     .containerPage {
-        grid-template-columns: minmax(280px, 330px) minmax(0, 1272px);
+        display: flex;
+        flex-direction: column;
         column-gap: 36px;
+    }
+    .containerSugestao {
+        max-width: 330px;
+    }
+    .containerAjuda {
+        max-width: 330px;
+    }
+    .containerContent {
+        flex-direction: row;
+        gap: 36px;
     }
 }
 
