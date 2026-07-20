@@ -16,6 +16,9 @@ import verticalVerdeEscuroBranco from '../../assets/logos/vertical/Logo_Cagen_Ve
 
 import logoAnimadaBranco from "../../assets/logos/gifs/casagrande_logo_white_transparent_crisp.webp";
 
+import logoUnicagen from "../../assets/logos/unicagen/logo-unicagen.jpeg";
+import logoUnicagenSemFundo from "../../assets/logos/unicagen/logo-unicagen-sem-fundo.png";
+
 export const logos = {
   escudos: [
     { nome: "Verde", src: escudoVerde },
@@ -37,5 +40,9 @@ export const logos = {
   ],
   animados: [
     { nome: "Branco", src: logoAnimadaBranco },
+  ],
+  unicagen: [
+    { nome: "LogoUnicagen", src: logoUnicagen },
+    { nome: "LogoUnicagenSemFundo", src: logoUnicagenSemFundo },
   ],
 };
