@@ -265,7 +265,7 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        color: #5c6b45;
+        color: var(--text-color2);;
     }
 
     .itemAtivo {

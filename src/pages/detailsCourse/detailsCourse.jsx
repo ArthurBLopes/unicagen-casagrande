@@ -7,6 +7,7 @@ import { listarTrilhas } from "../../services/trilhasService";
 import { useState, useEffect } from "react";
 import { formatarData } from "../../utils/formatarData";
 import { FaRegClock } from "react-icons/fa";
+import { Bookmark } from "lucide-react";
 
 export default function DetailsCourse() {
     const [treinamentos, setTreinamentos] = useState([]);
@@ -76,6 +77,7 @@ export default function DetailsCourse() {
                             {treinamento?.link_material && (
                                 <button className={styles.botaoAcessarMaterial} onClick={() => window.open(treinamento.link_material, "_blank")}>Acessar Material</button>
                             )}
+                            <button className={styles.botaoSalvar} onClick={() => console.log("Salvar")}><Bookmark /></button>
                         </div>
                     </div>
                 </div>

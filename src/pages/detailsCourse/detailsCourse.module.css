@@ -219,6 +219,24 @@
     transform: translateY(0);
 }
 
+.botaoSalvar {
+    padding: 10px;
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.botaoSalvar:hover {
+    border-color: color-mix(in srgb, var(--text-color2) 50%, var(--border-color));
+    background-color: color-mix(in srgb, var(--text-color2) 6%, transparent);
+    transform: translateY(-1px);
+}
+
+.botaoSalvar:active {
+    transform: translateY(0);
+}
+
 @media (max-width: 380px) {
     .cursoDetalhes {
         padding: 138px 51px 72px;
