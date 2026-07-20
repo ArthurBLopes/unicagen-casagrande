@@ -8,7 +8,7 @@ import { listarTrilhas } from "../../services/trilhasService";
 import { useState, useEffect } from "react";
 import { formatarData } from "../../utils/formatarData";
 import { FaRegClock } from "react-icons/fa";
-import { Bookmark, BookmarkOff } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { useSaved } from "../../hooks/saved/useSaved";
 
 export default function DetailsCourse() {
@@ -21,7 +21,8 @@ export default function DetailsCourse() {
     const linkVideo = treinamento?.link_conteudo?.includes("https://youtu.be") ? "video" : "outro";
     const { user } = useAuth();
     const id_usuario = user?.id;
-    const { toggleSalvo, estaSalvo } = useSaved(id_usuario);
+    const { toggleSalvo, estaSalvo, carregandoInicial } = useSaved(id_usuario);
+    const cursoSalvo = treinamento?.id ? estaSalvo(treinamento.id) : false;
     
     useScrollTop();
 
@@ -81,8 +82,12 @@ export default function DetailsCourse() {
                             {treinamento?.link_material && (
                                 <button className={styles.botaoAcessarMaterial} onClick={() => window.open(treinamento.link_material, "_blank")}>Acessar Material</button>
                             )}
-                            <button className={styles.botaoSalvar} onClick={() => toggleSalvo(treinamento?.id)}>
-                                {estaSalvo(treinamento?.id) ? <BookmarkOff /> : <Bookmark />}
+                            <button 
+                                className={styles.botaoSalvar} 
+                                onClick={() => toggleSalvo(treinamento?.id)}
+                                disabled={carregandoInicial || !treinamento}
+                            >
+                                {cursoSalvo ? <Bookmark fill="var(--text-color2)" /> : <Bookmark />}
                             </button>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ export default function CourseCard({ curso, trilha }) {
 
     return (
         <div className={styles.card} onClick={detalhesCurso}>
-            <p className={styles.trilha} style={{ "--trail-color": trilha.cor || "var(--text-color2)" }}>{trilha?.titulo || "Não definido"}</p>
+            {trilha?.cor && <p className={styles.trilha} style={{ "--trail-color": trilha.cor || "var(--text-color2)" }}>{trilha?.titulo || "Não definido"}</p>}
             <img src={curso.imagem} alt={curso.titulo} className={styles.imagem} />
             <div className={styles.conteudo}>
                 <h3 className={styles.titulo}>{curso.titulo}</h3>

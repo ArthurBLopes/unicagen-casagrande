@@ -1,11 +1,14 @@
-import { listarSalvos, inserirSalvo, removerSalvo } from "../../services/salvosService";
+import { listarSalvos, inserirSalvo, removerSalvo, listarTreinamentosSalvos } from "../../services/salvosService";
 import { useEffect, useState } from "react";
 
 export function useSaved(id_usuario) {
     const [salvos, setSalvos] = useState([])
+    const [treinamentosSalvos, setTreinamentosSalvos] = useState([])
     const [loading, setLoading] = useState(false)
+    const [carregandoInicial, setCarregandoInicial] = useState(true)
 
     const estaSalvo = (id_treinamento) => {
+        if (!id_treinamento) return false
         return salvos.some(salvo => salvo.id_treinamento === id_treinamento)
     }
 
@@ -29,11 +32,33 @@ export function useSaved(id_usuario) {
 
     useEffect(() => {
         async function buscar() {
+            if (!id_usuario) {
+                setCarregandoInicial(false)
+                return
+            }
+            
+            setCarregandoInicial(true)
             const dados = await listarSalvos(id_usuario);
             setSalvos(dados)
+            setCarregandoInicial(false)
         }
         buscar()
     }, [id_usuario])
 
-    return { salvos, estaSalvo, toggleSalvo, loading }
+    useEffect(() => {
+        async function buscarTreinamentos() {
+            if (!id_usuario) {
+                setCarregandoInicial(false)
+                return
+            }
+            
+            setCarregandoInicial(true)
+            const dados = await listarTreinamentosSalvos(id_usuario);
+            setTreinamentosSalvos(dados)
+            setCarregandoInicial(false)
+        }
+        buscarTreinamentos()
+    }, [id_usuario])
+
+    return { salvos, estaSalvo, toggleSalvo, loading, carregandoInicial, treinamentosSalvos }
 }

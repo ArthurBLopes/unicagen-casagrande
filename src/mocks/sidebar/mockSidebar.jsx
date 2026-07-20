@@ -17,7 +17,7 @@ export const opcoes = [
         {
             titulo: "SALVOS",
             icon: <Bookmark />,
-            caminho: "/favoritos",
+            caminho: "/salvos",
         },
         {
             titulo: "AJUDA E SUGESTÕES",
