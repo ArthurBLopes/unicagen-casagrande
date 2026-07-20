@@ -41,10 +41,10 @@ export default function Sidebar() {
                             <>
                                 <img src={logoSidebarExpandida} alt="Logo Casagrande" className={styles.logo} />
                                 <div className={styles.divisorLogos} />
-                                <img src={logos.unicagen[1].src} alt="Logo Unicagen" className={styles.logoUnicagen} />
+                                <img src={logos.unicagen[1].src} alt="Logo Unicagen" title="Logo Unicagen" className={styles.logoUnicagen} />
                             </>
                         ) : (
-                            <img src={logos.unicagen[1].src} alt="Logo Unicagen" className={styles.logoColapsada} />
+                            <img src={logos.unicagen[1].src} alt="Logo Unicagen" title="Logo Unicagen" className={styles.logoColapsada} />
                         )}
                         <img src={logos.animados[0].src} alt="Logo Unicagen" className={styles.logoMobile} />
                     </div>
