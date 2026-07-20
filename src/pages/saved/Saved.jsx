@@ -28,7 +28,7 @@ export default function Saved() {
                 {treinamentosSalvos.length === 0 ? (
                     <div className={styles.estadoVazio}>
                         <div className={styles.iconeVazio}>
-                            <Bookmark size={48} />
+                            <Bookmark size={48} fill="var(--text-color2)" />
                         </div>
                         <h2>Nenhum curso salvo ainda</h2>
                         <p>Explore as trilhas e cursos disponíveis e salve seus favoritos para acessá-los mais facilmente depois.</p>
