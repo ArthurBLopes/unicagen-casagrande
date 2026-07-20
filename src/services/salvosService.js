@@ -1,8 +1,7 @@
-import { supabase } from "../lib/supabase";
-import { useState } from "react"
+import { supabase } from "../lib/supabase"
 
-const listarSalvos = async () => {
-    const { data, error } = await supabase.from("salvos").select("*").eq("id_usuario", supabase.auth.user().id)
+const listarSalvos = async (id_usuario) => {
+    const { data, error } = await supabase.from("salvos").select("*").eq("id_usuario", id_usuario)
     if (error) {
         console.error(error)
         return []
@@ -17,7 +16,12 @@ const listarSalvos = async () => {
 }
 
 const inserirSalvo = async (salvo) => {
-    const { data, error } = await supabase.from("salvos").insert(salvo)
+    const { data, error } = await supabase
+        .from("salvos")
+        .insert(salvo)
+        .select()
+        .single()
+
     if (error) {
         console.error(error)
         return null
@@ -26,8 +30,8 @@ const inserirSalvo = async (salvo) => {
     return data
 }
 
-const removerSalvo = async (id) => {
-    const { data, error } = await supabase.from("salvos").delete().eq("id", id)
+const removerSalvo = async (id_usuario, id_treinamento) => {
+    const { data, error } = await supabase.from("salvos").delete().eq("id_usuario", id_usuario).eq("id_treinamento", id_treinamento)
     if (error) {
         console.error(error)
         return null

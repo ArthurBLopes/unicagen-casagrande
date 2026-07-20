@@ -1,13 +1,15 @@
 import styles from "./detailsCourse.module.css";
 import { useParams, useLocation } from "react-router-dom";
 import BackPage from "../../components/common/back/BackPage";
+import { useAuth } from "../../hooks/auth/useAuth";
 import useScrollTop from "../../hooks/useScrollTop/useScrollTop";
 import { listarTreinamentos } from "../../services/treinamentosService";
 import { listarTrilhas } from "../../services/trilhasService";
 import { useState, useEffect } from "react";
 import { formatarData } from "../../utils/formatarData";
 import { FaRegClock } from "react-icons/fa";
-import { Bookmark } from "lucide-react";
+import { Bookmark, BookmarkOff } from "lucide-react";
+import { useSaved } from "../../hooks/saved/useSaved";
 
 export default function DetailsCourse() {
     const [treinamentos, setTreinamentos] = useState([]);
@@ -17,7 +19,9 @@ export default function DetailsCourse() {
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
     const dataPublicacaoFormatada = treinamento ? formatarData(new Date(treinamento.data_publicacao)) : "";
     const linkVideo = treinamento?.link_conteudo?.includes("https://youtu.be") ? "video" : "outro";
-    console.log(linkVideo);
+    const { user } = useAuth();
+    const id_usuario = user?.id;
+    const { toggleSalvo, estaSalvo } = useSaved(id_usuario);
     
     useScrollTop();
 
@@ -77,7 +81,9 @@ export default function DetailsCourse() {
                             {treinamento?.link_material && (
                                 <button className={styles.botaoAcessarMaterial} onClick={() => window.open(treinamento.link_material, "_blank")}>Acessar Material</button>
                             )}
-                            <button className={styles.botaoSalvar} onClick={() => console.log("Salvar")}><Bookmark /></button>
+                            <button className={styles.botaoSalvar} onClick={() => toggleSalvo(treinamento?.id)}>
+                                {estaSalvo(treinamento?.id) ? <BookmarkOff /> : <Bookmark />}
+                            </button>
                         </div>
                     </div>
                 </div>
