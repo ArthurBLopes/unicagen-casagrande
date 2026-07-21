@@ -3,11 +3,13 @@ import { FaRegClock } from "react-icons/fa";
 import styles from "./CourseCard.module.css";
 import { useNavigate } from "react-router-dom";
 import { formatarData } from "../../../utils/formatarData";
+import { useTags } from "../../../hooks/tags/useTags";
 
 export default function CourseCard({ curso, trilha }) {
 
     const navigate = useNavigate();
     const dataPublicacaoFormatada = formatarData(curso.data_publicacao);
+    const { tagsTreinamento } = useTags(curso.id);
 
     function detalhesCurso() {
         navigate(`/curso/${curso.id}`, { state: { trilha } });
@@ -20,10 +22,10 @@ export default function CourseCard({ curso, trilha }) {
             <div className={styles.conteudo}>
                 <h3 className={styles.titulo}>{curso.titulo}</h3>
                 <p className={styles.descricao}>{curso.descricao}</p>
-                {curso.tags && curso.tags.length > 0 && (
+                {tagsTreinamento && tagsTreinamento.length > 0 && (
                     <div className={styles.tags}>
-                        {curso.tags.map((tag, index) => (
-                            <span key={index} className={styles.tag}>{tag}</span>
+                        {tagsTreinamento.map((tag, index) => (
+                            <span key={index} className={styles.tag}>{tag.titulo}</span>
                         ))}
                     </div>
                 )}
