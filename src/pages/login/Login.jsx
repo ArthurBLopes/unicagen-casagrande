@@ -2,7 +2,7 @@ import style from "./Login.module.css"
 import { useState } from "react"
 import { Eye, EyeOff, Sun, Moon } from "lucide-react"
 import { useThemeLogos, toggleTheme } from "../../hooks/theme/useTheme"
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../providers/AuthContext";
 import ButtonTheme from "../../components/common/buttonTheme/ButtonTheme.jsx";
 
 export default function Login() {

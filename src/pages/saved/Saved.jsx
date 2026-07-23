@@ -1,13 +1,13 @@
 import styles from "./Saved.module.css";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../providers/AuthContext";
 import { useSaved } from "../../hooks/saved/useSaved";
 import CourseCard from "../../components/common/courseCard/CourseCard";
 import { Bookmark } from "lucide-react";
 
 export default function Saved() {
 
-    const { user } = useAuth();
-    const { treinamentosSalvos, carregandoInicial } = useSaved(user?.id);
+    const { usuario } = useAuth();
+    const { treinamentosSalvos, carregandoInicial } = useSaved(usuario?.id);
 
     if (carregandoInicial) {
         return (

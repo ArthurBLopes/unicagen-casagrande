@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../lib/supabase";
+import { useAuth } from "../../providers/AuthContext";
 
 export default function AuthCallback() {
     const navigate = useNavigate();
+    const { session, loading } = useAuth();
     const [mensagem, setMensagem] = useState("Finalizando login...");
 
     useEffect(() => {
@@ -34,33 +35,15 @@ export default function AuthCallback() {
             return;
         }
 
-        const {
-            data: { subscription },
-        } = supabase.auth.onAuthStateChange((event, session) => {
-            console.log("Auth event:", event, session);
-
-            if ((event === "SIGNED_IN" || event === "INITIAL_SESSION") && session) {
+        if (!loading) {
+            if (session) {
+                console.log("Sessão no callback:", session);
                 navigate("/inicio", { replace: true });
-            }
-
-            if (event === "SIGNED_OUT") {
+            } else {
                 navigate("/login", { replace: true });
             }
-        });
-
-        supabase.auth.getSession().then(({ data, error }) => {
-            console.log("Sessão no callback:", data.session);
-            console.log("Erro getSession:", error);
-
-            if (data.session) {
-                navigate("/inicio", { replace: true });
-            }
-        });
-
-        return () => {
-            subscription.unsubscribe();
-        };
-    }, [navigate]);
+        }
+    }, [navigate, session, loading]);
 
     return <p>{mensagem}</p>;
 }

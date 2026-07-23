@@ -1,18 +1,14 @@
-import { supabase } from "../lib/supabase";
-
 const CACHE_KEY = "unicagen_account_created_at";
 
-export async function buscarDataCriacaoContaMicrosoft() {
+export async function buscarDataCriacaoContaMicrosoft(session) {
     const cached = localStorage.getItem(CACHE_KEY);
     if (cached) return cached;
 
-    const { data, error } = await supabase.auth.getSession();
-
-    if (error) {
-        throw new Error("Erro ao buscar sessão do Supabase.");
+    if (!session) {
+        throw new Error("Sessão não encontrada. Faça login novamente.");
     }
 
-    const providerToken = data.session?.provider_token;
+    const providerToken = session.provider_token;
 
     if (!providerToken) {
         throw new Error("Token da Microsoft não encontrado. Faça login novamente.");

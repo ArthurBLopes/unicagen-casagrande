@@ -1,34 +1,36 @@
 import { useState, useEffect } from 'react'
-import { useAuth } from '../../hooks/auth/useAuth';
+import { useAuth } from '../../providers/AuthContext';
 import styles from './Profile.module.css'
 import { buscarDataCriacaoContaMicrosoft } from '../..//services/microsoftGraph';
 import { Calendar } from "lucide-react";
 import { buscarUsuarioPorId } from '../../services/usuariosService';
 
 export default function Profile() {
-    const { user } = useAuth();
-    const id_usuario = user?.id || "ID não encontrado";
+    const { usuario, session } = useAuth();
+    const id_usuario = usuario?.id || "ID não encontrado";
     const [dataCriacaoConta, setDataCriacaoConta] = useState(null);
-    const [usuario, setUsuario] = useState(null);
+    const [usuarioData, setUsuarioData] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await buscarDataCriacaoContaMicrosoft();
+                const data = await buscarDataCriacaoContaMicrosoft(session);
                 setDataCriacaoConta(data);
             } catch (err) {
                 console.warn("Não foi possível buscar data de criação da conta:", err.message);
             }
         }
-        fetchData();
-    }, []);
+        if (session) {
+            fetchData();
+        }
+    }, [session]);
 
     useEffect(() => {
         async function fetchCargo() {
             try {
-                const usuario = await buscarUsuarioPorId(id_usuario);
-                if (usuario) {
-                    setUsuario(usuario);
+                const usuarioDb = await buscarUsuarioPorId(id_usuario);
+                if (usuarioDb) {
+                    setUsuarioData(usuarioDb);
                 }
             } catch (err) {
                 console.warn("Não foi possível buscar o cargo do usuário:", err.message);
@@ -37,10 +39,10 @@ export default function Profile() {
         fetchCargo();
     }, [id_usuario]);
 
-    const inicial = usuario?.nome?.split(" ")[0]?.charAt(0).toUpperCase() || "N";
-    const nome = usuario?.nome || "Nome não encontrado";
-    const email = usuario?.email || "Email não encontrado";
-    const cargo = usuario?.regra || "ND";
+    const inicial = usuarioData?.nome?.split(" ")[0]?.charAt(0).toUpperCase() || "N";
+    const nome = usuarioData?.nome || "Nome não encontrado";
+    const email = usuarioData?.email || "Email não encontrado";
+    const cargo = usuarioData?.regra || "ND";
     const data = dataCriacaoConta ? new Date(dataCriacaoConta) : null;
     const nomeMes = data ? new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(data) : null;
     const ano = data ? data.getFullYear() : null;

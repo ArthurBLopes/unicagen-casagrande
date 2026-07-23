@@ -1,7 +1,7 @@
 import styles from "./detailsCourse.module.css";
 import { useParams, useLocation } from "react-router-dom";
 import BackPage from "../../components/common/back/BackPage";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../providers/AuthContext";
 import useScrollTop from "../../hooks/useScrollTop/useScrollTop";
 import { listarTreinamentos } from "../../services/treinamentosService";
 import { listarTrilhas } from "../../services/trilhasService";
@@ -19,8 +19,8 @@ export default function DetailsCourse() {
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
     const dataPublicacaoFormatada = treinamento ? formatarData(new Date(treinamento.data_publicacao)) : "";
     const linkVideo = treinamento?.link_conteudo?.includes("https://youtu.be") ? "video" : "outro";
-    const { user } = useAuth();
-    const id_usuario = user?.id;
+    const { usuario } = useAuth();
+    const id_usuario = usuario?.id;
     const { toggleSalvo, estaSalvo, carregandoInicial } = useSaved(id_usuario);
     const cursoSalvo = treinamento?.id ? estaSalvo(treinamento.id) : false;
     

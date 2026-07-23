@@ -1,5 +1,5 @@
 import { Search, ChevronDown, SlidersHorizontal } from "lucide-react";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuth } from "../../providers/AuthContext";
 import SectionTrail from "../../components/features/home/sectionTrail/SectionTrail";
 import styles from "./Home.module.css";
 import { useTrilhasComTreinamentos } from "../../hooks/trailsCourses/useTrilhasComTreinamentos";
@@ -7,8 +7,8 @@ import { useTrilhasComTreinamentos } from "../../hooks/trailsCourses/useTrilhasC
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
 export default function Home() {
-    const { user } = useAuth();
-    const nome = user?.user_metadata?.full_name || "Não Identificado";
+    const { usuario } = useAuth();
+    const nome = usuario?.user_metadata?.full_name || "Não Identificado";
     const primeiroNome = nome.split(" ")[0];
 
     const { trilhasComTreinamentos, erroCarregamento } = useTrilhasComTreinamentos();

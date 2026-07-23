@@ -3,14 +3,10 @@
 // PHP hospedado no DreamHost (upload.php), autenticando com o token de
 // sessão do Supabase.
 
-import { supabase } from "../lib/supabase";
-
 // TODO: trocar pelo domínio real de produção quando o upload.php estiver publicado.
 const UPLOAD_URL = "https://unicagen.dreamhosters.com/upload.php";
 
-const uploadImagemTreinamento = async (arquivo) => {
-    const { data: { session } } = await supabase.auth.getSession();
-
+const uploadImagemTreinamento = async (arquivo, session) => {
     if (!session) {
         console.error("Usuário não autenticado");
         return null;
