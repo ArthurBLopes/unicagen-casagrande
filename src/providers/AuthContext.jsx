@@ -4,7 +4,11 @@ import { supabase } from "../lib/supabase";
 const AuthContext = createContext();
 
 export function useAuth() {
-    return useContext(AuthContext);
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error("useAuth deve ser usado dentro de um AuthProvider");
+    }
+    return context;
 }
 
 export default function AuthProvider({ children }) {

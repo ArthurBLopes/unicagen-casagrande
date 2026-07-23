@@ -1,8 +1,10 @@
 import { Search, ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useAuth } from "../../providers/AuthContext";
+import { useState } from "react";
 import SectionTrail from "../../components/features/home/sectionTrail/SectionTrail";
 import styles from "./Home.module.css";
 import { useTrilhasComTreinamentos } from "../../hooks/trailsCourses/useTrilhasComTreinamentos";
+import { useTreinamentos } from "../../services/treinamentosService";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
@@ -10,8 +12,9 @@ export default function Home() {
     const { usuario } = useAuth();
     const nome = usuario?.user_metadata?.full_name || "Não Identificado";
     const primeiroNome = nome.split(" ")[0];
-
     const { trilhasComTreinamentos, erroCarregamento } = useTrilhasComTreinamentos();
+    const { treinamentos } = useTre
+    const [trilhasFiltradas, setTrilhasFiltradas] = useState([]);
 
     return (
         <div className={styles.container}>
@@ -28,11 +31,7 @@ export default function Home() {
                 <div className={styles.searchArea}>
                     <div className={styles.searchBox}>
                         <Search size={18} />
-                        <input
-                            type="text"
-                            placeholder="Buscar conteúdos..."
-                            readOnly
-                        />
+                        <input type="text" placeholder="Buscar conteúdos..." readOnly />
                     </div>
 
                     <div className={styles.filters}>
@@ -53,7 +52,7 @@ export default function Home() {
                     <p>Não foi possível carregar as trilhas no momento.</p>
                 )}
 
-                {trilhasComTreinamentos.map((trilha) => {
+                {trilhasFiltradas.map((trilha) => {
                     const cursosDaTrilha = (trilha.treinamentos || []).slice(0, LIMITE_CURSOS_POR_TRILHA);
                     if (cursosDaTrilha.length === 0) return null;
 
