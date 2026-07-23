@@ -23,11 +23,8 @@ export default function Home() {
     const [trilhaSelecionada, setTrilhaSelecionada] = useState(null);
     const trilhaFiltrada = trilhaSelecionada ? trilhasComTreinamentos.filter(trilha => trilha.id === trilhaSelecionada.id) : trilhasComTreinamentos;
 
-    console.log("Trilhas filtradas:", trilhaFiltrada);
     const [pesquisa, setPesquisa] = useState("");
 
-    
-    
     const treinamentosFiltrados = pesquisa 
         ? Array.from(
             new Map(
