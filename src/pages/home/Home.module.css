@@ -71,8 +71,6 @@
     color: var(--text-color2);
 }
 
-/* Busca e filtros */
-
 .searchArea {
     width: 100%;
     max-width: none;
