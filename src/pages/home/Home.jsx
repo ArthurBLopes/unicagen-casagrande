@@ -89,9 +89,9 @@ export default function Home() {
                             )}
                         </div>
 
-                        <button  type="button" className={styles.filterButton} ref={dropdownTagsRef} onClick={() => setAbertoTags(!abertoTags)}>
+                        <div type="button" className={styles.filterButton} ref={dropdownTagsRef} onClick={() => setAbertoTags(!abertoTags)}>
                             <span>{tagSelecionada || "Todas as tags"}</span>
-                            <ChevronDown size={16} />
+                            <ChevronDown size={16} style={{ transform: abertoTags ? 'rotate(180deg)' : 'rotate(0deg)',transition: 'transform 0.2s ease'}} />
                             {abertoTags && (
                                 <ul className={styles.dropdownList}>
                                     <li onClick={(e) => handleSelectTag(null, e)}>Todas as tags</li>
@@ -102,7 +102,7 @@ export default function Home() {
                                     ))}
                                 </ul>
                             )}
-                        </button>
+                        </div>
                     </div>
                 </div>
 
