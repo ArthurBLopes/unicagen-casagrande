@@ -7,6 +7,7 @@ import { useTrilhasComTreinamentos } from "../../hooks/trailsCourses/useTrilhasC
 import { useClickOutside } from "../../hooks/ui/useClickOutside";
 import CourseCard from "../../components/common/courseCard/CourseCard";
 import { useTags } from "../../hooks/tags/useTags";
+import { removerItensDuplicados } from "../../utils/formatarData";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
@@ -19,8 +20,8 @@ export default function Home() {
 
     const [abertoTrilhas, setAbertoTrilhas] = useState(false);
     const [abertoTags, setAbertoTags] = useState(false);
-    const dropdownRef = useRef(null);
-    useClickOutside(dropdownRef, () => setAbertoTrilhas(false), abertoTrilhas);
+    const dropdownTrilhasRef = useRef(null);
+    useClickOutside(dropdownTrilhasRef, () => setAbertoTrilhas(false), abertoTrilhas);
 
     const [trilhaSelecionada, setTrilhaSelecionada] = useState(null);
     const trilhaFiltrada = trilhaSelecionada ? trilhasComTreinamentos.filter(trilha => trilha.id === trilhaSelecionada.id) : trilhasComTreinamentos;
@@ -32,8 +33,9 @@ export default function Home() {
 
     const { tags } = useTags();
     const [tagSelecionada, setTagSelecionada] = useState(null);
-    const tagsUnicas = [...new Set(tags.map(tag => tag.titulo))];
-    useClickOutside(dropdownRef, () => setAbertoTags(false), abertoTags);
+    const tagsUnicas = removerItensDuplicados(tags.map((tag) => tag?.titulo));
+    const dropdownTagsRef = useRef(null);
+    useClickOutside(dropdownTagsRef, () => setAbertoTags(false), abertoTags);
             
     function handleSelectTrilha(trilha, event) {
         event.stopPropagation();
@@ -69,7 +71,7 @@ export default function Home() {
 
                     <div className={styles.filters}>
                         <div 
-                            ref={dropdownRef}
+                            ref={dropdownTrilhasRef}
                             className={`${styles.filterButton} ${abertoTrilhas ? styles.filterButtonActive : ''}`}
                             onClick={() => setAbertoTrilhas(!abertoTrilhas)}
                         >
@@ -87,8 +89,8 @@ export default function Home() {
                             )}
                         </div>
 
-                        <button type="button" className={styles.filterButton} onClick={() => setAbertoTags(!abertoTags)}>
-                            <span>{tagSelecionada?.titulo || "Todas as tags"}</span>
+                        <button  type="button" className={styles.filterButton} ref={dropdownTagsRef} onClick={() => setAbertoTags(!abertoTags)}>
+                            <span>{tagSelecionada || "Todas as tags"}</span>
                             <ChevronDown size={16} />
                             {abertoTags && (
                                 <ul className={styles.dropdownList}>
