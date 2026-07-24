@@ -33,6 +33,7 @@ export default function Home() {
     const { tags } = useTags();
     const [tagSelecionada, setTagSelecionada] = useState(null);
     const tagsUnicas = [...new Set(tags.map(tag => tag.titulo))];
+    useClickOutside(dropdownRef, () => setAbertoTags(false), abertoTags);
             
     function handleSelectTrilha(trilha, event) {
         event.stopPropagation();
