@@ -1,0 +1,120 @@
+.courseCardCompact {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-color, #e6e6e6);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.courseCardCompact:first-child {
+    border-top: 1px solid var(--border-color, #e6e6e6);
+}
+
+.courseCardCompact:hover {
+    background-color: var(--bg-hover, rgba(0, 0, 0, 0.03));
+}
+
+.courseCardCompact:focus-visible {
+    outline: 2px solid var(--text-color2, #666);
+    outline-offset: -2px;
+}
+
+.titulo {
+    flex: 0 0 240px;
+    min-width: 0;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-color, #1a1a1a);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.descricao {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-height: 40px;
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-color2, #666);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dataPublicacao {
+    flex: 0 0 130px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-color, #666);
+    white-space: nowrap;
+}
+
+.botaoAcessar {
+    flex: 0 0 auto;
+    padding: 6px 18px;
+    border: 1.5px solid var(--trail-color, var(--text-color2));
+    border-radius: 4px;
+    background-color: var(--text-color2);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.botaoAcessarConteudo {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-color2, #666);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.botaoAcessarConteudo:hover {
+    background-color: var(--bg-hover, rgba(0, 0, 0, 0.06));
+    color: var(--text-color, #1a1a1a);
+}
+
+@media (max-width: 640px) {
+    .courseCardCompact {
+        flex-wrap: wrap;
+        row-gap: 11px;
+    }
+
+    .titulo,
+    .descricao {
+        flex: 1 1 100%;
+    }
+
+    .dataPublicacao {
+        flex: 0 0 auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .descricao {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: 70%;
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-color2, #666);
+        white-space: nowrap;
+        overflow: hidden;   
+        text-overflow: ellipsis;
+    }
+}

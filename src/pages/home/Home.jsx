@@ -25,16 +25,9 @@ export default function Home() {
 
     const [pesquisa, setPesquisa] = useState("");
 
-    const treinamentosFiltrados = pesquisa 
-        ? Array.from(
-            new Map(
-                trilhaFiltrada
-                    .flatMap(trilha => trilha.treinamentos || [])
-                    .filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")))
-                    .map(treinamento => [treinamento.id, treinamento])
-            ).values()) : [];
-
-
+    const treinamentosFiltrados = trilhaFiltrada.flatMap(trilha => trilha.treinamentos || [])
+        .filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")))
+            
     function handleSelectTrilha(trilha, event) {
         event.stopPropagation();
         setPesquisa("");
@@ -108,8 +101,8 @@ export default function Home() {
                 )}
                 {pesquisa && treinamentosFiltrados.length > 0 && (
                     <div className={styles.cursosContainer}>
-                        {treinamentosFiltrados.map((curso) => (
-                            <CourseCard key={curso.id} curso={curso} trilha={trilhaFiltrada.find(trilha => trilha.treinamentos?.some(t => t.id === curso.id))} />
+                        {treinamentosFiltrados.map((curso, index) => (
+                            <CourseCard key={index} curso={curso} trilha={trilhaFiltrada.find(trilha => trilha.treinamentos?.some(t => t.id === curso.id))} />
                         ))}
                     </div>
                 )}

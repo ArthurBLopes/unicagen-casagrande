@@ -1,5 +1,5 @@
 import { RiHome9Line } from "react-icons/ri";
-import { Bookmark, GraduationCap, GlobeCheck, Info } from "lucide-react";
+import { Bookmark, GraduationCap, GlobeCheck, Info, LibraryBig } from "lucide-react";
 import LogoCagen from "../../assets/logos/escudos/escudo_cagen.png";
 
 export const opcoes = [
@@ -7,12 +7,16 @@ export const opcoes = [
             titulo: "INÍCIO",
             icon: <RiHome9Line size={25} />,
             caminho: "/inicio",
-
         },
         {
             titulo: "TRILHAS DE APRENDIZADO",
             icon: <GraduationCap />,
             caminho: "/trilhas",
+        },
+        {
+            titulo: "TREINAMENTOS",
+            icon: <LibraryBig />,
+            caminho: "/cursos",
         },
         {
             titulo: "SALVOS",

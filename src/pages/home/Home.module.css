@@ -85,7 +85,6 @@
     font-size: 1em;
     font-weight: 800;
     letter-spacing: 2px;
-
     color: var(--text-color2);
 }
 
@@ -94,9 +93,7 @@
 .searchArea {
     width: 100%;
     max-width: none;
-
     margin: 30px 0 16px;
-
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -105,19 +102,14 @@
 .searchBox {
     width: 100%;
     height: 48px;
-
     display: flex;
     align-items: center;
     gap: 12px;
-
     padding: 0 16px;
-
     border: 1px solid var(--border-color);
     border-radius: 14px;
-
     background-color: var(--bg-color3);
     color: var(--text-color);
-
     transition:
         border-color 0.2s ease,
         background-color 0.2s ease,
@@ -133,7 +125,6 @@
     width: 18px;
     height: 18px;
     flex-shrink: 0;
-
     color: var(--text-color2);
     opacity: 0.85;
 }
@@ -141,15 +132,12 @@
 .searchBox input {
     width: 100%;
     height: 100%;
-
     border: none;
     outline: none;
     background: transparent;
-
     font-family: "Sora", sans-serif;
     font-size: 13.5px;
     font-weight: 500;
-
     color: var(--text-color);
 }
 

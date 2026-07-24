@@ -13,6 +13,7 @@ import Profile from './pages/profile/Profile';
 import DetailsCourse from './pages/detailsCourse/detailsCourse';
 import Courses from './pages/courses/Courses';
 import Saved from './pages/saved/Saved';
+import CoursesCompact from './pages/coursesCompact/CoursesCompact';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="/curso/:id" element={<DetailsCourse />} />
             <Route path="/trilha/:id" element={<Courses />} />
             <Route path="/salvos" element={<Saved />} />
+            <Route path="/cursos" element={<CoursesCompact />} />
           </Route>
         </Route>
       </Routes>
