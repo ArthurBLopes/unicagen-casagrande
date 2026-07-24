@@ -6,6 +6,7 @@ import styles from "./Home.module.css";
 import { useTrilhasComTreinamentos } from "../../hooks/trailsCourses/useTrilhasComTreinamentos";
 import { useClickOutside } from "../../hooks/ui/useClickOutside";
 import CourseCard from "../../components/common/courseCard/CourseCard";
+import { useTags } from "../../hooks/tags/useTags";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
@@ -16,9 +17,10 @@ export default function Home() {
     const nome = usuario?.user_metadata?.full_name || "Não Identificado";
     const primeiroNome = nome.split(" ")[0];
 
-    const [aberto, setAberto] = useState(false);
+    const [abertoTrilhas, setAbertoTrilhas] = useState(false);
+    const [abertoTags, setAbertoTags] = useState(false);
     const dropdownRef = useRef(null);
-    useClickOutside(dropdownRef, () => setAberto(false), aberto);
+    useClickOutside(dropdownRef, () => setAbertoTrilhas(false), abertoTrilhas);
 
     const [trilhaSelecionada, setTrilhaSelecionada] = useState(null);
     const trilhaFiltrada = trilhaSelecionada ? trilhasComTreinamentos.filter(trilha => trilha.id === trilhaSelecionada.id) : trilhasComTreinamentos;
@@ -27,12 +29,23 @@ export default function Home() {
 
     const treinamentosFiltrados = trilhaFiltrada.flatMap(trilha => trilha.treinamentos || [])
         .filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")))
+
+    const { tags } = useTags();
+    const [tagSelecionada, setTagSelecionada] = useState(null);
+    const tagsUnicas = [...new Set(tags.map(tag => tag.titulo))];
             
     function handleSelectTrilha(trilha, event) {
         event.stopPropagation();
         setPesquisa("");
         setTrilhaSelecionada(trilha);
-        setAberto(false);
+        setAbertoTrilhas(false);
+    }
+
+    function handleSelectTag(tag, event) {
+        event.stopPropagation();
+        setTagSelecionada(tag);
+        setPesquisa("");
+        setAbertoTags(false);
     }
 
     return (
@@ -56,12 +69,12 @@ export default function Home() {
                     <div className={styles.filters}>
                         <div 
                             ref={dropdownRef}
-                            className={`${styles.filterButton} ${aberto ? styles.filterButtonActive : ''}`}
-                            onClick={() => setAberto(!aberto)}
+                            className={`${styles.filterButton} ${abertoTrilhas ? styles.filterButtonActive : ''}`}
+                            onClick={() => setAbertoTrilhas(!abertoTrilhas)}
                         >
                             <span>{trilhaSelecionada?.titulo || "Todas as trilhas"}</span>
-                            <ChevronDown size={16} style={{ transform: aberto ? 'rotate(180deg)' : 'rotate(0deg)',transition: 'transform 0.2s ease'}} />
-                            {aberto && (
+                            <ChevronDown size={16} style={{ transform: abertoTrilhas ? 'rotate(180deg)' : 'rotate(0deg)',transition: 'transform 0.2s ease'}} />
+                            {abertoTrilhas && (
                                 <ul className={styles.dropdownList}>
                                     <li onClick={(e) => handleSelectTrilha(null, e)}>Todas as trilhas</li>
                                     {trilhasComTreinamentos.map((trilha) => (
@@ -73,9 +86,19 @@ export default function Home() {
                             )}
                         </div>
 
-                        <button type="button" className={styles.filterButton}>
-                            <span>Todas as tags</span>
+                        <button type="button" className={styles.filterButton} onClick={() => setAbertoTags(!abertoTags)}>
+                            <span>{tagSelecionada?.titulo || "Todas as tags"}</span>
                             <ChevronDown size={16} />
+                            {abertoTags && (
+                                <ul className={styles.dropdownList}>
+                                    <li onClick={(e) => handleSelectTag(null, e)}>Todas as tags</li>
+                                    {tagsUnicas.map((tag, index) => (
+                                        <li key={index} onClick={(e) => handleSelectTag(tag, e)}>
+                                            {tag}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </button>
                     </div>
                 </div>
