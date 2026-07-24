@@ -24,19 +24,25 @@ export default function Home() {
     useClickOutside(dropdownTrilhasRef, () => setAbertoTrilhas(false), abertoTrilhas);
 
     const [trilhaSelecionada, setTrilhaSelecionada] = useState(null);
-    const trilhaFiltrada = trilhaSelecionada ? trilhasComTreinamentos.filter(trilha => trilha.id === trilhaSelecionada.id) : trilhasComTreinamentos;
+    const trilhaFiltrada = trilhaSelecionada ? trilhasComTreinamentos.filter(trilha => trilha.id === trilhaSelecionada.id) : trilhasComTreinamentos
 
     const [pesquisa, setPesquisa] = useState("");
 
-    const treinamentosFiltrados = trilhaFiltrada.flatMap(trilha => trilha.treinamentos || [])
-        .filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")))
-
+    const treinamentos = trilhaFiltrada.flatMap(trilha => trilha.treinamentos || []);
+    const treinamentosFiltradosPorTrilha = treinamentos.filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")));
+    
     const { tags } = useTags();
     const [tagSelecionada, setTagSelecionada] = useState(null);
     const tagsUnicas = removerItensDuplicados(tags.map((tag) => tag?.titulo));
+
+    const treinamentosPorTags = treinamentos.filter(treinamento => tags.some(tag => tag.id_treinamento === treinamento.id && tag.titulo === tagSelecionada));
+    const treinamentosResultadoFinal = tagSelecionada !== null ? treinamentosPorTags : treinamentosFiltradosPorTrilha;
+
+    const filtroAtivo = pesquisa.length > 0 || tagSelecionada !== null;
+
     const dropdownTagsRef = useRef(null);
     useClickOutside(dropdownTagsRef, () => setAbertoTags(false), abertoTags);
-            
+
     function handleSelectTrilha(trilha, event) {
         event.stopPropagation();
         setPesquisa("");
@@ -110,7 +116,7 @@ export default function Home() {
                     <p>Não foi possível carregar as trilhas no momento.</p>
                 )}
 
-                {(pesquisa.length === 0) && trilhaFiltrada.map((trilha) => {
+                {!filtroAtivo && trilhaFiltrada.map((trilha) => {
                     const cursosDaTrilha = (trilha.treinamentos || []).slice(0, LIMITE_CURSOS_POR_TRILHA);
                     if (cursosDaTrilha.length === 0) return null;
                     return (
@@ -122,12 +128,12 @@ export default function Home() {
                     );
                 })}
 
-                {pesquisa && treinamentosFiltrados.length === 0 && (
+                {filtroAtivo && treinamentosResultadoFinal.length === 0 &&(
                     <p className={styles.semResultados}>Nenhum conteúdo encontrado para "{pesquisa}".</p>
                 )}
-                {pesquisa && treinamentosFiltrados.length > 0 && (
+                {filtroAtivo && treinamentosResultadoFinal.length > 0 && (
                     <div className={styles.cursosContainer}>
-                        {treinamentosFiltrados.map((curso, index) => (
+                        {treinamentosResultadoFinal.map((curso, index) => (
                             <CourseCard key={index} curso={curso} trilha={trilhaFiltrada.find(trilha => trilha.treinamentos?.some(t => t.id === curso.id))} />
                         ))}
                     </div>

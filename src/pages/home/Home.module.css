@@ -204,6 +204,10 @@
     gap: 22px;
 }
 
+.cursosContainer {
+    margin-top: 24px;
+}
+
 @keyframes dropdownFadeIn {
     from {
         opacity: 0;
