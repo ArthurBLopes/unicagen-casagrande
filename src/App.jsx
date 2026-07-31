@@ -5,6 +5,7 @@ import Login from './pages/login/Login'
 import Home from './pages/home/Home'
 import AuthCallback from "./pages/authCallback/AuthCallback";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminRoute from './routes/AdminRoute';
 import PublicRoute from "./routes/PublicRoute";
 import Layout from './components/shared/Layout';
 import Contact from "./pages/contact/Contact";
@@ -37,6 +38,10 @@ function App() {
             <Route path="/trilha/:id" element={<Courses />} />
             <Route path="/salvos" element={<Saved />} />
             <Route path="/cursos" element={<CoursesCompact />} />
+
+            <Route element={<AdminRoute />}>
+              <Route path="/admin/metricas" element={<CoursesCompact />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
