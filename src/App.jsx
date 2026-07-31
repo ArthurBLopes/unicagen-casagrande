@@ -16,6 +16,7 @@ import Courses from './pages/courses/Courses';
 import Saved from './pages/saved/Saved';
 import CoursesCompact from './pages/coursesCompact/CoursesCompact';
 import Metricas from './pages/metrics/Metrics';
+import ManagerHome from './pages/manager/managerHome/managerHome';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
 
             <Route element={<AdminRoute />}>
               <Route path="/admin/metricas" element={<Metricas />} />
+              <Route path="/admin/gerenciar" element={<ManagerHome />} />
             </Route>
           </Route>
         </Route>
