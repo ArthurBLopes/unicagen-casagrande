@@ -15,6 +15,7 @@ import DetailsCourse from './pages/detailsCourse/detailsCourse';
 import Courses from './pages/courses/Courses';
 import Saved from './pages/saved/Saved';
 import CoursesCompact from './pages/coursesCompact/CoursesCompact';
+import Metricas from './pages/metrics/Metrics';
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
             <Route path="/cursos" element={<CoursesCompact />} />
 
             <Route element={<AdminRoute />}>
-              <Route path="/admin/metricas" element={<CoursesCompact />} />
+              <Route path="/admin/metricas" element={<Metricas />} />
             </Route>
           </Route>
         </Route>
