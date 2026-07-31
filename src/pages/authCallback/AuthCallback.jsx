@@ -37,7 +37,6 @@ export default function AuthCallback() {
 
         if (!loading) {
             if (session) {
-                console.log("Sessão no callback:", session);
                 navigate("/inicio", { replace: true });
             } else {
                 navigate("/login", { replace: true });

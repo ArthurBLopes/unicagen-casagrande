@@ -12,10 +12,10 @@ import { removerItensDuplicados } from "../../utils/formatarData";
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
 export default function Home() {
-    const { usuario } = useAuth();
+    const { usuario, isAdmin } = useAuth();
     const { trilhasComTreinamentos, erroCarregamento } = useTrilhasComTreinamentos();
 
-    const nome = usuario?.user_metadata?.full_name || "Não Identificado";
+    const nome = usuario?.user_metadata.full_name || "Não Identificado";
     const primeiroNome = nome.split(" ")[0];
 
     const [abertoTrilhas, setAbertoTrilhas] = useState(false);
@@ -56,6 +56,8 @@ export default function Home() {
         setPesquisa("");
         setAbertoTags(false);
     }
+
+    console.log(isAdmin)
 
     return (
         <div className={styles.container}>

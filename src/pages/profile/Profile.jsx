@@ -6,10 +6,9 @@ import { Calendar } from "lucide-react";
 import { buscarUsuarioPorId } from '../../services/usuariosService';
 
 export default function Profile() {
-    const { usuario, session } = useAuth();
-    const id_usuario = usuario?.id || "ID não encontrado";
+    const { usuarioDB, session } = useAuth();
+    const id_usuario = usuarioDB?.id || "ID não encontrado";
     const [dataCriacaoConta, setDataCriacaoConta] = useState(null);
-    const [usuarioData, setUsuarioData] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -25,24 +24,10 @@ export default function Profile() {
         }
     }, [session]);
 
-    useEffect(() => {
-        async function fetchCargo() {
-            try {
-                const usuarioDb = await buscarUsuarioPorId(id_usuario);
-                if (usuarioDb) {
-                    setUsuarioData(usuarioDb);
-                }
-            } catch (err) {
-                console.warn("Não foi possível buscar o cargo do usuário:", err.message);
-            }
-        }
-        fetchCargo();
-    }, [id_usuario]);
-
-    const inicial = usuarioData?.nome?.split(" ")[0]?.charAt(0).toUpperCase() || "N";
-    const nome = usuarioData?.nome || "Nome não encontrado";
-    const email = usuarioData?.email || "Email não encontrado";
-    const cargo = usuarioData?.regra || "ND";
+    const inicial = usuarioDB?.nome?.split(" ")[0]?.charAt(0).toUpperCase() || "N";
+    const nome = usuarioDB?.nome || "Nome não encontrado";
+    const email = usuarioDB?.email || "Email não encontrado";
+    const cargo = usuarioDB?.regra || "ND";
     const data = dataCriacaoConta ? new Date(dataCriacaoConta) : null;
     const nomeMes = data ? new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(data) : null;
     const ano = data ? data.getFullYear() : null;

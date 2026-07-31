@@ -6,6 +6,7 @@ import styles from "./Sidebar.module.css";
 import { opcoes } from "../../../mocks/sidebar/mockSidebar";
 import { useThemeLogos } from "../../../hooks/theme/useTheme";
 import { logos } from "../../../mocks/logos/mockLogos.js";
+import { useAuth } from "../../../providers/AuthContext";
 //import { useMobileMenu } from "../../../hooks/mobileMenu/useMobileMenu.js";
 
 export default function Sidebar() {

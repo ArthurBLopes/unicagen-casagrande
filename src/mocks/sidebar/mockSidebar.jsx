@@ -1,5 +1,5 @@
 import { RiHome9Line } from "react-icons/ri";
-import { Bookmark, GraduationCap, GlobeCheck, Info, LibraryBig } from "lucide-react";
+import { Bookmark, GraduationCap, GlobeCheck, Info, LibraryBig, LayoutDashboard } from "lucide-react";
 import LogoCagen from "../../assets/logos/escudos/escudo_cagen.png";
 
 export const opcoes = [
@@ -34,3 +34,11 @@ export const opcoes = [
             caminho: "https://cagen.com.br/",
         },
     ];
+
+export const opcoesAdmin = [
+    {
+        titulo: "MÉTRICAS",
+        icon: <LayoutDashboard />,
+        caminho: "/admin/metricas",
+    }
+]
