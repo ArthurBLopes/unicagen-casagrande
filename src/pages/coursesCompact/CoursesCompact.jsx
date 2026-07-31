@@ -2,26 +2,21 @@ import React from "react";
 import { useState } from "react";
 import CourseCardCompact from "../../components/features/courses/CourseCardCompact";
 import { useNavigate } from "react-router-dom";
-import { useTrilhasComTreinamentos } from "../../hooks/trailsCourses/useTrilhasComTreinamentos";
+import { useTreinamentos } from "../../hooks/courses/useTreinamentos";
 import { Search } from "lucide-react";
 import styles from "./CoursesCompact.module.css";
 
 export default function CoursesCompact() {
 
     const navigate = useNavigate();
-    const { trilhasComTreinamentos } = useTrilhasComTreinamentos();
+    const { treinamentos } = useTreinamentos();
     const [pesquisa, setPesquisa] = useState("");
 
-    const treinamentos = trilhasComTreinamentos.flatMap(trilha => trilha.treinamentos);
     const treinamentosFiltrados = treinamentos.filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")));
     console.log(treinamentosFiltrados);
 
-    function retornarTrilha(treinamento) {
-        return trilhasComTreinamentos.find(trilha => trilha.treinamentos.some(t => t.id === treinamento.id));
-    }
-
     function detalhesCurso(treinamento, trilha) {
-        navigate(`/curso/${treinamento.id}`, { state: { trilha } });
+        navigate(`/curso/${treinamento.id}`);
     }
 
     return (
@@ -40,8 +35,7 @@ export default function CoursesCompact() {
                         <CourseCardCompact
                             key={index}
                             treinamento={treinamento}
-                            trilha={retornarTrilha(treinamento)}
-                            onClick={() => detalhesCurso(treinamento, retornarTrilha(treinamento))}
+                            onClick={() => detalhesCurso(treinamento)}
                         />
                     ))}
                 </div>

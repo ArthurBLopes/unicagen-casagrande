@@ -3,7 +3,7 @@ import { FaRegClock } from "react-icons/fa";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { formatarData } from "../../../utils/formatarData";
 
-export default function CourseCardCompact({ treinamento, trilha, onClick }) {
+export default function CourseCardCompact({ treinamento, onClick }) {
     const dataPublicacaoFormatada = formatarData(treinamento.data_publicacao);
 
     return (
@@ -11,7 +11,7 @@ export default function CourseCardCompact({ treinamento, trilha, onClick }) {
             <h3 className={styles.titulo}>{treinamento.titulo}</h3>
             <p className={styles.descricao}>{treinamento.descricao}</p>
             <p className={styles.dataPublicacao}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>
-            <button className={styles.botaoAcessar} style={{ "--trail-color": trilha.cor || "var(--text-color2)" }} title="Acessar conteúdo do treinamento" onClick={(event) => {
+            <button className={styles.botaoAcessar} title="Acessar conteúdo do treinamento" onClick={(event) => {
                 event.stopPropagation();
                 onClick();
             }}>Acessar</button>

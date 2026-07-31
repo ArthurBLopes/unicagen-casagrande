@@ -64,7 +64,7 @@ export default function DetailsCourse() {
                         <img src={treinamento?.imagem} alt={treinamento?.titulo} className={styles.cursoImagem} />
                     )}
                     <div className={styles.cursoConteudo}>
-                        <p className={styles.cursoTrilha}>{trilha?.titulo || "Não definido"}</p>
+                        {trilha && <p className={styles.cursoTrilha}>{trilha?.titulo || "Não definido"}</p>}
                         <h1 className={styles.cursoTitulo}>{treinamento?.titulo}</h1>
                         <div className={styles.datas}>
                             <p className={styles.cursoData}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>

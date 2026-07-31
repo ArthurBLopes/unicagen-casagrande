@@ -6,7 +6,6 @@ export default function Courses() {
     
     const location = useLocation();
     const { trilha } = location.state || {};
-    console.log("Trilha recebida:", trilha);
 
     return (
         <div className={styles.container}>

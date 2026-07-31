@@ -84,19 +84,24 @@ export default function Sidebar() {
                             {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
                         </NavLink>
                     ))}
-                    {isAdmin && 
-                        opcoesAdmin.map((opcao) => (
-                            <NavLink
-                                key={opcao.titulo}
-                                to={opcao.caminho}
-                                onClick={fecharMenuMobile}
-                                className={({ isActive }) => isActive ? styles.itemAtivo : styles.item}
-                                title={!expandida ? opcao.titulo : undefined}
-                            >
-                                <span className={styles.icon}>{opcao.icon}</span>
-                                {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
-                            </NavLink>
-                        ))
+                    {isAdmin &&
+                        (
+                            <>
+                            <span className={styles.separadorGerenciador}></span>
+                            {opcoesAdmin.map((opcao) => (
+                                <NavLink
+                                    key={opcao.titulo}
+                                    to={opcao.caminho}
+                                    onClick={fecharMenuMobile}
+                                    className={({ isActive }) => isActive ? styles.itemAtivo : styles.item}
+                                    title={!expandida ? opcao.titulo : undefined}
+                                >
+                                    <span className={styles.icon}>{opcao.icon}</span>
+                                    {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
+                                </NavLink>
+                            ))}
+                            </>
+                        )
                     }
                 </nav>
 

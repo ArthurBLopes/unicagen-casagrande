@@ -1,5 +1,5 @@
 import { RiHome9Line } from "react-icons/ri";
-import { Bookmark, GraduationCap, GlobeCheck, Info, LibraryBig, ChartNoAxesCombined } from "lucide-react";
+import { Bookmark, GraduationCap, GlobeCheck, Info, LibraryBig, ChartNoAxesCombined, Bolt } from "lucide-react";
 import LogoCagen from "../../assets/logos/escudos/escudo_cagen.png";
 
 export const opcoes = [
@@ -40,5 +40,10 @@ export const opcoesAdmin = [
         titulo: "MÉTRICAS",
         icon: <ChartNoAxesCombined />,
         caminho: "/admin/metricas",
+    },
+    {
+        titulo: "GERENCIAR",
+        icon: <Bolt />,
+        caminho: "/admin/gerenciar",
     }
 ]
