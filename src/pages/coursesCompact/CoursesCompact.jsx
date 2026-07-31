@@ -13,7 +13,7 @@ export default function CoursesCompact() {
     const [pesquisa, setPesquisa] = useState("");
 
     const treinamentosFiltrados = treinamentos.filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")));
-    console.log(treinamentosFiltrados);
+    const treinamentosOrdenados = treinamentosFiltrados.sort((a, b) => a.titulo.localeCompare(b.titulo));
 
     function detalhesCurso(treinamento, trilha) {
         navigate(`/curso/${treinamento.id}`);
@@ -31,7 +31,7 @@ export default function CoursesCompact() {
                     </div>
                 </div>
                 <div className={styles.coursesContainer}>
-                    {treinamentosFiltrados.map((treinamento, index) => (
+                    {treinamentosOrdenados.map((treinamento, index) => (
                         <CourseCardCompact
                             key={index}
                             treinamento={treinamento}
