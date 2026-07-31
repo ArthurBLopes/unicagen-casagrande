@@ -57,8 +57,6 @@ export default function Home() {
         setAbertoTags(false);
     }
 
-    console.log(isAdmin)
-
     return (
         <div className={styles.container}>
             <main className={styles.main}>

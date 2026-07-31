@@ -3,13 +3,14 @@ import { useState } from "react";
 import { PanelLeft } from "lucide-react";
 import { RiMenu2Fill, RiCloseFill } from "react-icons/ri";
 import styles from "./Sidebar.module.css";
-import { opcoes } from "../../../mocks/sidebar/mockSidebar";
+import { opcoes, opcoesAdmin } from "../../../mocks/sidebar/mockSidebar";
 import { useThemeLogos } from "../../../hooks/theme/useTheme";
 import { logos } from "../../../mocks/logos/mockLogos.js";
 import { useAuth } from "../../../providers/AuthContext";
 //import { useMobileMenu } from "../../../hooks/mobileMenu/useMobileMenu.js";
 
 export default function Sidebar() {
+    const { isAdmin } = useAuth();
     const [expandida, setExpandida] = useState(true)
     const [menuMobileAberto, setMenuMobileAberto] = useState(false)
     const { logoSidebarExpandida, logoSidebarColapsada } = useThemeLogos()
@@ -38,7 +39,7 @@ export default function Sidebar() {
             >
                 <div className={styles.cabecalho}>
                     <div className={styles.blocoLogo}>
-                        { expandida ? (
+                        {expandida ? (
                             <>
                                 <img src={logoSidebarExpandida} alt="Logo Casagrande" className={styles.logo} />
                                 <div className={styles.divisorLogos} />
@@ -83,7 +84,22 @@ export default function Sidebar() {
                             {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
                         </NavLink>
                     ))}
+                    {isAdmin && 
+                        opcoesAdmin.map((opcao) => (
+                            <NavLink
+                                key={opcao.titulo}
+                                to={opcao.caminho}
+                                onClick={fecharMenuMobile}
+                                className={({ isActive }) => isActive ? styles.itemAtivo : styles.item}
+                                title={!expandida ? opcao.titulo : undefined}
+                            >
+                                <span className={styles.icon}>{opcao.icon}</span>
+                                {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
+                            </NavLink>
+                        ))
+                    }
                 </nav>
+
                 {(expandida || menuMobileAberto) && <p className={styles.rodape}>© {anoAtual} Casagrande Engenharia</p>}
             </div>
         </>

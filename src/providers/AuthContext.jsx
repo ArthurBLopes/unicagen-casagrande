@@ -52,7 +52,6 @@ export default function AuthProvider({ children }) {
 
             setSession(data.session);
             setUsuario(data.session?.user ?? null);
-            console.log(usuario)
             setLoading(false);
         }
 
@@ -78,9 +77,9 @@ export default function AuthProvider({ children }) {
             try {
                 const usuarioDb = await buscarUsuarioPorId(usuario.id);
                 if (usuarioDb.regra == "admin") {
-                    setUsuarioDB(usuarioDb)
                     setIsAdmin(true);
                 }
+                setUsuarioDB(usuarioDb)
             } catch (err) {
                 console.warn("Não foi possível buscar o cargo do usuário:", err.message);
             }
