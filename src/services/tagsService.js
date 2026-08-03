@@ -19,13 +19,13 @@ const listarTagsTreinamento = async (treinamentoId) => {
     const { data, error } = await supabase
         .from("treinamentos_tags")
         .select(`
-            treinamento_id,
+            id_treinamento,
             tags (
                 id,
-                titulo,
+                titulo
             )
         `)
-        .eq("treinamento_id", treinamentoId);
+        .eq("id_treinamento", treinamentoId);
 
     if (error) {
         console.error(error);

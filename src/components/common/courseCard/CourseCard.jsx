@@ -11,6 +11,8 @@ export default function CourseCard({ curso, trilha }) {
     const dataPublicacaoFormatada = formatarData(curso.data_publicacao);
     const { tagsTreinamento } = useTags(curso.id);
 
+    console.log(tagsTreinamento)
+
     function detalhesCurso() {
         navigate(`/curso/${curso.id}`, { state: { trilha } });
     }
@@ -25,7 +27,7 @@ export default function CourseCard({ curso, trilha }) {
                 {tagsTreinamento && tagsTreinamento.length > 0 && (
                     <div className={styles.tags}>
                         {tagsTreinamento.map((tag, index) => (
-                            <span key={index} className={styles.tag}>{tag.titulo}</span>
+                            <span key={index} className={styles.tag}>{tag.tags.titulo}</span>
                         ))}
                     </div>
                 )}
