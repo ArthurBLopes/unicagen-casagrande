@@ -31,11 +31,11 @@ export default function Home() {
     const treinamentos = trilhaFiltrada.flatMap(trilha => trilha.treinamentos || []);
     const treinamentosFiltradosPorTrilha = treinamentos.filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")));
     
-    const { tags } = useTags();
+    const { tags, tagsTreinamentos } = useTags();
     const [tagSelecionada, setTagSelecionada] = useState(null);
     const tagsUnicas = removerItensDuplicados(tags.map((tag) => tag?.titulo));
 
-    const treinamentosPorTags = treinamentos.filter(treinamento => tags.some(tag => tag.id_treinamento === treinamento.id && tag.titulo === tagSelecionada));
+    const treinamentosPorTags = treinamentos.filter(treinamento => tagsTreinamentos.some(tag => tag.id_treinamento === treinamento.id && tag?.tags.titulo === tagSelecionada));
     const treinamentosResultadoFinal = tagSelecionada !== null ? treinamentosPorTags : treinamentosFiltradosPorTrilha;
 
     const filtroAtivo = pesquisa.length > 0 || tagSelecionada !== null;

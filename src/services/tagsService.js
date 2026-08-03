@@ -15,6 +15,25 @@ const listarTags = async () => {
     return data
 }
 
+const listarTagsTreinamentos = async () => {
+    const { data, error } = await supabase
+        .from("treinamentos_tags")
+        .select(`
+            id_treinamento,
+            tags (
+                id,
+                titulo
+            )
+        `)
+
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+    return data;
+};
+
 const listarTagsTreinamento = async (treinamentoId) => {
     const { data, error } = await supabase
         .from("treinamentos_tags")
@@ -35,4 +54,4 @@ const listarTagsTreinamento = async (treinamentoId) => {
     return data;
 };
 
-export { listarTags, listarTagsTreinamento };
+export { listarTags, listarTagsTreinamento, listarTagsTreinamentos };

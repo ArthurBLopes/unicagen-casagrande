@@ -1,9 +1,10 @@
-import { listarTags, listarTagsTreinamento } from "../../services/tagsService";
+import { listarTags, listarTagsTreinamento, listarTagsTreinamentos } from "../../services/tagsService";
 import { useEffect, useState } from "react";
 
 export function useTags(id_treinamento) {
     const [tags, setTags] = useState([]);
-    const [tagsTreinamento, setTagsTreinamento] = useState([])
+    const [tagsTreinamento, setTagsTreinamento] = useState([]);
+    const [tagsTreinamentos, setTagsTreinamentos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [erroCarregamento, setErroCarregamento] = useState(false);
 
@@ -41,5 +42,22 @@ export function useTags(id_treinamento) {
         fetchTagsTreinamento();
     }, [id_treinamento]);
 
-    return { tags, tagsTreinamento, loading, erroCarregamento };
+    useEffect(() => {
+        const fetchTagsTreinamentos = async () => {
+            setLoading(true);
+            setErroCarregamento(false);
+            try {
+                const data = await listarTagsTreinamentos();
+                setTagsTreinamentos(data);
+            } catch (error) {
+                setErroCarregamento(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTagsTreinamentos();
+    }, []);
+
+    return { tags, tagsTreinamento, tagsTreinamentos, loading, erroCarregamento };
 }
