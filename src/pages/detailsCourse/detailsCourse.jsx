@@ -3,7 +3,6 @@ import { useParams, useLocation } from "react-router-dom";
 import BackPage from "../../components/common/back/BackPage";
 import { useAuth } from "../../providers/AuthContext";
 import useScrollTop from "../../hooks/useScrollTop/useScrollTop";
-import { listarTreinamentos } from "../../services/treinamentosService";
 import { listarTrilhas } from "../../services/trilhasService";
 import { useState, useEffect } from "react";
 import { formatarData } from "../../utils/formatarData";
@@ -11,9 +10,10 @@ import { FaRegClock } from "react-icons/fa";
 import { Bookmark } from "lucide-react";
 import { useSaved } from "../../hooks/saved/useSaved";
 import { getYouTubeEmbedUrl } from "../../utils/formatar_url"
+import { useTreinamentos } from "../../hooks/courses/useTreinamentos";
 
 export default function DetailsCourse() {
-    const [treinamentos, setTreinamentos] = useState([]);
+    const { treinamentos } = useTreinamentos();
     const { id } = useParams();
     const location = useLocation();
     const { trilha } = location.state || {};
@@ -26,14 +26,6 @@ export default function DetailsCourse() {
     const cursoSalvo = treinamento?.id ? estaSalvo(treinamento.id) : false;
     
     useScrollTop();
-
-    useEffect(() => {
-        const fetchTreinamentos = async () => {
-            const dados = await listarTreinamentos();
-            setTreinamentos(dados);
-        };
-        fetchTreinamentos();
-    }, []);
     
     return (
         <div className={styles.detalhesPage}>
