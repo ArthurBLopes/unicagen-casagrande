@@ -3,7 +3,6 @@ import { useParams, useLocation } from "react-router-dom";
 import BackPage from "../../components/common/back/BackPage";
 import { useAuth } from "../../providers/AuthContext";
 import useScrollTop from "../../hooks/useScrollTop/useScrollTop";
-import { listarTrilhas } from "../../services/trilhasService";
 import { useState, useEffect } from "react";
 import { formatarData } from "../../utils/formatarData";
 import { FaRegClock } from "react-icons/fa";
@@ -11,10 +10,12 @@ import { Bookmark } from "lucide-react";
 import { useSaved } from "../../hooks/saved/useSaved";
 import { getYouTubeEmbedUrl } from "../../utils/formatar_url"
 import { useTreinamentos } from "../../hooks/courses/useTreinamentos";
+import { useTags } from "../../hooks/tags/useTags";
 
 export default function DetailsCourse() {
-    const { treinamentos } = useTreinamentos();
     const { id } = useParams();
+    const { tagsTreinamento } = useTags(id);
+    const { treinamentos } = useTreinamentos();
     const location = useLocation();
     const { trilha } = location.state || {};
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
@@ -54,10 +55,10 @@ export default function DetailsCourse() {
                             <p className={styles.cursoData}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>
                         </div>
                         <p className={styles.cursoDescricao}>{treinamento?.descricao}</p>
-                        {treinamento?.tags && treinamento.tags.length > 0 && (
+                        {tagsTreinamento.length > 0 && (
                             <div className={styles.cursoTags}>
-                                {treinamento.tags.map((tag, index) => (
-                                    <span key={index} className={styles.cursoTag}>{tag}</span>
+                                {tagsTreinamento.map((tag, index) => (
+                                    <span key={index} className={styles.cursoTag}>{tag?.tags.titulo}</span>
                                 ))}
                             </div>
                         )}
