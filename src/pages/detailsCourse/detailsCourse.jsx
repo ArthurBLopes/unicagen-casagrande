@@ -10,6 +10,7 @@ import { formatarData } from "../../utils/formatarData";
 import { FaRegClock } from "react-icons/fa";
 import { Bookmark } from "lucide-react";
 import { useSaved } from "../../hooks/saved/useSaved";
+import { getYouTubeEmbedUrl } from "../../utils/formatar_url"
 
 export default function DetailsCourse() {
     const [treinamentos, setTreinamentos] = useState([]);
@@ -33,15 +34,6 @@ export default function DetailsCourse() {
         };
         fetchTreinamentos();
     }, []);
-
-    function getYouTubeEmbedUrl(url) {
-        const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^&?/]+)/;
-        const match = url.match(regex);
-
-        if (!match) return "";
-
-        return `https://www.youtube.com/embed/${match[1]}`;
-    }
     
     return (
         <div className={styles.detalhesPage}>
