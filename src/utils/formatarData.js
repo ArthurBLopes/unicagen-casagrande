@@ -9,5 +9,7 @@ export function removerItensDuplicados(array) {
     return array.filter((item, index) => array.indexOf(item) === index);
 }
 
+export const hoje = new Date().toISOString().split("T")[0]
+
 
 

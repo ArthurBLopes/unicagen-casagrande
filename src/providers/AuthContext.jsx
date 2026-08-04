@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { buscarUsuarioPorId } from '../services/usuariosService';
+import { registrarAcessoPlataforma, buscarResumoAcesso } from "../services/metrics/acessosPlataformaService"
 import { supabase } from "../lib/supabase";
 
 const AuthContext = createContext();
@@ -79,13 +80,14 @@ export default function AuthProvider({ children }) {
                 if (usuarioDb.regra == "admin") {
                     setIsAdmin(true);
                 }
-                setUsuarioDB(usuarioDb)
+                setUsuarioDB(usuario.id)
             } catch (err) {
                 console.warn("Não foi possível buscar o cargo do usuário:", err.message);
             }
         }
 
         buscarUsuarioDb();
+        registrarAcessoPlataforma(usuario.id)
     }, [usuario?.id]);
 
     async function sair() {
