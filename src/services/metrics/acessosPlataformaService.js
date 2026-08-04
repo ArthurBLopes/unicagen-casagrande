@@ -37,7 +37,7 @@ const buscarResumoAcesso = async (id_usuario) => {
 
 const listarAcessos = async () => {
     const { data, error } = await supabase
-        .from("vm_resumo_acessos")
+        .from("vw_resumo_acessos")
         .select(`
             usuarios (
                 nome,

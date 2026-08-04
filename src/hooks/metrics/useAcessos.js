@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 
 export function useAcessos(id_usuario) {
     const [acessos, setAcessos] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [erroCarregamento, setErroCarregamento] = useState(false);
 
     useEffect(() => {
         const fetchAcessos = async () => {
@@ -18,7 +20,7 @@ export function useAcessos(id_usuario) {
             }
         };
 
-        fetchTags();
+        fetchAcessos();
     }, []);
 
     return { acessos };
