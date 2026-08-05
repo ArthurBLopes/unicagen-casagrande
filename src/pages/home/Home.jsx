@@ -58,9 +58,6 @@ export default function Home() {
         setAbertoTags(false);
     }
 
-    const { acessos } = useAcessos();
-    console.log(acessos)
-
     return (
         <div className={styles.container}>
             <main className={styles.main}>

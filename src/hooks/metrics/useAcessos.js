@@ -23,5 +23,5 @@ export function useAcessos(id_usuario) {
         fetchAcessos();
     }, []);
 
-    return { acessos };
+    return { acessos, loading, erroCarregamento };
 }

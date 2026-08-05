@@ -1,0 +1,110 @@
+.linha {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.linha:last-child {
+    border-bottom: none;
+}
+
+.campo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+}
+
+.rotulo {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+    flex-shrink: 0;
+}
+
+@media (min-width: 800px) {
+    .linha {
+        display: grid;
+        grid-template-columns: 1.4fr 1.8fr 0.9fr 0.9fr 1fr;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+    }
+
+    .linha:hover {
+        background-color: color-mix(in srgb, var(--text-color2) 6%, transparent);
+    }
+
+    .campo {
+        display: block;
+    }
+
+    .rotulo {
+        display: none;
+    }
+}
+
+.nome {
+    font-family: "Sora", sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-color);
+    text-align: right;
+}
+
+.email {
+    font-size: 12.5px;
+    color: color-mix(in srgb, var(--text-color) 58%, transparent);
+    text-align: right;
+}
+
+@media (min-width: 800px) {
+    .nome,
+    .email {
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.regra {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--text-color2) 35%, transparent);
+    background-color: color-mix(in srgb, var(--text-color2) 10%, transparent);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+}
+
+.totalAcessos {
+    font-family: "Sora", sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.ultimoAcesso {
+    font-size: 12.5px;
+    color: color-mix(in srgb, var(--text-color) 58%, transparent);
+}
+
+.ultimoAcessoVazio {
+    font-size: 12px;
+    font-style: italic;
+    color: color-mix(in srgb, var(--text-color) 42%, transparent);
+}
+
+
