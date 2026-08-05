@@ -8,6 +8,7 @@ import { useClickOutside } from "../../hooks/ui/useClickOutside";
 import CourseCard from "../../components/common/courseCard/CourseCard";
 import { useTags } from "../../hooks/tags/useTags";
 import { removerItensDuplicados } from "../../utils/formatarData";
+import { useAcessos } from "../../hooks/metrics/useAcessos";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
@@ -56,6 +57,9 @@ export default function Home() {
         setPesquisa("");
         setAbertoTags(false);
     }
+
+    const { acessos } = useAcessos();
+    console.log(acessos)
 
     return (
         <div className={styles.container}>

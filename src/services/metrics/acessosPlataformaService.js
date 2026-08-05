@@ -20,9 +20,9 @@ const registrarAcessoPlataforma = async (id_usuario) => {
     return data
 }
 
-const buscarResumoAcesso = async (id_usuario) => {
+const buscarAcessoUsuario = async (id_usuario) => {
     const { data, error } = await supabase
-        .from("vw_resumo_acessos")
+        .from("vw_acessos_15_dias")
         .select("*")
         .eq("id_usuario", id_usuario)
         .single()
@@ -35,18 +35,10 @@ const buscarResumoAcesso = async (id_usuario) => {
     return data
 }
 
-const listarAcessos = async () => {
+const listarAcessosView = async () => {
     const { data, error } = await supabase
-        .from("vw_resumo_acessos")
-        .select(`
-            usuarios (
-                nome,
-                email,
-                regra
-            ),
-            total_acessos,
-            ultimo_acesso
-        `)
+        .from("vw_acessos_15_dias")
+        .select("*")
 
     if (error) {
         console.error(error);
@@ -56,4 +48,17 @@ const listarAcessos = async () => {
     return data;
 };
 
-export { registrarAcessoPlataforma, buscarResumoAcesso, listarAcessos }
+const listarAcessos = async () => {
+    const { data, error } = await supabase
+        .from("acessos_plataforma")
+        .select("*")
+
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+    return data;
+};
+
+export { registrarAcessoPlataforma, buscarAcessoUsuario, listarAcessosView, listarAcessos }

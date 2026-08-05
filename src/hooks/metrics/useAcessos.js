@@ -1,4 +1,4 @@
-import { registrarAcessoPlataforma, buscarResumoAcesso, listarAcessos } from "../../services/metrics/acessosPlataformaService";
+import { registrarAcessoPlataforma, buscarAcessoUsuario, listarAcessosView, listarAcessos } from "../../services/metrics/acessosPlataformaService";
 import { useEffect, useState } from "react";
 
 export function useAcessos(id_usuario) {
@@ -11,7 +11,7 @@ export function useAcessos(id_usuario) {
             setLoading(true);
             setErroCarregamento(false);
             try {
-                const data = await listarAcessos();
+                const data = await listarAcessosView();
                 setAcessos(data);
             } catch (error) {
                 setErroCarregamento(true);

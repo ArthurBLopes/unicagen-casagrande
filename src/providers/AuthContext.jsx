@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { buscarUsuarioPorId } from '../services/usuariosService';
-import { registrarAcessoPlataforma, buscarResumoAcesso } from "../services/metrics/acessosPlataformaService"
+import { registrarAcessoPlataforma } from "../services/metrics/acessosPlataformaService"
 import { supabase } from "../lib/supabase";
 
 const AuthContext = createContext();
