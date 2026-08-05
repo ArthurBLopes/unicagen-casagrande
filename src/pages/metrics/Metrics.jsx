@@ -32,7 +32,7 @@ export default function Metricas() {
                             <div className={styles.tabelaCabecalho}>
                                 <span>Nome</span>
                                 <span>Email</span>
-                                <span>Cargo</span>
+                                <span>Posição</span>
                                 <span>Acessos (Últimos 15 dias)</span>
                                 <span>Último acesso</span>
                             </div>
