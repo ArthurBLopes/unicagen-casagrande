@@ -11,6 +11,24 @@
         border-color 0.2s ease;
 }
 
+.iconeBI {
+    width: 30px;
+}
+
+.btns {
+    display: flex;
+}
+
+.btnBI {
+    display: flex;
+    align-items: center;
+}
+
+.btnPDF {
+    display: flex;
+    align-items: center;
+}
+
 @media (min-width: 600px) {
     .container {
         padding: 126px 36px 64px;
@@ -103,8 +121,17 @@
     margin-top: 44px;
 }
 
+.secaoCabecalho {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
 .secaoTitulo {
-    margin: 0 0 16px;
+    margin: 0;
     font-family: Georgia, "Times New Roman", serif;
     font-size: 1.4rem;
     font-weight: 400;
@@ -160,6 +187,58 @@
     text-align: center;
     font-size: 13.5px;
     color: color-mix(in srgb, var(--text-color) 58%, transparent);
+}
+
+.btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.btnBI,
+.btnPDF {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 10px;
+    font-family: "Sora", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.btnBI:hover,
+.btnPDF:hover {
+    opacity: 0.85;
+}
+
+.btnBI:active,
+.btnPDF:active {
+    transform: scale(0.97);
+}
+
+.btnBI {
+    border: 1px solid var(--border-color);
+    background-color: color-mix(in srgb, var(--bg-color2) 72%, transparent);
+    color: var(--text-color);
+}
+
+.iconeBI {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.btnPDF {
+    border: none;
+    background-color: var(--text-color2);
+    color: white;
+    font-weight: 500;
 }
 
 

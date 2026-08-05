@@ -19,7 +19,17 @@ export default function Metricas() {
                 </div>
 
                 <section className={styles.secao}>
-                    <h2 className={styles.secaoTitulo}>Acessos por colaborador</h2>
+                    <div className={styles.secaoCabecalho}>
+                        <h2 className={styles.secaoTitulo}>Acessos por colaborador</h2>
+
+                        <div className={styles.btns}>
+                            <button className={styles.btnBI}>
+                                <img className={styles.iconeBI} src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/New_Power_BI_Logo.svg/960px-New_Power_BI_Logo.svg.png" alt="" />
+                                Ver no Power BI
+                            </button>
+                            <button className={styles.btnPDF}>Gerar relatório</button>
+                        </div>
+                    </div>
 
                     {loading ? (
                         <p className={styles.carregando}>Carregando métricas...</p>
