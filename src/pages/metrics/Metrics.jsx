@@ -1,11 +1,13 @@
 import styles from "./Metrics.module.css"
 import UserAcessCard from "../../components/features/metrics/UserAcessCard"
 import { useAcessos } from "../../hooks/metrics/useAcessos"
-import { Info } from "lucide-react"
+import { Info, Search, ChevronDown, SlidersHorizontal } from "lucide-react"
+import { useState } from "react"
 
 export default function Metricas() {
 
     const { acessos, loading } = useAcessos();
+    const [pesquisa, setPesquisa] = useState("");
 
     return (
         <div className={styles.container}>
@@ -28,6 +30,12 @@ export default function Metricas() {
                                 Ver no Power BI
                             </button>
                             <button className={styles.btnPDF}>Gerar relatório</button>
+                        </div>
+                    </div>
+                    <div className={styles.searchArea}>
+                        <div className={styles.searchBox}>
+                            <Search size={18} />
+                            <input type="text" placeholder="Buscar colaborador..." value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
                         </div>
                     </div>
 
