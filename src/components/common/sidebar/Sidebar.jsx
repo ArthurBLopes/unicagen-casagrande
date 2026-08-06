@@ -72,18 +72,39 @@ export default function Sidebar() {
                 {(expandida || menuMobileAberto) && <p className={styles.rotuloMenu}>Menu</p>}
 
                 <nav className={styles.navegacao}>
-                    {opcoes.map((opcao) => (
-                        <NavLink
-                            key={opcao.titulo}
-                            to={opcao.caminho}
-                            onClick={fecharMenuMobile}
-                            className={({ isActive }) => isActive ? styles.itemAtivo : styles.item}
-                            title={!expandida ? opcao.titulo : undefined}
-                        >
-                            <span className={styles.icon}>{opcao.icon}</span>
-                            {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
-                        </NavLink>
-                    ))}
+                    {opcoes.map((opcao) => {
+                        const externo = opcao.caminho.startsWith("http")
+
+                        if (externo) {
+                            return (
+                                <a
+                                    key={opcao.titulo}
+                                    href={opcao.caminho}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={fecharMenuMobile}
+                                    className={styles.item}
+                                    title={!expandida ? opcao.titulo : undefined}
+                                >
+                                    <span className={styles.icon}>{opcao.icon}</span>
+                                    {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
+                                </a>
+                            )
+                        }
+
+                        return (
+                            <NavLink
+                                key={opcao.titulo}
+                                to={opcao.caminho}
+                                onClick={fecharMenuMobile}
+                                className={({ isActive }) => isActive ? styles.itemAtivo : styles.item}
+                                title={!expandida ? opcao.titulo : undefined}
+                            >
+                                <span className={styles.icon}>{opcao.icon}</span>
+                                {(expandida || menuMobileAberto) && <span className={styles.label}>{opcao.titulo}</span>}
+                            </NavLink>
+                        )
+                    })}
                     {isAdmin &&
                         (
                             <>

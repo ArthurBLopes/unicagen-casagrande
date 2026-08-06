@@ -235,10 +235,9 @@
 }
 
 .btnPDF {
-    border: none;
-    background-color: var(--text-color2);
-    color: white;
-    font-weight: 500;
+    border: 1px solid var(--border-color);
+    background-color: color-mix(in srgb, var(--bg-color2) 72%, transparent);
+    color: var(--text-color);
 }
 
 
