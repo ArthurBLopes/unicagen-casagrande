@@ -4,7 +4,7 @@ export default function UserAcessCard({ registro }) {
 
     const semAcessoRecente = !registro.ultimo_acesso
     const ultimoAcessoFormatado = semAcessoRecente
-        ? "Sem acesso nos últimos 15 dias"
+        ? "Não encontrado"
         : registro.ultimo_acesso.slice(0, 10).split("-").reverse().join("/")
 
     return (

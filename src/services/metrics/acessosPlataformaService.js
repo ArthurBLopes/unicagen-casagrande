@@ -6,7 +6,7 @@ const registrarAcessoPlataforma = async (id_usuario) => {
     const { data, error } = await supabase
         .from("acessos_plataforma")
         .upsert(
-            { id_usuario, data_acesso: hoje, ultima_atividade: new Date().toISOString() },
+            { id_usuario, ultima_atividade: new Date().toISOString() },
             { onConflict: "id_usuario,data_acesso" }
         )
         .select()
