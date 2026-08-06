@@ -14,7 +14,7 @@ export default function Metricas() {
     const [pesquisaTreinamentos, setPesquisaTreinamentos] = useState("");
 
     const acessosTreinamentosFiltrados = acessosTreinamentos.filter(acesso => acesso.titulo.toLowerCase().includes(pesquisaTreinamentos.toLowerCase()));
-    console.log(teste);
+    console.log("teste teste");
     const acessosFiltrados = acessos.filter(acesso => acesso.nome.toLowerCase().includes(pesquisa.toLowerCase()) || acesso.email.toLowerCase().includes(pesquisa.toLowerCase()));
 
     return (
