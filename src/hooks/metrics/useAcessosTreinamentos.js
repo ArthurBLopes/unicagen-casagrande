@@ -1,10 +1,8 @@
-import { registrarAcessoPlataforma, buscarAcessoUsuario, listarAcessosView, listarAcessos } from "../../services/metrics/acessosPlataformaService";
 import { useEffect, useState } from "react";
+import { buscarAcessosTreinamento, listarAcessosView } from '../../services/metrics/acessosTreinamentosService'
 
-export function useAcessos() {
-    const [acessos, setAcessos] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [erroCarregamento, setErroCarregamento] = useState(false);
+export default function useAcessosTreinamentos() {
+    const [acessos, setAcessos] = useState()
 
     useEffect(() => {
         const fetchAcessos = async () => {
@@ -23,5 +21,5 @@ export function useAcessos() {
         fetchAcessos();
     }, []);
 
-    return { acessos, loading, erroCarregamento };
+    return { acessos };
 }
