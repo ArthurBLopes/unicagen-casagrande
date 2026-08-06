@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { buscarAcessosTreinamento, listarAcessosView } from '../../services/metrics/acessosTreinamentosService'
 
-export default function useAcessosTreinamentos() {
-    const [acessos, setAcessos] = useState()
+export function useAcessosTreinamentos() {
+    const [acessosTreinamentos, setAcessosTreinamentos] = useState([])
+    const [loadingTreinamentos, setLoadingTreinamentos] = useState(false);
+    const [erroCarregamento, setErroCarregamento] = useState(false);
 
     useEffect(() => {
         const fetchAcessos = async () => {
-            setLoading(true);
+            setLoadingTreinamentos(true);
             setErroCarregamento(false);
             try {
                 const data = await listarAcessosView();
-                setAcessos(data);
+                setAcessosTreinamentos(data);
             } catch (error) {
                 setErroCarregamento(true);
             } finally {
-                setLoading(false);
+                setLoadingTreinamentos(false);
             }
         };
 
         fetchAcessos();
     }, []);
 
-    return { acessos };
+    return { acessosTreinamentos, loadingTreinamentos };
 }
