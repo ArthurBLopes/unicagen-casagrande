@@ -26,6 +26,10 @@ export default function UserAcessCard({ registro }) {
                 <span className={styles.totalAcessos}>{registro.total_acessos}</span>
             </div>
             <div className={styles.campo}>
+                <span className={styles.rotulo}>Frequência (%)</span>
+                <span className={styles.frequencia}>{registro.frequencia_pct}%</span>
+            </div>
+            <div className={styles.campo}>
                 <span className={styles.rotulo}>Último acesso</span>
                 <span className={semAcessoRecente ? styles.ultimoAcessoVazio : styles.ultimoAcesso}>
                     {ultimoAcessoFormatado}

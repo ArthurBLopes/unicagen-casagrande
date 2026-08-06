@@ -215,7 +215,7 @@
 @media (min-width: 800px) {
     .tabelaCabecalho {
         display: grid;
-        grid-template-columns: 1.4fr 1.8fr 0.9fr 0.9fr 1fr;
+        grid-template-columns: 1.4fr 1.8fr 0.9fr 0.9fr 0.9fr 1fr;
         gap: 12px;
         padding: 14px 20px;
         border-bottom: 1px solid var(--border-color);

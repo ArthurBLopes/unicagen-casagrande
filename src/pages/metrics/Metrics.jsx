@@ -54,6 +54,7 @@ export default function Metricas() {
                                 <span>Email</span>
                                 <span>Posição</span>
                                 <span>Acessos (Últimos 15 dias)</span>
+                                <span>Frequência (%)</span>
                                 <span>Último acesso</span>
                             </div>
                             <div className={styles.tabelaCorpo}>
