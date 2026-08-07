@@ -23,14 +23,11 @@ export default function Metricas() {
                 <h1>Métricas</h1>
                 <p>Acompanhe o engajamento dos colaboradores com a plataforma.</p>
 
-                <div className={styles.aviso}>
-                    <Info size={16} />
-                    <span>Colaboradores que nunca acessaram a nova Unicagen não aparecem nesta lista, pois o cadastro só é criado no primeiro login.</span>
-                </div>
-
                 <section className={styles.secao}>
                     <div className={styles.secaoCabecalho}>
                         <h2 className={styles.secaoTitulo}>Acessos por colaborador</h2>
+
+                        
 
                         <div className={styles.btns}>
                             <button className={styles.btnBI}>
@@ -39,6 +36,10 @@ export default function Metricas() {
                             </button>
                             <button className={styles.btnPDF}>Gerar relatório</button>
                         </div>
+                    </div>
+                    <div className={styles.aviso}>
+                        <Info size={16} />
+                        <span>Colaboradores que nunca acessaram a nova Unicagen não aparecem nesta lista, pois o cadastro só é criado no primeiro login.</span>
                     </div>
                     <div className={styles.searchArea}>
                         <div className={styles.searchBox}>
@@ -77,6 +78,10 @@ export default function Metricas() {
                 <section className={styles.secao}>
                     <div className={styles.secaoCabecalho}>
                         <h2 className={styles.secaoTitulo}>Acessos por curso</h2>
+                    </div>
+                    <div className={styles.aviso}>
+                        <Info size={16} />
+                        <span>Confira os cursos mais procurados pelos colaboradores da Casagrande.</span>
                     </div>
                     <div className={styles.searchArea}>
                         <div className={styles.searchBox}>
