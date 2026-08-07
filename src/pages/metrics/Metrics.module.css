@@ -1,7 +1,7 @@
 .container {
     width: 100%;
     min-height: 100%;
-    padding: 110px 20px 48px;
+    padding: 144px 47px 48px;
     background-color: var(--bg-color2);
     color: var(--text-color);
     font-family: "Sora", sans-serif;
@@ -80,7 +80,7 @@
 
 @media (min-width: 600px) {
     .container {
-        padding: 126px 36px 64px;
+        padding: 126px 49px 64px;
     }
 }
 
