@@ -80,7 +80,7 @@ export default function AuthProvider({ children }) {
                 if (usuarioDb.regra == "admin") {
                     setIsAdmin(true);
                 }
-                setUsuarioDB(usuario.id)
+                setUsuarioDB(usuarioDb)
             } catch (err) {
                 console.warn("Não foi possível buscar o cargo do usuário:", err.message);
             }
