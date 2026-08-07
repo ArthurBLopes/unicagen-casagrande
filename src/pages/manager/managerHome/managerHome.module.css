@@ -1,7 +1,7 @@
 .container {
     width: 100%;
     min-height: 100%;
-    padding: 89px 20px 48px;
+    padding: 110px 35px 48px;
     background-color: var(--bg-color2);
     color: var(--text-color);
     font-family: "Sora", sans-serif;
@@ -19,18 +19,14 @@
     max-width: 860px;
     margin: 0;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.6rem;
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
     font-weight: 400;
     line-height: 1.08;
     letter-spacing: -0.04em;
     color: var(--text-color);
 }
 
-@media (min-width: 600px) {
-    .main > h1 {
-        font-size: 2rem;
-    }
-}
+
 
 .main > h1::before {
     content: "Painel administrativo";
