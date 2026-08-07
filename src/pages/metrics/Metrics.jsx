@@ -17,7 +17,7 @@ export default function Metricas() {
     const acessosTreinamentosOrdenados = acessosTreinamentosFiltrados.sort((a, b) => b.total_acessos - a.total_acessos);
 
     const acessosOrdenados = acessos.sort((a, b) => a.nome.localeCompare(b.nome));
-    const acessosFiltrados = acessos.filter(acesso => acesso.nome.toLowerCase().includes(pesquisa.toLowerCase()) || acesso.email.toLowerCase().includes(pesquisa.toLowerCase()));
+    const acessosFiltrados = acessosOrdenados.filter(acesso => acesso.nome.toLowerCase().includes(pesquisa.toLowerCase()) || acesso.email.toLowerCase().includes(pesquisa.toLowerCase()));
 
     return (
         <div className={styles.container}>
@@ -67,7 +67,7 @@ export default function Metricas() {
                                 <span>Último acesso</span>
                             </div>
                             <div className={styles.tabelaCorpo}>
-                                {acessosFiltrados.length > 0 ? acessosOrdenados.map((acesso) => (
+                                {acessosFiltrados.length > 0 ? acessosFiltrados.map((acesso) => (
                                     <UserAcessCard key={acesso.id_usuario} registro={acesso} />
                                 )) : (
                                     <p className={styles.estadoVazio}>Nenhum colaborador encontrado.</p>
