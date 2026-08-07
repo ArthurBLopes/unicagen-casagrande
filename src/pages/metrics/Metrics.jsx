@@ -14,7 +14,9 @@ export default function Metricas() {
     const [pesquisaTreinamentos, setPesquisaTreinamentos] = useState("");
 
     const acessosTreinamentosFiltrados = acessosTreinamentos.filter(acesso => acesso.titulo.toLowerCase().includes(pesquisaTreinamentos.toLowerCase()));
-    console.log("teste teste teste");
+    const acessosTreinamentosOrdenados = acessosTreinamentosFiltrados.sort((a, b) => b.total_acessos - a.total_acessos);
+
+    const acessosOrdenados = acessos.sort((a, b) => a.nome.localeCompare(b.nome));
     const acessosFiltrados = acessos.filter(acesso => acesso.nome.toLowerCase().includes(pesquisa.toLowerCase()) || acesso.email.toLowerCase().includes(pesquisa.toLowerCase()));
 
     return (
@@ -50,7 +52,7 @@ export default function Metricas() {
 
                     {loading ? (
                         <p className={styles.carregando}>Carregando métricas...</p>
-                    ) : acessos.length === 0 ? (
+                    ) : acessosOrdenados.length === 0 ? (
                         <div className={styles.tabela}>
                             <p className={styles.estadoVazio}>Nenhum acesso registrado ainda.</p>
                         </div>
@@ -65,7 +67,7 @@ export default function Metricas() {
                                 <span>Último acesso</span>
                             </div>
                             <div className={styles.tabelaCorpo}>
-                                {acessosFiltrados.length > 0 ? acessosFiltrados.map((acesso) => (
+                                {acessosFiltrados.length > 0 ? acessosOrdenados.map((acesso) => (
                                     <UserAcessCard key={acesso.id_usuario} registro={acesso} />
                                 )) : (
                                     <p className={styles.estadoVazio}>Nenhum colaborador encontrado.</p>
@@ -105,7 +107,7 @@ export default function Metricas() {
                                 <span>Último acesso</span>
                             </div>
                             <div className={styles.tabelaCorpo}>
-                                {acessosTreinamentosFiltrados.length > 0 ? acessosTreinamentosFiltrados.map((acesso) => (
+                                {acessosTreinamentosOrdenados.length > 0 ? acessosTreinamentosOrdenados.map((acesso) => (
                                     <CourseAcessCard key={acesso.id_curso} registro={acesso} />
                                 )) : (
                                     <p className={styles.estadoVazio}>Curso não encontrado.</p>
