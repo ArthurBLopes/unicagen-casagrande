@@ -31,7 +31,7 @@ export const helpContent = {
             {
                 question: "Os vídeos e materiais abrem em outro site?",
                 answer:
-                    "Sim. As videoaulas ficam hospedadas no YouTube e os materiais de apoio no Google Drive. Ao clicar em 'Acessar Conteúdo' ou 'Acessar Material', o conteúdo abre em uma nova aba do navegador."
+                    "Sim. As videoaulas ficam hospedadas no YouTube e os materiais de apoio no SharePoint. Ao clicar em 'Acessar Conteúdo' ou 'Acessar Material', o conteúdo abre em uma nova aba do navegador."
             },
             {
                 question: "Com que frequência novos cursos são adicionados?",
