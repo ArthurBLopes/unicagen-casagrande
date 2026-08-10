@@ -1,8 +1,9 @@
-import { listarTrilhasComTreinamentos } from "../../services/treinamentosTrilhasService";
+import { listarTrilhasComTreinamentos, listarTrilhas } from "../../services/treinamentosTrilhasService";
 import { useEffect, useState } from "react";
 
 export function useTrilhasComTreinamentos() {
     const [trilhasComTreinamentos, setTrilhasComTreinamentos] = useState([]);
+    const [trilhas, setTrilhas] = useState([]);
     const [erroCarregamento, setErroCarregamento] = useState(false);
 
     useEffect(() => {
@@ -21,5 +22,21 @@ export function useTrilhasComTreinamentos() {
         carregarTrilhasComTreinamentos();
     }, []);
 
-    return { trilhasComTreinamentos, erroCarregamento };
+    useEffect(() => {
+        const carregarTrilhas = async () => {
+            try {
+                const dados = await listarTrilhas();
+                setTrilhas(dados);
+                setErroCarregamento(false);
+            } catch (error) {
+                console.error("Erro ao carregar trilhas:", error);
+                setTrilhasComTreinamentos([]);
+                setErroCarregamento(true);
+            }
+        };
+
+        carregarTrilhas();
+    }, []);
+
+    return { trilhasComTreinamentos, trilhas, erroCarregamento };
 }

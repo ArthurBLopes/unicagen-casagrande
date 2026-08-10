@@ -1,5 +1,20 @@
 import { supabase } from "../lib/supabase";
 
+const listarTrilhas = async () => {
+    const { data, error } = await supabase.from("trilhas").select("*")
+    if (error) {
+        console.error(error)
+        return []
+    }
+
+    if (!data || data.length === 0) {
+        console.log("Nenhuma trilha encontrada.")
+        return []
+    }
+
+    return data
+}
+
 const listarTreinamentosTrilhas = async () => {
     const { data, error } = await supabase.from("treinamentos_trilhas").select("*")
     if (error) {
@@ -92,4 +107,4 @@ const listarTrilhasComTreinamentos = async () => {
     return trilhasFormatadas;
 };
 
-export { listarTreinamentosTrilhas, listarTreinamentosDaTrilha, listarTrilhasComTreinamentos };
+export { listarTreinamentosTrilhas, listarTreinamentosDaTrilha, listarTrilhasComTreinamentos, listarTrilhas };

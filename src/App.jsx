@@ -17,7 +17,10 @@ import Saved from './pages/saved/Saved';
 import CoursesCompact from './pages/coursesCompact/CoursesCompact';
 import Metricas from './pages/metrics/Metrics';
 import ManagerHome from './pages/manager/managerHome/ManagerHome';
-import ManagerCourse from './pages/manager/managerCourse/managerCourse';
+import ManagerCourse from './pages/manager/managerCourse/ManagerCourse';
+import ManagerTrail from './pages/manager/managerTrail/ManagerTrail';
+import ManagerTag from './pages/manager/managerTag/ManagerTag';
+import ManagerUsers from './pages/manager/managerUsers/ManagerUsers';
 
 function App() {
 
@@ -46,6 +49,9 @@ function App() {
               <Route path="/admin/metricas" element={<Metricas />} />
               <Route path="/admin/gerenciar" element={<ManagerHome />} />
               <Route path="/gerenciar/treinamentos" element={<ManagerCourse />} />
+              <Route path="/gerenciar/trilhas" element={<ManagerTrail />} />
+              <Route path="/gerenciar/tags" element={<ManagerTag />} />
+              <Route path="/gerenciar/usuarios" element={<ManagerUsers />} />
             </Route>
           </Route>
         </Route>

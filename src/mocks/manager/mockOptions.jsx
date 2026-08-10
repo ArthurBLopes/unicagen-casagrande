@@ -9,16 +9,16 @@ export const opcoes = [
     {
         titulo: "TRILHAS",
         icon: <GraduationCap />,
-        caminho: "/teste",
+        caminho: "/gerenciar/trilhas",
     },
     {
         titulo: "TAGS",
         icon: <Tag />,
-        caminho: "/teste",
+        caminho: "/gerenciar/tags",
     },
     {
         titulo: "USUÁRIOS",
         icon: <UserRound />,
-        caminho: "/teste",
+        caminho: "/gerenciar/usuarios",
     }
 ]
