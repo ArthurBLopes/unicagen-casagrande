@@ -4,7 +4,7 @@ export const opcoes = [
     {
         titulo: "TREINAMENTOS",
         icon: <LibraryBig />,
-        caminho: "/teste",
+        caminho: "/gerenciar/treinamentos",
     },
     {
         titulo: "TRILHAS",

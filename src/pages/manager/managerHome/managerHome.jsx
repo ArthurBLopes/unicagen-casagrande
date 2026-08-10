@@ -1,4 +1,4 @@
-import styles from "./managerHome.module.css"
+import styles from "./ManagerHome.module.css"
 import { opcoes } from "../../../mocks/manager/mockOptions"
 import { NavLink } from "react-router-dom";
 

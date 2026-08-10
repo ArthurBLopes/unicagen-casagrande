@@ -26,8 +26,6 @@
     color: var(--text-color);
 }
 
-
-
 .main > h1::before {
     content: "Painel administrativo";
     display: block;
