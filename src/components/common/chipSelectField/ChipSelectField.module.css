@@ -19,7 +19,7 @@
 }
 
 .chipSelecionado {
-    background-color: color-mix(in srgb, #aabf86 30%, transparent);
+    background-color: color-mix(in srgb, #aabf86, transparent);
     color: var(--text-color2);
 }
 
