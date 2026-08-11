@@ -1,4 +1,5 @@
 import styles from './ChipSelectField.module.css';
+import { Trash } from "lucide-react"
 
 export default function ChipSelectField({ opcoes, selecionados, onSelect, onRemove }) {
     return (
@@ -6,7 +7,7 @@ export default function ChipSelectField({ opcoes, selecionados, onSelect, onRemo
             {opcoes.map((opcao) => (
                 <div
                     key={opcao.id}
-                    className={styles.chip}
+                    className={`${styles.chip} ${selecionados.includes(opcao) ? styles.chipSelecionado : ""}`}
                     onClick={() => onSelect(opcao)}
                 >
                     {opcao.titulo}
@@ -17,7 +18,7 @@ export default function ChipSelectField({ opcoes, selecionados, onSelect, onRemo
                                 e.stopPropagation();
                                 onRemove(opcao);
                             }}
-                        >
+                        ><Trash size={13} />
                         </button>
                     )}
                 </div>

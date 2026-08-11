@@ -5,81 +5,22 @@ import { useTags } from "../../../hooks/tags/useTags";
 import { useAuth } from "../../../providers/AuthContext";
 import { inserirTreinamento } from "../../../services/treinamentosService";
 import { Trash, Images, X } from "lucide-react"
+import ChipSelectField from "../../../components/common/chipSelectField/ChipSelectField";
+import { useSelectionMulti } from "../../../hooks/selection/useSelectionMulti";
+import ImageField from "../../../components/common/imageField/ImageField";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
     const [inserirAberto, setInserirAberto] = useState(false);
     const { trilhas } = useTrilhasComTreinamentos();
     const { tags } = useTags();
-    const [trilhasSelecionadas, setTrilhasSelecionadas] = useState([]);
-    const [tagsSelecionadas, setTagsSelecionadas] = useState([]);
+    const [imagemArquivo, setImagemArquivo] = useState(null);
     const [enviando, setEnviando] = useState(false);
+    const selecaoTrilhas = useSelectionMulti();
+    const selecaoTags = useSelectionMulti();
 
     function handleAbrirInserir() {
         setInserirAberto((estadoAtual) => !estadoAtual);
-    }
-
-    function inserirTrilhaSelecionada(trilha) {
-        setTrilhasSelecionadas((atual) => {
-            if (atual.some((t) => t.id === trilha.id)) {
-                return atual;
-            }
-
-            return [...atual, trilha];
-        });
-    }
-
-    function inserirTagSelecionada(tag) {
-        setTagsSelecionadas((atual) => {
-            if (atual.some((t) => t.id === tag.id)) {
-                return atual;
-            }
-
-            return [...atual, tag];
-        });
-    }
-
-
-    function removerTrilhaSelecionada(e, trilha) {
-        e.stopPropagation();
-        setTrilhasSelecionadas((atual) => atual.filter((t) => t.id !== trilha.id));
-    }
-
-    function removerTagSelecionada(e, tag) {
-        e.stopPropagation();
-        setTagsSelecionadas((atual) => atual.filter((t) => t.id !== tag.id));
-    }
-
-    function handleSelecionarTrilha(evento) {
-        const trilhaId = evento.target.value;
-
-        if (!trilhaId) {
-            return;
-        }
-
-        const trilhaSelecionada = trilhas.find((trilha) => String(trilha.id) === trilhaId);
-
-        if (trilhaSelecionada) {
-            inserirTrilhaSelecionada(trilhaSelecionada);
-        }
-
-        evento.target.value = "";
-    }
-
-    function handleSelecionarTag(evento) {
-        const tagId = evento.target.value;
-
-        if (!tagId) {
-            return;
-        }
-
-        const tagSelecionada = tags.find((tag) => String(tag.id) === tagId);
-
-        if (tagSelecionada) {
-            inserirTagSelecionada(tagSelecionada);
-        }
-
-        evento.target.value = "";
     }
 
     function resetarFormulario(formulario) {
@@ -192,82 +133,28 @@ export default function ManagerCourse() {
                             <div className={styles.linha}>
                                 <div className={styles.campo}>
                                     <label className={styles.rotulo} htmlFor="trilhas">Trilhas</label>
-                                    <select
-                                        name="trilhas"
-                                        id="trilhas"
-                                        onChange={handleSelecionarTrilha}
-                                        defaultValue=""
-                                    >
-                                        <option value="">Selecione uma trilha</option>
-                                        {trilhas.map((trilha) => (
-                                            <option key={trilha.id} value={trilha.id}>
-                                                {trilha.titulo}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {trilhasSelecionadas.length > 0 && (
-                                        <div className={styles.chips}>
-                                            {trilhasSelecionadas.map((trilha) => (
-                                                <span className={styles.chip} key={trilha.id}>
-                                                    {trilha.titulo}
-                                                    <Trash size={13} onClick={(e) => removerTrilhaSelecionada(e, trilha)} />
-                                                </span>
-                                            ))}
-                                        </div>
-                                    )}
+                                    <ChipSelectField
+                                        opcoes={trilhas}
+                                        selecionados={selecaoTrilhas.selecionados}
+                                        onSelect={selecaoTrilhas.selecionar}
+                                        onRemove={selecaoTrilhas.remover}
+                                    />
                                 </div>
 
                                 <div className={styles.campo}>
                                     <label className={styles.rotulo} htmlFor="tags">Tags</label>
-                                    <select
-                                        name="tags"
-                                        id="tags"
-                                        onChange={handleSelecionarTag}
-                                        defaultValue=""
-                                    >
-                                        <option value="">Selecione uma tag</option>
-                                        {tags.map((tag) => (
-                                            <option key={tag.id} value={tag.id}>
-                                                {tag.titulo}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    {tagsSelecionadas.length > 0 && (
-                                        <div className={styles.chips}>
-                                            {tagsSelecionadas.map((tag) => (
-                                                <span className={styles.chip} key={tag.id}>
-                                                    {tag.titulo}
-                                                    <Trash size={13} onClick={(e) => removerTagSelecionada(e, tag)} />
-                                                </span>
-                                            ))}
-                                        </div>
-                                    )}
+                                    <ChipSelectField
+                                    opcoes={tags}
+                                    selecionados={selecaoTags.selecionados}
+                                    onSelect={selecaoTags.selecionar}
+                                    onRemove={selecaoTags.remover}
+                                    />
                                 </div>
                             </div>
 
                             <div className={styles.campo}>
                                 <label className={styles.rotulo}>Imagem do curso</label>
-                                <label className={styles.imagemCampo}>
-                                    <input
-                                        type="file"
-                                        accept="image/jpeg,image/png,image/webp"
-                                        onChange={handleSelecionarImagem}
-                                        hidden
-                                    />
-                                    {imagemPreview ? (
-                                        <>
-                                            <img src={imagemPreview} alt="Prévia da imagem do curso" className={styles.imagemPreview} />
-                                            <button type="button" className={styles.removerImagem} onClick={handleRemoverImagem}>
-                                                <X size={14} />
-                                            </button>
-                                        </>
-                                    ) : (
-                                        <div className={styles.imagemPlaceholder}>
-                                            <Images size={26} />
-                                            <span>Adicionar imagem</span>
-                                        </div>
-                                    )}
-                                </label>
+                                <ImageField onArquivoSelecionado={setImagemArquivo} />
                             </div>
 
                             <button type="submit" className={styles.botaoInserir} disabled={enviando}>
