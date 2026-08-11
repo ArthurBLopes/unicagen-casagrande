@@ -18,7 +18,6 @@ export default function ChipSelectField({ opcoes, selecionados, onSelect, onRemo
                                 onRemove(opcao);
                             }}
                         >
-                            &times;
                         </button>
                     )}
                 </div>

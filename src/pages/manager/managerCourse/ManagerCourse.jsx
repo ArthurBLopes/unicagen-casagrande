@@ -4,7 +4,6 @@ import { useTrilhasComTreinamentos } from "../../../hooks/trailsCourses/useTrilh
 import { useTags } from "../../../hooks/tags/useTags";
 import { useAuth } from "../../../providers/AuthContext";
 import { inserirTreinamento } from "../../../services/treinamentosService";
-import { uploadImagemTreinamento } from "../../../services/uploadService";
 import { Trash, Images, X } from "lucide-react"
 
 export default function ManagerCourse() {
@@ -14,18 +13,7 @@ export default function ManagerCourse() {
     const { tags } = useTags();
     const [trilhasSelecionadas, setTrilhasSelecionadas] = useState([]);
     const [tagsSelecionadas, setTagsSelecionadas] = useState([]);
-    const [imagemArquivo, setImagemArquivo] = useState(null);
-    const [imagemPreview, setImagemPreview] = useState(null);
     const [enviando, setEnviando] = useState(false);
-
-    useEffect(() => {
-        if (!imagemArquivo) return;
-
-        const url = URL.createObjectURL(imagemArquivo);
-        setImagemPreview(url);
-
-        return () => URL.revokeObjectURL(url);
-    }, [imagemArquivo]);
 
     function handleAbrirInserir() {
         setInserirAberto((estadoAtual) => !estadoAtual);
@@ -92,22 +80,6 @@ export default function ManagerCourse() {
         }
 
         evento.target.value = "";
-    }
-
-    function handleSelecionarImagem(evento) {
-        const arquivo = evento.target.files?.[0];
-
-        if (arquivo) {
-            setImagemArquivo(arquivo);
-        }
-
-        evento.target.value = "";
-    }
-
-    function handleRemoverImagem(e) {
-        e.stopPropagation();
-        setImagemArquivo(null);
-        setImagemPreview(null);
     }
 
     function resetarFormulario(formulario) {
