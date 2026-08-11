@@ -12,14 +12,14 @@
     padding: 4px 10px;
     border-radius: 999px;
     background-color: color-mix(in srgb, gray 12%, transparent);
-    color: var(--text-color 30%);
+    color: var(--text-color);
     font-size: 11.5px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .chipSelecionado {
-    background-color: color-mix(in srgb, #aabf86, transparent);
+    background-color: color-mix(in srgb, #aabf86 30%, transparent);
     color: var(--text-color2);
 }
 

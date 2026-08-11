@@ -50,10 +50,3 @@
     color: #ffffff;
     cursor: pointer;
 }
-
-@media (min-width: 768px) {
-    .imagemCampo {
-        width: 141px;
-        height: 141px;
-    }
-}
