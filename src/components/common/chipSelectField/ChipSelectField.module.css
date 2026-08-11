@@ -36,3 +36,7 @@
 .chip button:hover {
     opacity: 1;
 }
+
+.iconeLixeira {
+    color: var(--text-color2);
+}

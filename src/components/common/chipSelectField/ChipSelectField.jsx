@@ -18,7 +18,7 @@ export default function ChipSelectField({ opcoes, selecionados, onSelect, onRemo
                                 e.stopPropagation();
                                 onRemove(opcao);
                             }}
-                        ><Trash size={13} />
+                        ><Trash className={styles.iconeLixeira} size={13} />
                         </button>
                     )}
                 </div>
