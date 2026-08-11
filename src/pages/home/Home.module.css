@@ -5,10 +5,7 @@
     background-color: var(--bg-color2);
     color: var(--text-color);
     font-family: "Sora", sans-serif;
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .main {

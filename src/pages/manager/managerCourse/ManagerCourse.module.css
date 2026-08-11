@@ -1,7 +1,7 @@
 .container {
     width: 100%;
     min-height: 100%;
-    padding: 144px 47px 48px;
+    padding: 123px 49px 32px;
     background-color: var(--bg-color2);
     color: var(--text-color);
     font-family: "Sora", sans-serif;
@@ -59,8 +59,8 @@
 }
 
 .formulario {
-    margin-top: 32px;
-    max-width: 620px;
+    margin-top: 24px;
+    max-width: 100%;
 }
 
 .botaoAbrirInserir {
@@ -94,13 +94,14 @@
 .formInsercao {
     display: flex;
     flex-direction: column;
-    gap: 26px;
-    margin-top: 28px;
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .linha {
     display: flex;
-    gap: 32px;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .linha > .campo {
@@ -191,8 +192,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 96px;
-    height: 96px;
+    width: 100%;
+    height: 230px;
     border-radius: 10px;
     border: 1px dashed var(--border-color);
     background-color: transparent;
@@ -240,7 +241,7 @@
 }
 
 .botaoInserir {
-    align-self: flex-start;
+    align-self: stretch;
     padding: 13px 30px;
     margin-top: 10px;
     border: none;
@@ -263,4 +264,40 @@
 .botaoInserir:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 120px 32px 40px;
+    }
+
+    .formulario {
+        margin-top: 32px;
+        max-width: 620px;
+    }
+
+    .formInsercao {
+        gap: 26px;
+        margin-top: 28px;
+    }
+
+    .linha {
+        flex-direction: row;
+        gap: 32px;
+    }
+
+    .imagemCampo {
+        width: 96px;
+        height: 96px;
+    }
+
+    .botaoInserir {
+        align-self: flex-start;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 144px 47px 48px;
+    }
 }
