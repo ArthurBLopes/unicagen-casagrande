@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Images, X } from "lucide-react";
+import { ImageUp, X } from "lucide-react";
 import styles from "./ImageField.module.css";
 
 export default function ImageField({ onArquivoSelecionado }) {
@@ -50,8 +50,7 @@ export default function ImageField({ onArquivoSelecionado }) {
                 </>
             ) : (
                 <div className={styles.imagemPlaceholder}>
-                    <Images size={26} />
-                    <span>Adicionar imagem</span>
+                    <ImageUp size={26} />
                 </div>
             )}
         </label>
