@@ -1,5 +1,5 @@
 import styles from './ChipSelectField.module.css';
-import { Trash } from "lucide-react"
+import { Trash, X } from "lucide-react"
 
 export default function ChipSelectField({ opcoes, selecionados, onSelect, onRemove }) {
     return (
@@ -18,7 +18,7 @@ export default function ChipSelectField({ opcoes, selecionados, onSelect, onRemo
                                 e.stopPropagation();
                                 onRemove(opcao);
                             }}
-                        ><Trash className={styles.iconeLixeira} size={13} />
+                        ><X className={styles.iconeRemover} size={13} />
                         </button>
                     )}
                 </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export function useSelectionMulti() {
-    const [selecionados, setSelecionados] = useState([]);
+export function useSelectionMulti(itensIniciais = []) {
+    const [selecionados, setSelecionados] = useState(itensIniciais);
 
     function selecionar(item) {
         setSelecionados((atual) => {

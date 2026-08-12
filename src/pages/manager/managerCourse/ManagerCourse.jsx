@@ -8,6 +8,7 @@ import { Trash, Images, X } from "lucide-react"
 import ChipSelectField from "../../../components/common/chipSelectField/ChipSelectField";
 import { useSelectionMulti } from "../../../hooks/selection/useSelectionMulti";
 import ImageField from "../../../components/common/imageField/ImageField";
+import CourseForm from "../../../components/features/manager/course/CourseForm";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
@@ -16,6 +17,7 @@ export default function ManagerCourse() {
     const { tags } = useTags();
     const [imagemArquivo, setImagemArquivo] = useState(null);
     const [enviando, setEnviando] = useState(false);
+
     const selecaoTrilhas = useSelectionMulti();
     const selecaoTags = useSelectionMulti();
 
@@ -25,10 +27,7 @@ export default function ManagerCourse() {
 
     function resetarFormulario(formulario) {
         formulario.reset();
-        setTrilhasSelecionadas([]);
-        setTagsSelecionadas([]);
         setImagemArquivo(null);
-        setImagemPreview(null);
         setInserirAberto(false);
     }
 
@@ -82,86 +81,7 @@ export default function ManagerCourse() {
                         {inserirAberto ? "Cancelar" : "+ Inserir Treinamento"}
                     </button>
 
-                    {inserirAberto && (
-                        <form className={styles.formInsercao} onSubmit={handleCadastrarTreinamento}>
-                            <div className={styles.campo}>
-                                <label className={styles.rotulo} htmlFor="titulo">Título</label>
-                                <input
-                                    type="text"
-                                    name="titulo"
-                                    id="titulo"
-                                    placeholder="Ex: Introdução à Universidade Casagrande"
-                                    required
-                                />
-                            </div>
-
-                            <div className={styles.campo}>
-                                <label className={styles.rotulo} htmlFor="descricao">Descrição</label>
-                                <textarea
-                                    name="descricao"
-                                    id="descricao"
-                                    placeholder="Descreva do que se trata esse treinamento..."
-                                    rows={3}
-                                    required
-                                />
-                            </div>
-
-                            <div className={styles.linha}>
-                                <div className={styles.campo}>
-                                    <label className={styles.rotulo} htmlFor="url_conteudo">URL do conteúdo</label>
-                                    <input
-                                        type="text"
-                                        name="url_conteudo"
-                                        id="url_conteudo"
-                                        placeholder="https://..."
-                                        required
-                                    />
-                                </div>
-
-                                <div className={styles.campo}>
-                                    <label className={styles.rotulo} htmlFor="url_material">URL do material</label>
-                                    <input
-                                        type="text"
-                                        name="url_material"
-                                        id="url_material"
-                                        placeholder="https://..."
-                                        required
-                                    />
-                                </div>
-                            </div>
-
-                            <div className={styles.linha}>
-                                <div className={styles.campo}>
-                                    <label className={styles.rotulo} htmlFor="trilhas">Trilhas</label>
-                                    <ChipSelectField
-                                        opcoes={trilhas}
-                                        selecionados={selecaoTrilhas.selecionados}
-                                        onSelect={selecaoTrilhas.selecionar}
-                                        onRemove={selecaoTrilhas.remover}
-                                    />
-                                </div>
-
-                                <div className={styles.campo}>
-                                    <label className={styles.rotulo} htmlFor="tags">Tags</label>
-                                    <ChipSelectField
-                                    opcoes={tags}
-                                    selecionados={selecaoTags.selecionados}
-                                    onSelect={selecaoTags.selecionar}
-                                    onRemove={selecaoTags.remover}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className={styles.campo}>
-                                <label className={styles.rotulo}>Imagem do curso</label>
-                                <ImageField onArquivoSelecionado={setImagemArquivo} />
-                            </div>
-
-                            <button type="submit" className={styles.botaoInserir} disabled={enviando}>
-                                {enviando ? "Enviando..." : "Inserir treinamento"}
-                            </button>
-                        </form>
-                    )}
+                    {inserirAberto && <CourseForm funcaoSubmite={handleCadastrarTreinamento} trilhas={trilhas} tags={tags} setImagemArquivo={setImagemArquivo} enviando={enviando}  />}
                 </div>
             </main>
         </div>

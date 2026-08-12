@@ -62,7 +62,7 @@ export default function Metricas() {
                                 <span>Nome</span>
                                 <span>Email</span>
                                 <span>Posição</span>
-                                <span>Acessos (Últimos 15 dias)</span>
+                                <span>Acessos (Últimos 30 dias)</span>
                                 <span>Frequência (%)</span>
                                 <span>Último acesso</span>
                             </div>

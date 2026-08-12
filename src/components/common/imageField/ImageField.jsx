@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { ImageUp, X } from "lucide-react";
 import styles from "./ImageField.module.css";
 
-export default function ImageField({ onArquivoSelecionado }) {
+export default function ImageField({ onArquivoSelecionado, imagemInicial = null }) {
     const [imagemArquivo, setImagemArquivo] = useState(null);
-    const [imagemPreview, setImagemPreview] = useState(null);
+    const [imagemPreview, setImagemPreview] = useState(imagemInicial);
 
     useEffect(() => {
         if (!imagemArquivo) return;
