@@ -5,6 +5,7 @@ import { useAcessos } from "../../hooks/metrics/useAcessos"
 import { useAcessosTreinamentos } from "../../hooks/metrics/useAcessosTreinamentos"
 import { Info, Search, ChevronDown, SlidersHorizontal } from "lucide-react"
 import { useState } from "react"
+import Table from "../../components/common/table/Table"
 
 export default function Metricas() {
 
@@ -13,11 +14,14 @@ export default function Metricas() {
     const [pesquisa, setPesquisa] = useState("");
     const [pesquisaTreinamentos, setPesquisaTreinamentos] = useState("");
 
-    const acessosTreinamentosFiltrados = acessosTreinamentos.filter(acesso => acesso.titulo.toLowerCase().includes(pesquisaTreinamentos.toLowerCase()));
-    const acessosTreinamentosOrdenados = acessosTreinamentosFiltrados.sort((a, b) => b.total_acessos - a.total_acessos);
+    const acessosTreinamentosOrdenados = acessosTreinamentos.sort((a, b) => b.total_acessos - a.total_acessos);
+    const acessosTreinamentosFiltrados = acessosTreinamentosOrdenados.filter(acesso => acesso.titulo.toLowerCase().includes(pesquisaTreinamentos.toLowerCase()));
 
     const acessosOrdenados = acessos.sort((a, b) => a.nome.localeCompare(b.nome));
     const acessosFiltrados = acessosOrdenados.filter(acesso => acesso.nome.toLowerCase().includes(pesquisa.toLowerCase()) || acesso.email.toLowerCase().includes(pesquisa.toLowerCase()));
+
+    const headers_acessos = ["Nome", "Email", "Posição", "Acessos (Últimos 30 dias)", "Frequência (%)", "Último acesso"];
+    const headers_treinamentos = ["Curso", "Total de Acessos", "Usuários únicos", "Último acesso"];
 
     return (
         <div className={styles.container}>
@@ -50,31 +54,8 @@ export default function Metricas() {
                         </div>
                     </div>
 
-                    {loading ? (
-                        <p className={styles.carregando}>Carregando métricas...</p>
-                    ) : acessosOrdenados.length === 0 ? (
-                        <div className={styles.tabela}>
-                            <p className={styles.estadoVazio}>Nenhum acesso registrado ainda.</p>
-                        </div>
-                    ) : (
-                        <div className={styles.tabela}>
-                            <div className={styles.tabelaCabecalho}>
-                                <span>Nome</span>
-                                <span>Email</span>
-                                <span>Posição</span>
-                                <span>Acessos (Últimos 30 dias)</span>
-                                <span>Frequência (%)</span>
-                                <span>Último acesso</span>
-                            </div>
-                            <div className={styles.tabelaCorpo}>
-                                {acessosFiltrados.length > 0 ? acessosFiltrados.map((acesso) => (
-                                    <UserAcessCard key={acesso.id_usuario} registro={acesso} />
-                                )) : (
-                                    <p className={styles.estadoVazio}>Nenhum colaborador encontrado.</p>
-                                )}
-                            </div>
-                        </div>
-                    )}
+                    <Table loading={loading} headers={headers_acessos} dados={acessosOrdenados} dadosFiltrados={acessosFiltrados} Card={UserAcessCard} />
+                    
                 </section>
 
                 <section className={styles.secao}>
@@ -92,29 +73,7 @@ export default function Metricas() {
                         </div>
                     </div>
 
-                    {loadingTreinamentos ? (
-                        <p className={styles.carregando}>Carregando métricas...</p>
-                    ) : acessosTreinamentos.length === 0 ? (
-                        <div className={styles.tabela}>
-                            <p className={styles.estadoVazio}>Nenhum acesso registrado ainda.</p>
-                        </div>
-                    ) : (
-                        <div className={styles.tabela}>
-                            <div className={`${styles.tabelaCabecalho} ${styles.tabelaCabecalhoCurso}`}>
-                                <span>Curso</span>
-                                <span>Total de Acessos</span>
-                                <span>Usuários Únicos</span>
-                                <span>Último acesso</span>
-                            </div>
-                            <div className={styles.tabelaCorpo}>
-                                {acessosTreinamentosOrdenados.length > 0 ? acessosTreinamentosOrdenados.map((acesso) => (
-                                    <CourseAcessCard key={acesso.id_curso} registro={acesso} />
-                                )) : (
-                                    <p className={styles.estadoVazio}>Curso não encontrado.</p>
-                                )}
-                            </div>
-                        </div>
-                    )}
+                    <Table loading={loadingTreinamentos} headers={headers_treinamentos} dados={acessosTreinamentosOrdenados} dadosFiltrados={acessosTreinamentosFiltrados} Card={CourseAcessCard} />
                 </section>
             </main>
         </div>
