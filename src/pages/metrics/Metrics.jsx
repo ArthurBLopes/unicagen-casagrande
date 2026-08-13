@@ -52,7 +52,7 @@ export default function Metricas() {
                         </div>
                     </div>
 
-                    <Table loading={loading} headers={headers_acessos} dados={acessosOrdenados} dadosFiltrados={acessosFiltrados} Card={UserAcessCard} />
+                    <Table loading={loading} headers={headers_acessos} dados={acessosOrdenados} dadosFiltrados={acessosFiltrados} Card={UserAcessCard} columns="1.4fr 1.8fr 0.9fr 0.9fr 0.9fr 1fr" />
                     
                 </section>
 
@@ -70,7 +70,7 @@ export default function Metricas() {
                         </div>
                     </div>
 
-                    <Table loading={loadingTreinamentos} headers={headers_treinamentos} dados={acessosTreinamentosOrdenados} dadosFiltrados={acessosTreinamentosFiltrados} Card={CourseAcessCard} />
+                    <Table loading={loadingTreinamentos} headers={headers_treinamentos} dados={acessosTreinamentosOrdenados} dadosFiltrados={acessosTreinamentosFiltrados} Card={CourseAcessCard } columns="2.7fr 1.5fr 1.4fr 1.3fr" />
                 </section>
             </main>
         </div>

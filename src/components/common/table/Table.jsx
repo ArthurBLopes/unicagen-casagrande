@@ -1,6 +1,8 @@
 import styles from "./Table.module.css"
 
-export default function Table({ loading, headers, dados, dadosFiltrados = [], Card }) {
+export default function Table({ loading, headers, dados, dadosFiltrados = [], Card, columns }) {
+    const colunas = columns || `repeat(${headers.length}, 1fr)`
+
     return (
         <>
             {loading ? (
@@ -11,7 +13,7 @@ export default function Table({ loading, headers, dados, dadosFiltrados = [], Ca
                 </div>
             ) : (
                 <div className={styles.tabela}>
-                    <div className={styles.tabelaCabecalho}>
+                    <div className={styles.tabelaCabecalho} style={{ "--tabela-colunas": colunas }}>
                         {headers.map((header, i) => (
                             <span key={i}>{header}</span>
                         ))}
