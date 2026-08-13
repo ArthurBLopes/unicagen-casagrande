@@ -1,7 +1,7 @@
 import styles from "./Table.module.css"
 
-export default function Table({ loading, headers, dados, dadosFiltrados = [], Card, columns }) {
-    const colunas = columns || `repeat(${headers.length}, 1fr)`
+export default function Table({ loading, headers, dados, dadosFiltrados = [], columns, colunas, acoes }) {
+    const gridColunas = columns || `repeat(${headers.length}, 1fr)`
 
     return (
         <>
@@ -12,15 +12,32 @@ export default function Table({ loading, headers, dados, dadosFiltrados = [], Ca
                     <p className={styles.estadoVazio}>Nenhum dado para exibir.</p>
                 </div>
             ) : (
-                <div className={styles.tabela}>
-                    <div className={styles.tabelaCabecalho} style={{ "--tabela-colunas": colunas }}>
+                <div className={styles.tabela} style={{ "--tabela-colunas": gridColunas }}>
+                    <div className={styles.tabelaCabecalho}>
                         {headers.map((header, i) => (
                             <span key={i}>{header}</span>
                         ))}
                     </div>
                     <div className={styles.tabelaCorpo}>
                         {dadosFiltrados.length > 0 ? dadosFiltrados.map((dado, i) => (
-                            Card && <Card key={i} registro={dado} />
+                            <div className={styles.linha} key={dado.id ?? i}>
+                                {colunas(dado).map((coluna, j) => (
+                                    <span key={j} className={coluna.className ?? styles.valor}>
+                                        {coluna.valor}
+                                    </span>
+                                ))}
+
+                                {acoes && (
+                                    <div className={styles.acoes}>
+                                        {acoes.onEditar && (
+                                            <button className={styles.btn} onClick={() => acoes.onEditar(dado)}>Editar</button>
+                                        )}
+                                        {acoes.onRemover && (
+                                            <button className={styles.btn} onClick={() => acoes.onRemover(dado)}>Remover</button>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
                         )) : (
                             <p className={styles.estadoVazio}>Nenhum dado encontrado.</p>
                         )}

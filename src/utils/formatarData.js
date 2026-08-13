@@ -9,6 +9,11 @@ export function removerItensDuplicados(array) {
     return array.filter((item, index) => array.indexOf(item) === index);
 }
 
+export function formatarUltimoAcesso(data) {
+    if (!data) return { valor: "Não encontrado" };
+    return { valor: data.slice(0, 10).split("-").reverse().join("/") };
+}
+
 export const hoje = new Date().toISOString().split("T")[0]
 
 
