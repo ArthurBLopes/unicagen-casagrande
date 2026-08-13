@@ -6,6 +6,7 @@ import { useAcessosTreinamentos } from "../../hooks/metrics/useAcessosTreinament
 import { Info, Search, ChevronDown, SlidersHorizontal } from "lucide-react"
 import { useState } from "react"
 import Table from "../../components/common/table/Table"
+import Alert from "../../components/common/alert/Alert"
 
 export default function Metricas() {
 
@@ -33,8 +34,6 @@ export default function Metricas() {
                     <div className={styles.secaoCabecalho}>
                         <h2 className={styles.secaoTitulo}>Acessos por colaborador</h2>
 
-                        
-
                         <div className={styles.btns}>
                             <button className={styles.btnBI}>
                                 <img className={styles.iconeBI} src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/New_Power_BI_Logo.svg/960px-New_Power_BI_Logo.svg.png" alt="" />
@@ -43,10 +42,9 @@ export default function Metricas() {
                             <button className={styles.btnPDF}>Gerar relatório</button>
                         </div>
                     </div>
-                    <div className={styles.aviso}>
-                        <Info size={16} />
-                        <span>Colaboradores que nunca acessaram a nova Unicagen não aparecem nesta lista, pois o cadastro só é criado no primeiro login.</span>
-                    </div>
+
+                    <Alert mensagem={"Colaboradores que nunca acessaram a nova Unicagen não aparecem nesta lista, pois o cadastro só é criado no primeiro login."} />
+                
                     <div className={styles.searchArea}>
                         <div className={styles.searchBox}>
                             <Search size={18} />
@@ -62,10 +60,9 @@ export default function Metricas() {
                     <div className={styles.secaoCabecalho}>
                         <h2 className={styles.secaoTitulo}>Acessos por curso</h2>
                     </div>
-                    <div className={styles.aviso}>
-                        <Info size={16} />
-                        <span>Confira os cursos mais procurados pelos colaboradores da Casagrande.</span>
-                    </div>
+
+                    <Alert mensagem={"Confira os cursos mais procurados pelos colaboradores da Casagrande."} />
+
                     <div className={styles.searchArea}>
                         <div className={styles.searchBox}>
                             <Search size={18} />
