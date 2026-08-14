@@ -1,4 +1,5 @@
 import styles from "./Table.module.css"
+import { Trash, SquarePen } from "lucide-react"
 
 export default function Table({ loading, headers, dados, dadosFiltrados = [], columns, colunas, acoes }) {
     const gridColunas = columns || `repeat(${headers.length}, 1fr)`
@@ -30,10 +31,10 @@ export default function Table({ loading, headers, dados, dadosFiltrados = [], co
                                 {acoes && (
                                     <div className={styles.acoes}>
                                         {acoes.onEditar && (
-                                            <button className={styles.btn} onClick={() => acoes.onEditar(dado)}>Editar</button>
+                                            <button className={styles.btn} onClick={() => acoes.onEditar(dado)}><SquarePen size={18} /></button>
                                         )}
                                         {acoes.onRemover && (
-                                            <button className={styles.btn} onClick={() => acoes.onRemover(dado)}>Remover</button>
+                                            <button className={styles.btn} onClick={() => acoes.onRemover(dado)}><Trash size={18} /></button>
                                         )}
                                     </div>
                                 )}

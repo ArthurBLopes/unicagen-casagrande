@@ -95,7 +95,12 @@
 
     .linha {
         flex-direction: row;
+        align-items: stretch;
         gap: 32px;
+    }
+
+    .campo input[type="text"] {
+        margin-top: auto; 
     }
 
     .botaoInserir {

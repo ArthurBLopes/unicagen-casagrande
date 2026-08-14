@@ -1,25 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./ManagerCourse.module.css";
 import { useTrilhasComTreinamentos } from "../../../hooks/trailsCourses/useTrilhasComTreinamentos";
 import { useTags } from "../../../hooks/tags/useTags";
 import { useAuth } from "../../../providers/AuthContext";
 import { inserirTreinamento } from "../../../services/treinamentosService";
-import { Trash, Images, X } from "lucide-react"
+import { Trash, Images, X, SquarePen, ArrowUpAZ, ClockArrowUp } from "lucide-react"
 import ChipSelectField from "../../../components/common/chipSelectField/ChipSelectField";
 import { useSelectionMulti } from "../../../hooks/selection/useSelectionMulti";
 import ImageField from "../../../components/common/imageField/ImageField";
 import CourseForm from "../../../components/features/manager/course/CourseForm";
+import { useTreinamentos } from "../../../hooks/courses/useTreinamentos";
+import Table from "../../../components/common/table/Table";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
     const [inserirAberto, setInserirAberto] = useState(false);
     const { trilhas } = useTrilhasComTreinamentos();
     const { tags } = useTags();
+    const { treinamentos } = useTreinamentos();
     const [imagemArquivo, setImagemArquivo] = useState(null);
     const [enviando, setEnviando] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [opcaoOrdenar, setOpcaoOrdenar] = useState(true)
 
     const selecaoTrilhas = useSelectionMulti();
     const selecaoTags = useSelectionMulti();
+
+    const headers_treinamentos = ["Título", "Data de Publicação", "Edição", "Remoção"]
 
     function handleAbrirInserir() {
         setInserirAberto((estadoAtual) => !estadoAtual);
@@ -68,6 +75,16 @@ export default function ManagerCourse() {
         resetarFormulario(formulario);
     }
 
+    function handleOrdenacao() {
+        setOpcaoOrdenar((estadoAtual) => !estadoAtual)
+    }
+
+    const treinamentosOrdenados = useMemo(() => {
+        const ordenados = opcaoOrdenar ? [...treinamentos].sort((a, b) => (a.titulo ?? "").localeCompare(b.titulo ?? "")) : [...treinamentos].sort((a, b) => (a.data_publicacao ?? "").localeCompare(b.data_publicacao ?? "")).reverse();
+
+        return ordenados.map((treinamento) => ({...treinamento, data_publicacao: treinamento?.data_publicacao ? String(treinamento.data_publicacao).split('-').reverse().join('/') : "",}))
+    }, [treinamentos, opcaoOrdenar])
+
     return (
         <div className={styles.container}>
             <main className={styles.main}>
@@ -76,12 +93,33 @@ export default function ManagerCourse() {
                     Insira, edite ou remova informações dos treinamentos, essa é a página de
                     gerenciamento dos treinamentos disponíveis na Universidade Casagrande.
                 </p>
-                <div className={styles.formulario}>
-                    <button className={styles.botaoAbrirInserir} onClick={handleAbrirInserir}>
-                        {inserirAberto ? "Cancelar" : "+ Inserir Treinamento"}
-                    </button>
-
-                    {inserirAberto && <CourseForm funcaoSubmite={handleCadastrarTreinamento} trilhas={trilhas} tags={tags} setImagemArquivo={setImagemArquivo} enviando={enviando}  />}
+                <div className={styles.acoes}>
+                    <div className={styles.toolbar}>
+                        <button className={styles.botaoAbrirInserir} onClick={handleAbrirInserir}>
+                            {inserirAberto ? "Cancelar" : "+ Inserir Treinamento"}
+                        </button>
+                        <button className={styles.botaoOrdenador} onClick={handleOrdenacao}>
+                            {opcaoOrdenar ? <span>Ordenar por data <ClockArrowUp /></span> : <span>Ordenar por ordem alfabética <ArrowUpAZ /></span>}
+                        </button>
+                    </div>
+                    {inserirAberto && (
+                        <div className={styles.painelForm}>
+                            <CourseForm funcaoSubmite={handleCadastrarTreinamento} trilhas={trilhas} tags={tags} setImagemArquivo={setImagemArquivo} enviando={enviando} />
+                        </div>
+                    )}
+                    <div className={styles.tabela}>
+                        <Table
+                            loading={loading}
+                            headers={headers_treinamentos}
+                            dados={treinamentosOrdenados}
+                            dadosFiltrados={treinamentosOrdenados}
+                            columns="1.6fr 1fr 1fr 1fr"
+                            colunas={(treinamento) => [
+                                { valor: treinamento.titulo },
+                                { valor: treinamento.data_publicacao }
+                            ]}
+                        />
+                    </div>
                 </div>
             </main>
         </div>

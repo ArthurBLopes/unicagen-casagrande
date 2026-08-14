@@ -3,7 +3,7 @@ import { useSelectionMulti } from "../../../../hooks/selection/useSelectionMulti
 import ImageField from "../../../common/imageField/ImageField";
 import styles from "./CourseForm.module.css";
 
-export default function CourseForm({funcaoSubmite, trilhas, tags, setImagemArquivo, editando = false, enviando, treinamento}) {
+export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArquivo, editando = false, enviando, treinamento }) {
 
     const selecaoTrilhas = useSelectionMulti();
     const selecaoTags = useSelectionMulti();
@@ -11,28 +11,29 @@ export default function CourseForm({funcaoSubmite, trilhas, tags, setImagemArqui
     return (
         <>
             <form className={styles.formInsercao} onSubmit={funcaoSubmite}>
-                <div className={styles.campo}>
-                    <label className={styles.rotulo} htmlFor="titulo">Título</label>
-                    <input
-                        type="text"
-                        name="titulo"
-                        id="titulo"
-                        placeholder="Ex: Introdução à Universidade Casagrande"
-                        defaultValue={treinamento?.titulo}
-                        required
-                    />
-                </div>
-
-                <div className={styles.campo}>
-                    <label className={styles.rotulo} htmlFor="descricao">Descrição</label>
-                    <textarea
-                        name="descricao"
-                        id="descricao"
-                        placeholder="Descreva do que se trata esse treinamento..."
-                        defaultValue={treinamento?.descricao}
-                        rows={3}
-                        required
-                    />
+                <div className={styles.linha}>
+                    <div className={styles.campo}>
+                        <label className={styles.rotulo} htmlFor="titulo">Título</label>
+                        <input
+                            type="text"
+                            name="titulo"
+                            id="titulo"
+                            placeholder="Ex: Introdução à Universidade Casagrande"
+                            defaultValue={treinamento?.titulo}
+                            required
+                        />
+                    </div>
+                    <div className={styles.campo}>
+                        <label className={styles.rotulo} htmlFor="descricao">Descrição</label>
+                        <textarea
+                            name="descricao"
+                            id="descricao"
+                            placeholder="Descreva do que se trata esse treinamento..."
+                            defaultValue={treinamento?.descricao}
+                            rows={3}
+                            required
+                        />
+                    </div>
                 </div>
 
                 <div className={styles.linha}>
@@ -63,6 +64,10 @@ export default function CourseForm({funcaoSubmite, trilhas, tags, setImagemArqui
 
                 <div className={styles.linha}>
                     <div className={styles.campo}>
+                        <label className={styles.rotulo}>Imagem do curso</label>
+                        <ImageField onArquivoSelecionado={setImagemArquivo} imagemInicial={treinamento?.imagem} />
+                    </div>
+                    <div className={styles.campo}>
                         <label className={styles.rotulo} htmlFor="trilhas">Trilhas</label>
                         <ChipSelectField
                             opcoes={trilhas}
@@ -81,11 +86,6 @@ export default function CourseForm({funcaoSubmite, trilhas, tags, setImagemArqui
                             onRemove={selecaoTags.remover}
                         />
                     </div>
-                </div>
-
-                <div className={styles.campo}>
-                    <label className={styles.rotulo}>Imagem do curso</label>
-                    <ImageField onArquivoSelecionado={setImagemArquivo} imagemInicial={treinamento?.imagem} />
                 </div>
 
                 <button type="submit" className={styles.botaoInserir} disabled={enviando}>
