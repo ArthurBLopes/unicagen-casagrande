@@ -15,6 +15,8 @@ import Table from "../../../components/common/table/Table";
 export default function ManagerCourse() {
     const { session } = useAuth();
     const [inserirAberto, setInserirAberto] = useState(false);
+    const [editarAberto, setEditarAberto] = useState(false);
+    const [treinamentoEditando, setTreinamentoEditando] = useState(null);
     const { trilhas } = useTrilhasComTreinamentos();
     const { tags } = useTags();
     const { treinamentos } = useTreinamentos();
@@ -85,6 +87,16 @@ export default function ManagerCourse() {
         return ordenados.map((treinamento) => ({...treinamento, data_publicacao: treinamento?.data_publicacao ? String(treinamento.data_publicacao).split('-').reverse().join('/') : "",}))
     }, [treinamentos, opcaoOrdenar])
 
+    function onEditar(treinamento) {
+        setTreinamentoEditando(treinamento)
+        setEditarAberto(true)
+    }
+
+    function handleAtualizarTreinamento() {
+        alert("teste")
+        return null
+    }
+
     return (
         <div className={styles.container}>
             <main className={styles.main}>
@@ -107,6 +119,11 @@ export default function ManagerCourse() {
                             <CourseForm funcaoSubmite={handleCadastrarTreinamento} trilhas={trilhas} tags={tags} setImagemArquivo={setImagemArquivo} enviando={enviando} />
                         </div>
                     )}
+                    {editarAberto && (
+                        <div className={styles.painelForm}>
+                            <CourseForm treinamento={treinamentoEditando} trilhas={trilhas} tags={tags} setImagemArquivo={setImagemArquivo} enviando={enviando} />
+                        </div>
+                    )}
                     <div className={styles.tabela}>
                         <Table
                             loading={loading}
@@ -118,6 +135,7 @@ export default function ManagerCourse() {
                                 { valor: treinamento.titulo },
                                 { valor: treinamento.data_publicacao }
                             ]}
+                            acoes={}
                         />
                     </div>
                 </div>

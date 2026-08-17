@@ -55,6 +55,57 @@ const listarTreinamentosDaTrilha = async (trilhaId) => {
     return data.map((item) => item.treinamentos);
 };
 
+const listarTrilhasDoTreinamento = async (treinamento_id) => {
+    const { data, error } = await supabase
+        .from("treinamentos_trilhas")
+        .select(`
+            id_treinamento,
+            trilhas (
+                id,
+                titulo,
+                descricao,
+                cor
+            )
+        `)
+        .eq("id_treinamento", treinamento_id);
+
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+    return data.map((item) => item.trilhas);
+}
+
+const sincronizarTrilhasDoTreinamento = async (id_treinamento, trilhaIds) => {
+    const { error: erroDelete } = await supabase
+        .from("treinamentos_trilhas")
+        .delete()
+        .eq("id_treinamento", id_treinamento);
+
+    if (erroDelete) {
+        console.error(erroDelete);
+        return null;
+    }
+
+    if (!trilhaIds || trilhaIds.length === 0) {
+        return [];
+    }
+
+    const novasLinhas = trilhaIds.map((id_trilha) => ({ id_treinamento, id_trilha }));
+
+    const { data, error: erroInsert } = await supabase
+        .from("treinamentos_trilhas")
+        .insert(novasLinhas);
+
+    if (erroInsert) {
+        console.error(erroInsert);
+        return null;
+    }
+
+    return data;
+};
+
 const listarTrilhasComTreinamentos = async () => {
     const { data, error } = await supabase
         .from("trilhas")
@@ -107,4 +158,4 @@ const listarTrilhasComTreinamentos = async () => {
     return trilhasFormatadas;
 };
 
-export { listarTreinamentosTrilhas, listarTreinamentosDaTrilha, listarTrilhasComTreinamentos, listarTrilhas };
+export { listarTreinamentosTrilhas, listarTreinamentosDaTrilha, listarTrilhasComTreinamentos, listarTrilhas, sincronizarTrilhasDoTreinamento, listarTrilhasDoTreinamento };
