@@ -30,6 +30,8 @@ export default function ManagerCourse() {
 
     const headers_treinamentos = ["Título", "Data de Publicação", "Edição", "Remoção"]
 
+
+
     function handleAbrirInserir() {
         setInserirAberto((estadoAtual) => !estadoAtual);
     }
@@ -135,7 +137,7 @@ export default function ManagerCourse() {
                                 { valor: treinamento.titulo },
                                 { valor: treinamento.data_publicacao }
                             ]}
-                            acoes={}
+                            acoes={{ onEditar }}
                         />
                     </div>
                 </div>

@@ -2,11 +2,17 @@ import ChipSelectField from "../../../common/chipSelectField/ChipSelectField";
 import { useSelectionMulti } from "../../../../hooks/selection/useSelectionMulti";
 import ImageField from "../../../common/imageField/ImageField";
 import styles from "./CourseForm.module.css";
+import { listarTrilhasDoTreinamento } from "../../../../services/treinamentosTrilhasService";
+import { listarTagsTreinamento } from "../../../../services/tagsService";
+import { useState } from "react";
 
 export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArquivo, editando = false, enviando, treinamento }) {
 
-    const selecaoTrilhas = useSelectionMulti();
-    const selecaoTags = useSelectionMulti();
+    const trilhasSelecionadas = treinamento ? listarTrilhasDoTreinamento(treinamento.id) : []
+    const tagsSelecionadas = treinamento ? listarTagsTreinamento(treinamento.id) : []
+
+    const selecaoTrilhas = useSelectionMulti(trilhasSelecionadas);
+    const selecaoTags = useSelectionMulti(tagsSelecionadas);
 
     return (
         <>
@@ -56,7 +62,7 @@ export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArqu
                             name="url_material"
                             id="url_material"
                             placeholder="https://..."
-                            efaultValue={treinamento?.link_material}
+                            defaultValue={treinamento?.link_material}
                             required
                         />
                     </div>
