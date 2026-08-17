@@ -9,10 +9,15 @@ import CourseCard from "../../components/common/courseCard/CourseCard";
 import { useTags } from "../../hooks/tags/useTags";
 import { removerItensDuplicados } from "../../utils/formatarData";
 import { useAcessos } from "../../hooks/metrics/useAcessos";
+import { useTrilhasDoTreinamento } from "../../hooks/trailsCourses/useTrilhasDoTreinamento";
 
 const LIMITE_CURSOS_POR_TRILHA = 4;
 
 export default function Home() {
+
+    const { trilhas  } = useTrilhasDoTreinamento(5);
+    console.log(trilhas) 
+
     const { usuario, isAdmin } = useAuth();
     const { trilhasComTreinamentos, erroCarregamento } = useTrilhasComTreinamentos();
 

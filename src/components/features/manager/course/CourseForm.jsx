@@ -5,14 +5,16 @@ import styles from "./CourseForm.module.css";
 import { listarTrilhasDoTreinamento } from "../../../../services/treinamentosTrilhasService";
 import { listarTagsTreinamento } from "../../../../services/tagsService";
 import { useState } from "react";
+import { useTrilhasDoTreinamento } from "../../../../hooks/trailsCourses/useTrilhasDoTreinamento";
+import { useTagsDoTreinamento } from "../../../../hooks/tags/useTagsDoTreinamento";
 
 export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArquivo, editando = false, enviando, treinamento }) {
 
-    const trilhasSelecionadas = treinamento ? listarTrilhasDoTreinamento(treinamento.id) : []
-    const tagsSelecionadas = treinamento ? listarTagsTreinamento(treinamento.id) : []
+    const { trilhasDoCurso } = treinamento ? useTrilhasDoTreinamento(treinamento.id) : []
+    const { tagsDoCurso } = treinamento ? useTagsDoTreinamento(treinamento.id) : []
 
-    const selecaoTrilhas = useSelectionMulti(trilhasSelecionadas);
-    const selecaoTags = useSelectionMulti(tagsSelecionadas);
+    const selecaoTrilhas = useSelectionMulti(trilhasDoCurso);
+    const selecaoTags = useSelectionMulti(tagsDoCurso);
 
     return (
         <>

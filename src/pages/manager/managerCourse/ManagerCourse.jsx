@@ -3,7 +3,7 @@ import styles from "./ManagerCourse.module.css";
 import { useTrilhasComTreinamentos } from "../../../hooks/trailsCourses/useTrilhasComTreinamentos";
 import { useTags } from "../../../hooks/tags/useTags";
 import { useAuth } from "../../../providers/AuthContext";
-import { inserirTreinamento } from "../../../services/treinamentosService";
+import { inserirTreinamento, atualizarTreinamento } from "../../../services/treinamentosService";
 import { Trash, Images, X, SquarePen, ArrowUpAZ, ClockArrowUp } from "lucide-react"
 import ChipSelectField from "../../../components/common/chipSelectField/ChipSelectField";
 import { useSelectionMulti } from "../../../hooks/selection/useSelectionMulti";
@@ -14,8 +14,7 @@ import Table from "../../../components/common/table/Table";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
-    const [inserirAberto, setInserirAberto] = useState(false);
-    const [editarAberto, setEditarAberto] = useState(false);
+    const [formAberto, setFormAberto] = useState(false);
     const [treinamentoEditando, setTreinamentoEditando] = useState(null);
     const { trilhas } = useTrilhasComTreinamentos();
     const { tags } = useTags();
@@ -30,26 +29,33 @@ export default function ManagerCourse() {
 
     const headers_treinamentos = ["Título", "Data de Publicação", "Edição", "Remoção"]
 
-
+    function handleAbrirForm() {
+        setFormAberto((estadoAtual) => !estadoAtual);
+    }
 
     function handleAbrirInserir() {
-        setInserirAberto((estadoAtual) => !estadoAtual);
+        if (formAberto) {
+            handleCancelar();
+        } else {
+            setTreinamentoEditando(null); // garante que abre em modo inserção, não edição
+            setFormAberto(true);
+        }
     }
 
     function resetarFormulario(formulario) {
         formulario.reset();
         setImagemArquivo(null);
-        setInserirAberto(false);
+        setFormAberto(false);
     }
 
-    async function handleCadastrarTreinamento(evento) {
+    async function handleSalvarTreinamento(evento) {
         evento.preventDefault();
         setEnviando(true);
 
         const formulario = evento.target;
         const formData = new FormData(formulario);
 
-        let urlImagem = null;
+        let urlImagem = treinamentoEditando?.imagem ?? null;
         if (imagemArquivo) {
             urlImagem = await uploadImagemTreinamento(imagemArquivo, session);
             if (!urlImagem) {
@@ -59,20 +65,22 @@ export default function ManagerCourse() {
             }
         }
 
-        // TODO: os vínculos de trilhas/tags dependem de services ainda não criados
-        // para as tabelas treinamentos_trilhas e treinamentos_tags.
-        const treinamentoCriado = await inserirTreinamento({
+        const dados = {
             titulo: formData.get("titulo")?.trim(),
             descricao: formData.get("descricao")?.trim(),
             link_conteudo: formData.get("url_conteudo")?.trim(),
             link_material: formData.get("url_material")?.trim(),
             imagem: urlImagem,
-        });
+        };
+
+        const resultado = treinamentoEditando
+            ? await atualizarTreinamento(treinamentoEditando.id, dados)
+            : await inserirTreinamento(dados);
 
         setEnviando(false);
 
-        if (!treinamentoCriado) {
-            alert("Não foi possível cadastrar o treinamento.");
+        if (!resultado) {
+            alert(treinamentoEditando ? "Não foi possível atualizar o treinamento." : "Não foi possível cadastrar o treinamento.");
             return;
         }
 
@@ -86,17 +94,18 @@ export default function ManagerCourse() {
     const treinamentosOrdenados = useMemo(() => {
         const ordenados = opcaoOrdenar ? [...treinamentos].sort((a, b) => (a.titulo ?? "").localeCompare(b.titulo ?? "")) : [...treinamentos].sort((a, b) => (a.data_publicacao ?? "").localeCompare(b.data_publicacao ?? "")).reverse();
 
-        return ordenados.map((treinamento) => ({...treinamento, data_publicacao: treinamento?.data_publicacao ? String(treinamento.data_publicacao).split('-').reverse().join('/') : "",}))
+        return ordenados.map((treinamento) => ({ ...treinamento, data_publicacao: treinamento?.data_publicacao ? String(treinamento.data_publicacao).split('-').reverse().join('/') : "", }))
     }, [treinamentos, opcaoOrdenar])
 
     function onEditar(treinamento) {
         setTreinamentoEditando(treinamento)
-        setEditarAberto(true)
+        setFormAberto(true)
     }
 
-    function handleAtualizarTreinamento() {
-        alert("teste")
-        return null
+    function handleCancelar() {
+        setFormAberto(false);
+        setTreinamentoEditando(null);
+        setImagemArquivo(null);
     }
 
     return (
@@ -110,20 +119,24 @@ export default function ManagerCourse() {
                 <div className={styles.acoes}>
                     <div className={styles.toolbar}>
                         <button className={styles.botaoAbrirInserir} onClick={handleAbrirInserir}>
-                            {inserirAberto ? "Cancelar" : "+ Inserir Treinamento"}
+                            {formAberto ? "Cancelar" : "+ Inserir Treinamento"}
                         </button>
                         <button className={styles.botaoOrdenador} onClick={handleOrdenacao}>
                             {opcaoOrdenar ? <span>Ordenar por data <ClockArrowUp /></span> : <span>Ordenar por ordem alfabética <ArrowUpAZ /></span>}
                         </button>
                     </div>
-                    {inserirAberto && (
+                    {formAberto && (
                         <div className={styles.painelForm}>
-                            <CourseForm funcaoSubmite={handleCadastrarTreinamento} trilhas={trilhas} tags={tags} setImagemArquivo={setImagemArquivo} enviando={enviando} />
-                        </div>
-                    )}
-                    {editarAberto && (
-                        <div className={styles.painelForm}>
-                            <CourseForm treinamento={treinamentoEditando} trilhas={trilhas} tags={tags} setImagemArquivo={setImagemArquivo} enviando={enviando} />
+                            <CourseForm
+                                key={treinamentoEditando?.id ?? "novo"}
+                                treinamento={treinamentoEditando}
+                                editando={!!treinamentoEditando}
+                                funcaoSubmite={handleSalvarTreinamento}
+                                trilhas={trilhas}
+                                tags={tags}
+                                setImagemArquivo={setImagemArquivo}
+                                enviando={enviando}
+                            />
                         </div>
                     )}
                     <div className={styles.tabela}>

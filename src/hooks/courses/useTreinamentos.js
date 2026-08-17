@@ -1,7 +1,8 @@
 import { listarTreinamentos } from "../../services/treinamentosService";
+import { listarTrilhasDoTreinamento } from "../../services/treinamentosTrilhasService";
 import { useEffect, useState } from "react";
 
-export function useTreinamentos() {
+export function useTreinamentos(id_treinamento) {
     const [treinamentos, setTreinamentos] = useState([]);
     const [erroCarregamento, setErroCarregamento] = useState(false);
 
