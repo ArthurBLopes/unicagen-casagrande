@@ -10,11 +10,11 @@ import { Bookmark } from "lucide-react";
 import { useSaved } from "../../hooks/saved/useSaved";
 import { getYouTubeEmbedUrl } from "../../utils/formatar_url"
 import { useTreinamentos } from "../../hooks/courses/useTreinamentos";
-import { useTags } from "../../hooks/tags/useTags";
+import { useTagsDoTreinamento } from "../../hooks/tags/useTagsDoTreinamento";
 
 export default function DetailsCourse() {
     const { id } = useParams();
-    const { tagsTreinamento } = useTags(id);
+    const { tagsDoCurso } = useTagsDoTreinamento(id);
     const { treinamentos } = useTreinamentos();
     const location = useLocation();
     const { trilha } = location.state || {};
@@ -55,9 +55,9 @@ export default function DetailsCourse() {
                             <p className={styles.cursoData}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>
                         </div>
                         <p className={styles.cursoDescricao}>{treinamento?.descricao}</p>
-                        {tagsTreinamento.length > 0 && (
+                        {tagsDoCurso.length > 0 && (
                             <div className={styles.cursoTags}>
-                                {tagsTreinamento.map((tag, index) => (
+                                {tagsDoCurso.map((tag, index) => (
                                     <span key={index} className={styles.cursoTag}>{tag?.titulo}</span>
                                 ))}
                             </div>

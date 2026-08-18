@@ -17,7 +17,7 @@ const listarTreinamentos = async () => {
 }
 
 const inserirTreinamento = async (treinamento) => {
-    const { data, error } = await supabase.from("treinamentos").insert(treinamento)
+    const { data, error } = await supabase.from("treinamentos").insert(treinamento).select().single();
     if (error) {
         console.error(error)
         return null
@@ -27,7 +27,7 @@ const inserirTreinamento = async (treinamento) => {
 }
 
 const atualizarTreinamento = async (id, treinamentoAtualizado) => {
-    const { data, error } = await supabase.from("treinamentos").update(treinamentoAtualizado).eq("id", id)
+    const { data, error } = await supabase.from("treinamentos").update(treinamentoAtualizado).eq("id", id).select()
     if (error) {
         console.error(error)
         return null

@@ -8,13 +8,10 @@ import { useState, useEffect } from "react";
 import { useTrilhasDoTreinamento } from "../../../../hooks/trailsCourses/useTrilhasDoTreinamento";
 import { useTagsDoTreinamento } from "../../../../hooks/tags/useTagsDoTreinamento";
 
-export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArquivo, editando = false, enviando, treinamento }) {
+export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArquivo, editando = false, enviando, treinamento, selecaoTags, selecaoTrilhas }) {
 
     const { trilhasDoCurso: trilhasCurso } = useTrilhasDoTreinamento(treinamento?.id);
     const { tagsDoCurso: tagsCurso } = useTagsDoTreinamento(treinamento?.id);
-
-    const selecaoTrilhas = useSelectionMulti();
-    const selecaoTags = useSelectionMulti();
 
     useEffect(() => {
         if (trilhasCurso.length > 0) selecaoTrilhas.definir(trilhasCurso);
@@ -73,7 +70,6 @@ export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArqu
                             id="url_material"
                             placeholder="https://..."
                             defaultValue={treinamento?.link_material}
-                            required
                         />
                     </div>
                 </div>
@@ -83,7 +79,7 @@ export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArqu
                         <label className={styles.rotulo}>Imagem do curso</label>
                         <ImageField onArquivoSelecionado={setImagemArquivo} imagemInicial={treinamento?.imagem} />
                     </div>
-                    
+
                     <div className={styles.campo}>
                         <label className={styles.rotulo} htmlFor="trilhas">Trilhas</label>
                         <ChipSelectField
@@ -106,7 +102,8 @@ export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArqu
                 </div>
 
                 <button type="submit" className={styles.botaoInserir} disabled={enviando}>
-                    {enviando ? "Salvando..." : editando ? "Salvar alterações" : "Inserir treinamento"}
+                    <span className={styles.texto}>{enviando ? "Salvando..." : editando ? "Salvar alterações" : "Inserir treinamento"}</span>
+                    <span className={styles.seta} aria-hidden="true">&rarr;</span>
                 </button>
             </form>
         </>

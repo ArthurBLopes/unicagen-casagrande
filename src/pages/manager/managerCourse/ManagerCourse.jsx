@@ -11,6 +11,9 @@ import ImageField from "../../../components/common/imageField/ImageField";
 import CourseForm from "../../../components/features/manager/course/CourseForm";
 import { useTreinamentos } from "../../../hooks/courses/useTreinamentos";
 import Table from "../../../components/common/table/Table";
+import { sincronizarTrilhasDoTreinamento } from "../../../services/treinamentosTrilhasService";
+import { sincronizarTagsDoTreinamento } from "../../../services/tagsService";
+import { uploadImagemTreinamento } from "../../../services/uploadService";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
@@ -73,11 +76,14 @@ export default function ManagerCourse() {
             imagem: urlImagem,
         };
 
-        const resultado = treinamentoEditando
-            ? await atualizarTreinamento(treinamentoEditando.id, dados)
-            : await inserirTreinamento(dados);
-
+        const resultado = treinamentoEditando ? await atualizarTreinamento(treinamentoEditando.id, dados) : await inserirTreinamento(dados);
+    
         setEnviando(false);
+
+        const identificador = treinamentoEditando ? treinamentoEditando.id : resultado.id
+
+        sincronizarTrilhasDoTreinamento(identificador, selecaoTrilhas.selecionados)
+        sincronizarTagsDoTreinamento(identificador, selecaoTags.selecionados)
 
         if (!resultado) {
             alert(treinamentoEditando ? "Não foi possível atualizar o treinamento." : "Não foi possível cadastrar o treinamento.");
@@ -106,6 +112,8 @@ export default function ManagerCourse() {
         setFormAberto(false);
         setTreinamentoEditando(null);
         setImagemArquivo(null);
+        selecaoTags.limpar();
+        selecaoTrilhas.limpar();
     }
 
     return (
@@ -136,6 +144,8 @@ export default function ManagerCourse() {
                                 tags={tags}
                                 setImagemArquivo={setImagemArquivo}
                                 enviando={enviando}
+                                selecaoTags={selecaoTags}
+                                selecaoTrilhas={selecaoTrilhas}
                             />
                         </div>
                     )}

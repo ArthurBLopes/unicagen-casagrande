@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 export function useTags(id_treinamento) {
     const [tags, setTags] = useState([]);
-    const [tagsTreinamento, setTagsTreinamento] = useState([]);
     const [tagsTreinamentos, setTagsTreinamentos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [erroCarregamento, setErroCarregamento] = useState(false);
@@ -26,23 +25,6 @@ export function useTags(id_treinamento) {
     }, []);
 
     useEffect(() => {
-        const fetchTagsTreinamento = async () => {
-            setLoading(true);
-            setErroCarregamento(false);
-            try {
-                const data = await listarTagsTreinamento(id_treinamento);
-                setTagsTreinamento(data);
-            } catch (error) {
-                setErroCarregamento(true);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchTagsTreinamento();
-    }, [id_treinamento]);
-
-    useEffect(() => {
         const fetchTagsTreinamentos = async () => {
             setLoading(true);
             setErroCarregamento(false);
@@ -59,5 +41,5 @@ export function useTags(id_treinamento) {
         fetchTagsTreinamentos();
     }, []);
 
-    return { tags, tagsTreinamento, tagsTreinamentos, loading, erroCarregamento };
+    return { tags, tagsTreinamentos, loading, erroCarregamento };
 }

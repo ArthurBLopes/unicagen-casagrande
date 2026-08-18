@@ -3,13 +3,13 @@ import { FaRegClock } from "react-icons/fa";
 import styles from "./CourseCard.module.css";
 import { useNavigate } from "react-router-dom";
 import { formatarData } from "../../../utils/formatarData";
-import { useTags } from "../../../hooks/tags/useTags";
+import { useTagsDoTreinamento } from "../../../hooks/tags/useTagsDoTreinamento";
 
 export default function CourseCard({ curso, trilha }) {
 
     const navigate = useNavigate();
     const dataPublicacaoFormatada = formatarData(curso.data_publicacao);
-    const { tagsTreinamento } = useTags(curso.id);
+    const { tagsDoCurso: tagsTreinamento } = useTagsDoTreinamento(curso.id);
 
     function detalhesCurso() {
         navigate(`/curso/${curso.id}`, { state: { trilha } });
