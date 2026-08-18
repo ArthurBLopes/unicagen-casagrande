@@ -146,10 +146,7 @@ export default function ManagerCourse() {
                             dados={treinamentosOrdenados}
                             dadosFiltrados={treinamentosOrdenados}
                             columns="1.6fr 1fr 1fr 1fr"
-                            colunas={(treinamento) => [
-                                { valor: treinamento.titulo },
-                                { valor: treinamento.data_publicacao }
-                            ]}
+                            colunas={(treinamento) => [{ valor: treinamento.titulo },{ valor: treinamento.data_publicacao }]}
                             acoes={{ onEditar }}
                         />
                     </div>

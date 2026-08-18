@@ -58,7 +58,7 @@ export default function DetailsCourse() {
                         {tagsTreinamento.length > 0 && (
                             <div className={styles.cursoTags}>
                                 {tagsTreinamento.map((tag, index) => (
-                                    <span key={index} className={styles.cursoTag}>{tag?.tags.titulo}</span>
+                                    <span key={index} className={styles.cursoTag}>{tag?.titulo}</span>
                                 ))}
                             </div>
                         )}

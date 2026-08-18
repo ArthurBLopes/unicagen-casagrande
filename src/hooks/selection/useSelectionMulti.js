@@ -20,5 +20,9 @@ export function useSelectionMulti(itensIniciais = []) {
         setSelecionados([]);
     }
 
-    return { selecionados, selecionar, remover, limpar };
+    function definir(itens) {
+        setSelecionados(itens);
+    }
+
+    return { selecionados, selecionar, remover, limpar, definir };
 }

@@ -4,17 +4,25 @@ import ImageField from "../../../common/imageField/ImageField";
 import styles from "./CourseForm.module.css";
 import { listarTrilhasDoTreinamento } from "../../../../services/treinamentosTrilhasService";
 import { listarTagsTreinamento } from "../../../../services/tagsService";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTrilhasDoTreinamento } from "../../../../hooks/trailsCourses/useTrilhasDoTreinamento";
 import { useTagsDoTreinamento } from "../../../../hooks/tags/useTagsDoTreinamento";
 
 export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArquivo, editando = false, enviando, treinamento }) {
 
-    const { trilhasDoCurso } = treinamento ? useTrilhasDoTreinamento(treinamento.id) : []
-    const { tagsDoCurso } = treinamento ? useTagsDoTreinamento(treinamento.id) : []
+    const { trilhasDoCurso: trilhasCurso } = useTrilhasDoTreinamento(treinamento?.id);
+    const { tagsDoCurso: tagsCurso } = useTagsDoTreinamento(treinamento?.id);
 
-    const selecaoTrilhas = useSelectionMulti(trilhasDoCurso);
-    const selecaoTags = useSelectionMulti(tagsDoCurso);
+    const selecaoTrilhas = useSelectionMulti();
+    const selecaoTags = useSelectionMulti();
+
+    useEffect(() => {
+        if (trilhasCurso.length > 0) selecaoTrilhas.definir(trilhasCurso);
+    }, [trilhasCurso]);
+
+    useEffect(() => {
+        if (tagsCurso.length > 0) selecaoTags.definir(tagsCurso);
+    }, [tagsCurso]);
 
     return (
         <>
@@ -38,7 +46,7 @@ export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArqu
                             id="descricao"
                             placeholder="Descreva do que se trata esse treinamento..."
                             defaultValue={treinamento?.descricao}
-                            rows={3}
+                            rows={4}
                             required
                         />
                     </div>

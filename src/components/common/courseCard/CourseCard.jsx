@@ -25,7 +25,7 @@ export default function CourseCard({ curso, trilha }) {
                 {tagsTreinamento && tagsTreinamento.length > 0 && (
                     <div className={styles.tags}>
                         {tagsTreinamento.map((tag, index) => (
-                            <span key={index} className={styles.tag}>{tag.tags.titulo}</span>
+                            <span key={index} className={styles.tag}>{tag.titulo}</span>
                         ))}
                     </div>
                 )}

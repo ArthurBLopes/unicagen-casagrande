@@ -4,8 +4,6 @@ import { NavLink } from "react-router-dom";
 
 export default function ManagerHome() {
 
-    console.log(opcoes)
-
     return (
         <div className={styles.container}>
             <main className={styles.main}>

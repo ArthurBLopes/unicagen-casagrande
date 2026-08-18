@@ -51,7 +51,7 @@ const listarTagsTreinamento = async (treinamentoId) => {
         return [];
     }
 
-    return data;
+    return data.map((item) => item.tags);
 };
 
 const sincronizarTagsDoTreinamento = async (id_treinamento, tagsIds) => {

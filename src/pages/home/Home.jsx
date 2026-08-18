@@ -15,9 +15,6 @@ const LIMITE_CURSOS_POR_TRILHA = 4;
 
 export default function Home() {
 
-    const { trilhas  } = useTrilhasDoTreinamento(5);
-    console.log(trilhas) 
-
     const { usuario, isAdmin } = useAuth();
     const { trilhasComTreinamentos, erroCarregamento } = useTrilhasComTreinamentos();
 
