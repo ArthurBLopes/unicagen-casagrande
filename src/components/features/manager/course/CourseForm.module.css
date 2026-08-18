@@ -95,7 +95,7 @@
 
     .linha {
         flex-direction: row;
-        align-items: stretch;
+        align-items: flex-start;
         gap: 32px;
     }
 

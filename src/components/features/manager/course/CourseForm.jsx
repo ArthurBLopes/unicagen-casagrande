@@ -83,6 +83,7 @@ export default function CourseForm({ funcaoSubmite, trilhas, tags, setImagemArqu
                         <label className={styles.rotulo}>Imagem do curso</label>
                         <ImageField onArquivoSelecionado={setImagemArquivo} imagemInicial={treinamento?.imagem} />
                     </div>
+                    
                     <div className={styles.campo}>
                         <label className={styles.rotulo} htmlFor="trilhas">Trilhas</label>
                         <ChipSelectField
