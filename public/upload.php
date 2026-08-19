@@ -90,25 +90,44 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 // TOKEN SUPABASE
 
-$headers = getallheaders();
+function obterAuthorizationHeader()
+{
+    // 1. Tenta pelas variáveis do servidor
+    if (!empty($_SERVER["HTTP_AUTHORIZATION"])) {
+        return trim($_SERVER["HTTP_AUTHORIZATION"]);
+    }
 
-$authHeader =
-    $headers["Authorization"]
-    ?? $headers["authorization"]
-    ?? null;
+    if (!empty($_SERVER["REDIRECT_HTTP_AUTHORIZATION"])) {
+        return trim($_SERVER["REDIRECT_HTTP_AUTHORIZATION"]);
+    }
+
+    // 2. Fallback para getallheaders()
+    if (function_exists("getallheaders")) {
+        $headers = getallheaders();
+
+        foreach ($headers as $nome => $valor) {
+            if (strcasecmp($nome, "Authorization") === 0) {
+                return trim($valor);
+            }
+        }
+    }
+
+    return null;
+}
+
+$authHeader = obterAuthorizationHeader();
 
 if (
     !$authHeader ||
-    !preg_match(
-        "/^Bearer\s+(.+)$/i",
-        $authHeader,
-        $matches
-    )
+    !preg_match("/^Bearer\s+(.+)$/i", $authHeader, $matches)
 ) {
-    responderErro(
-        401,
-        "Token de autenticação ausente."
-    );
+    http_response_code(401);
+
+    echo json_encode([
+        "error" => "Token de autenticação ausente."
+    ]);
+
+    exit;
 }
 
 $accessToken = $matches[1];
@@ -186,7 +205,7 @@ if (!$idUsuario) {
 
 $urlUsuario =
     "$supabaseUrl/rest/v1/usuarios"
-    . "?id_usuario=eq."
+    . "?id=eq."
     . rawurlencode($idUsuario)
     . "&select=regra";
 
