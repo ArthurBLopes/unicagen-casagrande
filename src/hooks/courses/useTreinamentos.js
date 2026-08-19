@@ -1,26 +1,43 @@
 import { listarTreinamentos } from "../../services/treinamentosService";
-import { listarTrilhasDoTreinamento } from "../../services/treinamentosTrilhasService";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-export function useTreinamentos(id_treinamento) {
+export function useTreinamentos() {
     const [treinamentos, setTreinamentos] = useState([]);
     const [erroCarregamento, setErroCarregamento] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const carregarTreinamentos = async () => {
-            try {
-                const dados = await listarTreinamentos();
-                setTreinamentos(Array.isArray(dados) ? dados : []);
-                setErroCarregamento(false);
-            } catch (error) {
-                console.error("Erro ao carregar treinamentos:", error);
-                setTreinamentos([]);
-                setErroCarregamento(true);
-            }
-        };
+    const carregarTreinamentos = useCallback(async () => {
+        try {
+            setLoading(true);
 
-        carregarTreinamentos();
+            const dados = await listarTreinamentos();
+
+            setTreinamentos(
+                Array.isArray(dados) ? dados : []
+            );
+
+            setErroCarregamento(false);
+        } catch (error) {
+            console.error(
+                "Erro ao carregar treinamentos:",
+                error
+            );
+
+            setTreinamentos([]);
+            setErroCarregamento(true);
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
-    return { treinamentos, erroCarregamento };
+    useEffect(() => {
+        carregarTreinamentos();
+    }, [carregarTreinamentos]);
+
+    return {
+        treinamentos,
+        erroCarregamento,
+        loading,
+        recarregarTreinamentos: carregarTreinamentos
+    };
 }

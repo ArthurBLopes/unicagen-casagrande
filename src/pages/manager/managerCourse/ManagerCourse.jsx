@@ -21,10 +21,9 @@ export default function ManagerCourse() {
     const [treinamentoEditando, setTreinamentoEditando] = useState(null);
     const { trilhas } = useTrilhasComTreinamentos();
     const { tags } = useTags();
-    const { treinamentos } = useTreinamentos();
+    const {treinamentos, recarregarTreinamentos, loading} = useTreinamentos();
     const [imagemArquivo, setImagemArquivo] = useState(null);
     const [enviando, setEnviando] = useState(false);
-    const [loading, setLoading] = useState(false);
     const [opcaoOrdenar, setOpcaoOrdenar] = useState(true)
 
     const selecaoTrilhas = useSelectionMulti();
@@ -55,7 +54,7 @@ export default function ManagerCourse() {
         evento.preventDefault();
         setEnviando(true);
 
-        const formulario = evento.target;
+        const formulario = evento.currentTarget;
         const formData = new FormData(formulario);
 
         const titulo = formData.get("titulo")?.trim();
@@ -63,40 +62,51 @@ export default function ManagerCourse() {
         let urlImagem = treinamentoEditando?.imagem ?? null;
 
         if (imagemArquivo) {
-            urlImagem = await uploadImagemTreinamento(
-            imagemArquivo,
-            session,
-            titulo
-        );
+            urlImagem = await uploadImagemTreinamento(imagemArquivo,session,titulo);
 
-        if (!urlImagem) {
-            alert("Não foi possível enviar a imagem. Tente novamente.");
-            setEnviando(false);
-            return;
+            if (!urlImagem) {
+                alert("Não foi possível enviar a imagem. Tente novamente.");
+                setEnviando(false);
+                return;
+            }
         }
-    }   
 
         const dados = {
-            titulo: titulo,
+            titulo,
             descricao: formData.get("descricao")?.trim(),
             link_conteudo: formData.get("url_conteudo")?.trim(),
             link_material: formData.get("url_material")?.trim(),
             imagem: urlImagem,
         };
 
-        const resultado = treinamentoEditando ? await atualizarTreinamento(treinamentoEditando.id, dados) : await inserirTreinamento(dados);
-    
-        setEnviando(false);
-
-        const identificador = treinamentoEditando ? treinamentoEditando.id : resultado.id
-
-        sincronizarTrilhasDoTreinamento(identificador, selecaoTrilhas.selecionados)
-        sincronizarTagsDoTreinamento(identificador, selecaoTags.selecionados)
+        const resultado = treinamentoEditando ? await atualizarTreinamento(treinamentoEditando.id,dados) : await inserirTreinamento(dados);
 
         if (!resultado) {
             alert(treinamentoEditando ? "Não foi possível atualizar o treinamento." : "Não foi possível cadastrar o treinamento.");
+
+            setEnviando(false);
             return;
         }
+
+        const identificador = treinamentoEditando ? treinamentoEditando.id : resultado.id;
+
+        const trilhaIds = selecaoTrilhas.selecionados.map((trilha) => trilha.id);
+
+        const tagIds = selecaoTags.selecionados.map((tag) => tag.id);
+
+        console.log("Treinamento:", identificador);
+        console.log("Trilhas selecionadas:", trilhaIds);
+        console.log("Tags selecionadas:", tagIds);
+
+        await sincronizarTrilhasDoTreinamento(identificador,trilhaIds);
+
+        await sincronizarTagsDoTreinamento(identificador,tagIds);
+
+        await recarregarTreinamentos();
+        setEnviando(false);
+
+        selecaoTrilhas.limpar();
+        selecaoTags.limpar();
 
         resetarFormulario(formulario);
     }
@@ -164,7 +174,7 @@ export default function ManagerCourse() {
                             dados={treinamentosOrdenados}
                             dadosFiltrados={treinamentosOrdenados}
                             columns="1.6fr 1fr 1fr 1fr"
-                            colunas={(treinamento) => [{ valor: treinamento.titulo },{ valor: treinamento.data_publicacao }]}
+                            colunas={(treinamento) => [{ valor: treinamento.titulo }, { valor: treinamento.data_publicacao }]}
                             acoes={{ onEditar }}
                         />
                     </div>

@@ -9,11 +9,13 @@ import styles from "./CoursesCompact.module.css";
 export default function CoursesCompact() {
 
     const navigate = useNavigate();
-    const { treinamentos } = useTreinamentos();
+    const { treinamentos, recarregarTreinamentos } = useTreinamentos();
     const [pesquisa, setPesquisa] = useState("");
 
     const treinamentosFiltrados = treinamentos.filter(treinamento => treinamento.titulo.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(pesquisa.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "")));
     const treinamentosOrdenados = treinamentosFiltrados.sort((a, b) => a.titulo.localeCompare(b.titulo));
+
+    await recarregarTreinamentos()
 
     function detalhesCurso(treinamento, trilha) {
         navigate(`/curso/${treinamento.id}`);
