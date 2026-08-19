@@ -4,7 +4,7 @@ import { useTrilhasComTreinamentos } from "../../../hooks/trailsCourses/useTrilh
 import { useTags } from "../../../hooks/tags/useTags";
 import { useAuth } from "../../../providers/AuthContext";
 import { inserirTreinamento, atualizarTreinamento } from "../../../services/treinamentosService";
-import { Trash, Images, X, SquarePen, ArrowUpAZ, ClockArrowUp } from "lucide-react"
+import { Trash, Images, X, SquarePen, ArrowUpAZ, ClockArrowUp, Search } from "lucide-react"
 import ChipSelectField from "../../../components/common/chipSelectField/ChipSelectField";
 import { useSelectionMulti } from "../../../hooks/selection/useSelectionMulti";
 import ImageField from "../../../components/common/imageField/ImageField";
@@ -19,6 +19,7 @@ import ConfirmModal from "../../../components/common/confirmModal/ConfirmModal";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
+    const [pesquisa, setPesquisa] = useState("")
     const [formAberto, setFormAberto] = useState(false);
     const [treinamentoParaExcluir, setTreinamentoParaExcluir] = useState(null);
     const [treinamentoEditando, setTreinamentoEditando] = useState(null);
@@ -33,6 +34,8 @@ export default function ManagerCourse() {
     const selecaoTags = useSelectionMulti();
 
     const headers_treinamentos = ["Título", "Data de Publicação", "Edição", "Remoção"]
+
+    const treinamentosFiltrados = treinamentos.filter(treinamento => treinamento.titulo.toLowerCase().trim().includes(pesquisa.toLowerCase().trim()));
 
     function handleAbrirForm() {
         setFormAberto((estadoAtual) => !estadoAtual);
@@ -119,10 +122,10 @@ export default function ManagerCourse() {
     }
 
     const treinamentosOrdenados = useMemo(() => {
-        const ordenados = opcaoOrdenar ? [...treinamentos].sort((a, b) => (a.titulo ?? "").localeCompare(b.titulo ?? "")) : [...treinamentos].sort((a, b) => (a.data_publicacao ?? "").localeCompare(b.data_publicacao ?? "")).reverse();
+        const ordenados = opcaoOrdenar ? [...treinamentosFiltrados].sort((a, b) => (a.titulo ?? "").localeCompare(b.titulo ?? "")) : [...treinamentosFiltrados].sort((a, b) => (a.data_publicacao ?? "").localeCompare(b.data_publicacao ?? "")).reverse();
 
         return ordenados.map((treinamento) => ({ ...treinamento, data_publicacao: treinamento?.data_publicacao ? String(treinamento.data_publicacao).split('-').reverse().join('/') : "", }))
-    }, [treinamentos, opcaoOrdenar])
+    }, [treinamentosFiltrados, opcaoOrdenar])
 
     function onEditar(treinamento) {
         setTreinamentoEditando(treinamento)
@@ -164,10 +167,8 @@ export default function ManagerCourse() {
                         <button className={styles.botaoAbrirInserir} onClick={handleAbrirInserir}>
                             {formAberto ? "Cancelar" : "+ Inserir Treinamento"}
                         </button>
-                        <button className={styles.botaoOrdenador} onClick={handleOrdenacao}>
-                            {opcaoOrdenar ? <span>Ordenar por data <ClockArrowUp /></span> : <span>Ordenar por ordem alfabética <ArrowUpAZ /></span>}
-                        </button>
                     </div>
+
                     {formAberto && (
                         <div className={styles.painelForm}>
                             <CourseForm
@@ -184,6 +185,16 @@ export default function ManagerCourse() {
                             />
                         </div>
                     )}
+
+                    <div className={styles.searchArea}>
+                        <div className={styles.searchBox}>
+                            <Search size={18} />
+                            <input type="text" placeholder="Buscar conteúdos..." value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
+                        </div>
+                        <button className={styles.botaoOrdenador} onClick={handleOrdenacao}>
+                            {opcaoOrdenar ? <span>Ordenar por data <ClockArrowUp /></span> : <span>Ordenar por ordem alfabética <ArrowUpAZ /></span>}
+                        </button>
+                    </div>
                     <div className={styles.tabela}>
                         <Table
                             loading={loading}
