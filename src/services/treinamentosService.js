@@ -40,7 +40,7 @@ const removerTreinamento = async (id) => {
     const { data, error } = await supabase.from("treinamentos").delete().eq("id", id)
     if (error) {
         console.error(error)
-        return null
+        return false
     }
     return data
 } 

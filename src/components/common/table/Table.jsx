@@ -34,7 +34,7 @@ export default function Table({ loading, headers, dados, dadosFiltrados = [], co
                                             <button className={styles.btn} onClick={() => acoes.onEditar(dado)}><SquarePen size={18} /></button>
                                         )}
                                         {acoes.onRemover && (
-                                            <button className={styles.btn} onClick={() => acoes.onRemover(dado)}><Trash size={18} /></button>
+                                            <button className={styles.btnRemover} onClick={() => acoes.onRemover(dado)}><Trash size={18} /></button>
                                         )}
                                     </div>
                                 )}

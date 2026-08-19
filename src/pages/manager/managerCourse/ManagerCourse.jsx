@@ -14,6 +14,7 @@ import Table from "../../../components/common/table/Table";
 import { sincronizarTrilhasDoTreinamento } from "../../../services/treinamentosTrilhasService";
 import { sincronizarTagsDoTreinamento } from "../../../services/tagsService";
 import { uploadImagemTreinamento } from "../../../services/uploadService";
+import { removerTreinamento } from "../../../services/treinamentosService";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
@@ -126,6 +127,10 @@ export default function ManagerCourse() {
         setFormAberto(true)
     }
 
+    async function onRemover(treinamento) {
+        await removerTreinamento(treinamento.id)
+    }
+
     function handleCancelar() {
         setFormAberto(false);
         setTreinamentoEditando(null);
@@ -175,7 +180,7 @@ export default function ManagerCourse() {
                             dadosFiltrados={treinamentosOrdenados}
                             columns="1.6fr 1fr 1fr 1fr"
                             colunas={(treinamento) => [{ valor: treinamento.titulo }, { valor: treinamento.data_publicacao }]}
-                            acoes={{ onEditar }}
+                            acoes={{ onEditar, onRemover }}
                         />
                     </div>
                 </div>
