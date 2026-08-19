@@ -1,0 +1,113 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.45);
+    animation: fadeIn 0.18s ease;
+}
+
+.modal {
+    width: 100%;
+    max-width: 380px;
+    padding: 28px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    font-family: "Sora", sans-serif;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 14px;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, #c0392b 12%, transparent);
+    color: #c0392b;
+}
+
+.modal h1 {
+    margin: 0 0 8px;
+    font-family: "Sora", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-color);
+}
+
+.mensagem {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--text-color) 75%, transparent);
+}
+
+.aviso {
+    margin: 6px 0 0;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+}
+
+.acoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.botaoCancelar {
+    padding: 9px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background: none;
+    font-family: "Sora", sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.botaoCancelar:hover {
+    border-color: var(--text-color2);
+    background-color: color-mix(in srgb, var(--text-color2) 10%, transparent);
+}
+
+.botaoExcluir {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 4px;
+    background-color: #c0392b;
+    font-family: "Sora", sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ffffff;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.botaoExcluir:hover {
+    opacity: 0.85;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

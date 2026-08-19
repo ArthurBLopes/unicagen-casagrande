@@ -15,17 +15,19 @@ import { sincronizarTrilhasDoTreinamento } from "../../../services/treinamentosT
 import { sincronizarTagsDoTreinamento } from "../../../services/tagsService";
 import { uploadImagemTreinamento } from "../../../services/uploadService";
 import { removerTreinamento } from "../../../services/treinamentosService";
+import ConfirmModal from "../../../components/common/confirmModal/ConfirmModal";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
     const [formAberto, setFormAberto] = useState(false);
+    const [treinamentoParaExcluir, setTreinamentoParaExcluir] = useState(null);
     const [treinamentoEditando, setTreinamentoEditando] = useState(null);
     const { trilhas } = useTrilhasComTreinamentos();
     const { tags } = useTags();
-    const {treinamentos, recarregarTreinamentos, loading} = useTreinamentos();
+    const { treinamentos, recarregarTreinamentos, loading } = useTreinamentos();
     const [imagemArquivo, setImagemArquivo] = useState(null);
     const [enviando, setEnviando] = useState(false);
-    const [opcaoOrdenar, setOpcaoOrdenar] = useState(true)
+    const [opcaoOrdenar, setOpcaoOrdenar] = useState(true);
 
     const selecaoTrilhas = useSelectionMulti();
     const selecaoTags = useSelectionMulti();
@@ -63,7 +65,7 @@ export default function ManagerCourse() {
         let urlImagem = treinamentoEditando?.imagem ?? null;
 
         if (imagemArquivo) {
-            urlImagem = await uploadImagemTreinamento(imagemArquivo,session,titulo);
+            urlImagem = await uploadImagemTreinamento(imagemArquivo, session, titulo);
 
             if (!urlImagem) {
                 alert("Não foi possível enviar a imagem. Tente novamente.");
@@ -80,7 +82,7 @@ export default function ManagerCourse() {
             imagem: urlImagem,
         };
 
-        const resultado = treinamentoEditando ? await atualizarTreinamento(treinamentoEditando.id,dados) : await inserirTreinamento(dados);
+        const resultado = treinamentoEditando ? await atualizarTreinamento(treinamentoEditando.id, dados) : await inserirTreinamento(dados);
 
         if (!resultado) {
             alert(treinamentoEditando ? "Não foi possível atualizar o treinamento." : "Não foi possível cadastrar o treinamento.");
@@ -99,9 +101,9 @@ export default function ManagerCourse() {
         console.log("Trilhas selecionadas:", trilhaIds);
         console.log("Tags selecionadas:", tagIds);
 
-        await sincronizarTrilhasDoTreinamento(identificador,trilhaIds);
+        await sincronizarTrilhasDoTreinamento(identificador, trilhaIds);
 
-        await sincronizarTagsDoTreinamento(identificador,tagIds);
+        await sincronizarTagsDoTreinamento(identificador, tagIds);
 
         await recarregarTreinamentos();
         setEnviando(false);
@@ -127,8 +129,14 @@ export default function ManagerCourse() {
         setFormAberto(true)
     }
 
-    async function onRemover(treinamento) {
-        await removerTreinamento(treinamento.id)
+    async function handleConfirmarRemocao() {
+        if (!treinamentoParaExcluir) return;
+
+        await removerTreinamento(treinamentoParaExcluir.id);
+
+        await recarregarTreinamentos();
+
+        setTreinamentoParaExcluir(null);
     }
 
     function handleCancelar() {
@@ -137,6 +145,10 @@ export default function ManagerCourse() {
         setImagemArquivo(null);
         selecaoTags.limpar();
         selecaoTrilhas.limpar();
+    }
+
+    function handleAbrirRemover(treinamento) {
+        setTreinamentoParaExcluir(treinamento);
     }
 
     return (
@@ -180,9 +192,16 @@ export default function ManagerCourse() {
                             dadosFiltrados={treinamentosOrdenados}
                             columns="1.6fr 1fr 1fr 1fr"
                             colunas={(treinamento) => [{ valor: treinamento.titulo }, { valor: treinamento.data_publicacao }]}
-                            acoes={{ onEditar, onRemover }}
+                            acoes={{ onEditar, onRemover: handleAbrirRemover }}
                         />
                     </div>
+                    {treinamentoParaExcluir && (
+                        <ConfirmModal
+                            mensagem={`Tem certeza que deseja excluir "${treinamentoParaExcluir.titulo}"?`}
+                            onCancelar={() => setTreinamentoParaExcluir(null)}
+                            onConfirmar={handleConfirmarRemocao}
+                        />
+                    )}
                 </div>
             </main>
         </div>
