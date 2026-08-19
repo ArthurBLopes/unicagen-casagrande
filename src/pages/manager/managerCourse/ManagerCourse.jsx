@@ -58,18 +58,26 @@ export default function ManagerCourse() {
         const formulario = evento.target;
         const formData = new FormData(formulario);
 
+        const titulo = formData.get("titulo")?.trim();
+
         let urlImagem = treinamentoEditando?.imagem ?? null;
+
         if (imagemArquivo) {
-            urlImagem = await uploadImagemTreinamento(imagemArquivo, session);
-            if (!urlImagem) {
-                alert("Não foi possível enviar a imagem. Tente novamente.");
-                setEnviando(false);
-                return;
-            }
+            urlImagem = await uploadImagemTreinamento(
+            imagemArquivo,
+            session,
+            titulo
+        );
+
+        if (!urlImagem) {
+            alert("Não foi possível enviar a imagem. Tente novamente.");
+            setEnviando(false);
+            return;
         }
+    }   
 
         const dados = {
-            titulo: formData.get("titulo")?.trim(),
+            titulo: titulo,
             descricao: formData.get("descricao")?.trim(),
             link_conteudo: formData.get("url_conteudo")?.trim(),
             link_material: formData.get("url_material")?.trim(),
