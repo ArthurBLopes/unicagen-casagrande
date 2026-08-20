@@ -56,7 +56,7 @@ export default function ManagerTrail() {
             cor: formData.get("cor")?.trim(),
         };
 
-        const resultado = trilhaEditando ? await atualizarTrilha(trilhaEditando.id, trilhaEditando) : await inserirTrilha(dados);
+        const resultado = trilhaEditando ? await atualizarTrilha(trilhaEditando.id, dados) : await inserirTrilha(dados);
 
         if (!resultado) {
             alert(trilhaEditando ? "Não foi possível atualizar a trilha." : "Não foi possível cadastrar a trilha.");

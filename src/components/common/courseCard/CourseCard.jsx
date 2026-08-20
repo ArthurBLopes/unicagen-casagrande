@@ -32,7 +32,7 @@ export default function CourseCard({ curso, trilha }) {
             </div>
             <div className={styles.acoes}>
                 <p className={styles.dataPublicacao}><FaRegClock size={16} /> {dataPublicacaoFormatada}</p>
-                <button className={styles.botaoAcessar} style={{ "--trail-color": trilha.cor || "var(--text-color2)" }} title="Acessar conteúdo do treinamento" onClick={(event) => {
+                <button className={styles.botaoAcessar} style={{ "--trail-color": trilha?.cor || "var(--text-color2)" }} title="Acessar conteúdo do treinamento" onClick={(event) => {
                     event.stopPropagation(); 
                     detalhesCurso();
                     }}>Acessar</button>
