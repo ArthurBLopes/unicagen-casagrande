@@ -6,6 +6,7 @@ import SearchSortToolbar from "../../../components/common/searchSortToolbar/Sear
 import { useListaOrdenada } from "../../../hooks/manager/useListaOrdenada";
 import { useEffect, useState } from "react";
 import TrailForm from "../../../components/features/manager/trail/TrailForm";
+import { atualizarTrilha, inserirTrilha } from "../../../services/trilhasService";
 
 export default function ManagerTrail() {
     const { trilhasComTreinamentos, trilhas, loading } = useTrilhasComTreinamentos();
@@ -49,58 +50,28 @@ export default function ManagerTrail() {
         const formulario = evento.currentTarget;
         const formData = new FormData(formulario);
 
-        const titulo = formData.get("titulo")?.trim();
-
-        let urlImagem = treinamentoEditando?.imagem ?? null;
-
-        if (imagemArquivo) {
-            urlImagem = await uploadImagemTreinamento(imagemArquivo, session, titulo);
-
-            if (!urlImagem) {
-                alert("Não foi possível enviar a imagem. Tente novamente.");
-                setEnviando(false);
-                return;
-            }
-        }
-
         const dados = {
-            titulo,
+            titulo: formData.get("titulo")?.trim(),
             descricao: formData.get("descricao")?.trim(),
-            link_conteudo: formData.get("url_conteudo")?.trim(),
-            link_material: formData.get("url_material")?.trim(),
-            imagem: urlImagem,
+            cor: formData.get("cor")?.trim(),
         };
 
-        const resultado = treinamentoEditando ? await atualizarTreinamento(treinamentoEditando.id, dados) : await inserirTreinamento(dados);
+        const resultado = trilhaEditando ? await atualizarTrilha(trilhaEditando.id, trilhaEditando) : await inserirTrilha(dados);
 
         if (!resultado) {
-            alert(treinamentoEditando ? "Não foi possível atualizar o treinamento." : "Não foi possível cadastrar o treinamento.");
+            alert(trilhaEditando ? "Não foi possível atualizar a trilha." : "Não foi possível cadastrar a trilha.");
 
             setEnviando(false);
             return;
         }
 
-        const identificador = treinamentoEditando ? treinamentoEditando.id : resultado.id;
-
-        const trilhaIds = selecaoTrilhas.selecionados.map((trilha) => trilha.id);
-
-        const tagIds = selecaoTags.selecionados.map((tag) => tag.id);
-
-        console.log("Treinamento:", identificador);
-        console.log("Trilhas selecionadas:", trilhaIds);
-        console.log("Tags selecionadas:", tagIds);
-
-        await sincronizarTrilhasDoTreinamento(identificador, trilhaIds);
-
-        await sincronizarTagsDoTreinamento(identificador, tagIds);
-
-        await recarregarTreinamentos();
         setEnviando(false);
-
-        selecaoTrilhas.limpar();
-        selecaoTags.limpar();
-
         resetarFormulario(formulario);
+    }
+
+    function onEditar(trilha) {
+        setTrilhaEditando(trilha)
+        setFormAberto(true)
     }
 
     return (
@@ -141,6 +112,7 @@ export default function ManagerTrail() {
                         { valor: trilha.descricao },
                         { valor: (<span className={styles.campoCor} style={{ backgroundColor: trilha?.cor }} />) },
                         { valor: formatarDataTabelas(trilha.data_criacao) }]}
+                    acoes={{onEditar}}
                 />
             </main>
         </div>
