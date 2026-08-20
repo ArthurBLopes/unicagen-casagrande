@@ -1,7 +1,7 @@
-import styles from "./CourseForm.module.css";
+import styles from "./TrailForm.module.css";
 import { useState, useEffect } from "react";
 
-export default function TrailForm({ trilha, funcaoSubmite }) {
+export default function TrailForm({ trilha, editando, funcaoSubmite, enviando }) {
 
     return (
         <>
@@ -23,26 +23,26 @@ export default function TrailForm({ trilha, funcaoSubmite }) {
                         <textarea
                             name="descricao"
                             id="descricao"
+                            rows={1}
                             placeholder="Descreva do que se trata esse trilha..."
                             defaultValue={trilha?.descricao}
-                            rows={4}
                             required
                         />
                     </div>
                     <div className={styles.campo}>
-                        <label className={styles.cor} htmlFor="cor">Cor</label>
+                        <label className={styles.rotulo} htmlFor="cor">Cor</label>
                         <input
-                            type="text"
+                            type="color"
+                            className={styles.campoCor}
                             name="cor"
                             id="cor"
-                            placeholder="https://..."
-                            defaultValue={trilha?.cor}
+                            defaultValue={trilha?.cor || "#000000"}
                             required
                         />
                     </div>
                 </div>
                 <button type="submit" className={styles.botaoInserir} disabled={enviando}>
-                    <span className={styles.texto}>{enviando ? "Salvando..." : editando ? "Salvar alterações" : "Inserir trilha"}</span>
+                    <span className={styles.texto}>{enviando ? "Salvando..." : editando ? "Salvar alterações" : "Criar trilha"}</span>
                     <span className={styles.seta} aria-hidden="true">&rarr;</span>
                 </button>
             </form>

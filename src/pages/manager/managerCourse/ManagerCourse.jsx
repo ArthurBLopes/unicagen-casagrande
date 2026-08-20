@@ -49,7 +49,7 @@ export default function ManagerCourse() {
         if (formAberto) {
             handleCancelar();
         } else {
-            setTreinamentoEditando(null); // garante que abre em modo inserção, não edição
+            setTreinamentoEditando(null); 
             setFormAberto(true);
         }
     }

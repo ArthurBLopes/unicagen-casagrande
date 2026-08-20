@@ -17,6 +17,7 @@ body,
   --bg-color: #d9d9d9;
   --bg-color2: #ffffff;
   --bg-color3: #ffffff;
+  --bg-color4: #f2f2f2;
   --bg-card: #fafcff;
   --text-color: #3D3935;
   --text-color2: #5c6b45;
@@ -27,6 +28,7 @@ html[data-theme="dark"]{
   --bg-color: #3D3935;
   --bg-color2: #3D3935;
   --bg-color3: #201f1e;
+  --bg-color4: #312e2b;
   --bg-card: #141414;
   --text-color: #d9d9d9;
   --text-color2: #aabf86;
