@@ -1,16 +1,18 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ManagerCourse.module.css";
 import { useTrilhasComTreinamentos } from "../../../hooks/trailsCourses/useTrilhasComTreinamentos";
 import { useTags } from "../../../hooks/tags/useTags";
 import { useAuth } from "../../../providers/AuthContext";
 import { inserirTreinamento, atualizarTreinamento } from "../../../services/treinamentosService";
-import { Trash, Images, X, SquarePen, ArrowUpAZ, ClockArrowUp, Search } from "lucide-react"
+import { Trash, Images, X, SquarePen } from "lucide-react"
 import ChipSelectField from "../../../components/common/chipSelectField/ChipSelectField";
 import { useSelectionMulti } from "../../../hooks/selection/useSelectionMulti";
 import ImageField from "../../../components/common/imageField/ImageField";
 import CourseForm from "../../../components/features/manager/course/CourseForm";
 import { useTreinamentos } from "../../../hooks/courses/useTreinamentos";
 import Table from "../../../components/common/table/Table";
+import SearchSortToolbar from "../../../components/common/searchSortToolbar/SearchSortToolbar";
+import { useListaOrdenada } from "../../../hooks/manager/useListaOrdenada";
 import { sincronizarTrilhasDoTreinamento } from "../../../services/treinamentosTrilhasService";
 import { sincronizarTagsDoTreinamento } from "../../../services/tagsService";
 import { uploadImagemTreinamento } from "../../../services/uploadService";
@@ -19,7 +21,6 @@ import ConfirmModal from "../../../components/common/confirmModal/ConfirmModal";
 
 export default function ManagerCourse() {
     const { session } = useAuth();
-    const [pesquisa, setPesquisa] = useState("")
     const [formAberto, setFormAberto] = useState(false);
     const [treinamentoParaExcluir, setTreinamentoParaExcluir] = useState(null);
     const [treinamentoEditando, setTreinamentoEditando] = useState(null);
@@ -28,14 +29,17 @@ export default function ManagerCourse() {
     const { treinamentos, recarregarTreinamentos, loading } = useTreinamentos();
     const [imagemArquivo, setImagemArquivo] = useState(null);
     const [enviando, setEnviando] = useState(false);
-    const [opcaoOrdenar, setOpcaoOrdenar] = useState(true);
 
     const selecaoTrilhas = useSelectionMulti();
     const selecaoTags = useSelectionMulti();
 
     const headers_treinamentos = ["Título", "Data de Publicação", "Edição", "Remoção"]
 
-    const treinamentosFiltrados = treinamentos.filter(treinamento => treinamento.titulo.toLowerCase().trim().includes(pesquisa.toLowerCase().trim()));
+    const { pesquisa, setPesquisa, opcaoOrdenar, handleOrdenacao, itensOrdenados: treinamentosOrdenados } = useListaOrdenada(treinamentos, {
+        campoPesquisa: "titulo",
+        campoData: "data_publicacao",
+        formatarItem: (treinamento) => ({ ...treinamento, data_publicacao: treinamento?.data_publicacao ? String(treinamento.data_publicacao).split('-').reverse().join('/') : "" }),
+    });
 
     function handleAbrirForm() {
         setFormAberto((estadoAtual) => !estadoAtual);
@@ -117,16 +121,6 @@ export default function ManagerCourse() {
         resetarFormulario(formulario);
     }
 
-    function handleOrdenacao() {
-        setOpcaoOrdenar((estadoAtual) => !estadoAtual)
-    }
-
-    const treinamentosOrdenados = useMemo(() => {
-        const ordenados = opcaoOrdenar ? [...treinamentosFiltrados].sort((a, b) => (a.titulo ?? "").localeCompare(b.titulo ?? "")) : [...treinamentosFiltrados].sort((a, b) => (a.data_publicacao ?? "").localeCompare(b.data_publicacao ?? "")).reverse();
-
-        return ordenados.map((treinamento) => ({ ...treinamento, data_publicacao: treinamento?.data_publicacao ? String(treinamento.data_publicacao).split('-').reverse().join('/') : "", }))
-    }, [treinamentosFiltrados, opcaoOrdenar])
-
     function onEditar(treinamento) {
         setTreinamentoEditando(treinamento)
         setFormAberto(true)
@@ -186,18 +180,15 @@ export default function ManagerCourse() {
                         </div>
                     )}
 
-                    <div className={styles.searchArea}>
-                        <div className={styles.searchBox}>
-                            <Search size={18} />
-                            <input type="text" placeholder="Buscar conteúdos..." value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
-                        </div>
-                        <button className={styles.botaoOrdenador} onClick={handleOrdenacao}>
-                            {opcaoOrdenar ? <span>Ordenar por data <ClockArrowUp /></span> : <span>Ordenar por ordem alfabética <ArrowUpAZ /></span>}
-                        </button>
-                    </div>
+                    <SearchSortToolbar
+                        pesquisa={pesquisa}
+                        onPesquisaChange={setPesquisa}
+                        opcaoOrdenar={opcaoOrdenar}
+                        onOrdenar={handleOrdenacao}
+                    />
                     <div className={styles.tabela}>
                         <Table
-                            loading={loading}
+                            
                             headers={headers_treinamentos}
                             dados={treinamentosOrdenados}
                             dadosFiltrados={treinamentosOrdenados}

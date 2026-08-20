@@ -1,0 +1,124 @@
+.formInsercao {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.linha {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.linha > .campo {
+    flex: 1;
+    min-width: 0;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rotulo {
+    font-family: "Sora", sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+}
+
+.formInsercao input[type="text"],
+.formInsercao textarea {
+    width: 100%;
+    padding: 6px 0 10px;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: "Sora", sans-serif;
+    font-size: 14.5px;
+    box-sizing: border-box;
+    resize: none;
+    transition: border-color 0.2s ease;
+}
+
+
+.formInsercao input::placeholder,
+.formInsercao textarea::placeholder {
+    color: var(--text-color);
+    opacity: 0.35;
+}
+
+.formInsercao input:focus,
+.formInsercao textarea:focus,
+.formInsercao select:focus {
+    outline: none;
+    border-bottom-color: var(--text-color2);
+}
+
+.botaoInserir {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    margin-top: 10px;
+    border: 1px solid var(--text-color2);
+    border-radius: 999px;
+    background-color: transparent;
+    color: var(--text-color2);
+    font-family: "Sora", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, opacity 0.2s ease;
+}
+
+.botaoInserir:hover {
+    background-color: var(--text-color2);
+    color: #ffffff;
+}
+
+.seta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botaoInserir:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.botaoInserir:disabled:hover {
+    background-color: transparent;
+    color: var(--text-color2);
+}
+
+@media (min-width: 768px) {
+    .formInsercao {
+        gap: 26px;
+        margin-top: 28px;
+    }
+
+    .linha {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 32px;
+    }
+
+    .campo input[type="text"] {
+        margin-top: auto; 
+    }
+
+    .botaoInserir {
+        align-self: flex-start;
+    }
+}

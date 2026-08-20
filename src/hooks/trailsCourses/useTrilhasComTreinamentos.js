@@ -5,6 +5,7 @@ export function useTrilhasComTreinamentos() {
     const [trilhasComTreinamentos, setTrilhasComTreinamentos] = useState([]);
     const [trilhas, setTrilhas] = useState([]);
     const [erroCarregamento, setErroCarregamento] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const carregarTrilhasComTreinamentos = async () => {
@@ -38,5 +39,5 @@ export function useTrilhasComTreinamentos() {
         carregarTrilhas();
     }, []);
 
-    return { trilhasComTreinamentos, trilhas, erroCarregamento };
+    return { trilhasComTreinamentos, trilhas, erroCarregamento, loading };
 }
