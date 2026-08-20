@@ -6,14 +6,16 @@ import SearchSortToolbar from "../../../components/common/searchSortToolbar/Sear
 import { useListaOrdenada } from "../../../hooks/manager/useListaOrdenada";
 import { useEffect, useState } from "react";
 import TrailForm from "../../../components/features/manager/trail/TrailForm";
-import { atualizarTrilha, inserirTrilha } from "../../../services/trilhasService";
+import { atualizarTrilha, inserirTrilha, removerTrilha } from "../../../services/trilhasService";
+import ConfirmModal from "../../../components/common/confirmModal/ConfirmModal";
 
 export default function ManagerTrail() {
-    const { trilhasComTreinamentos, trilhas, loading } = useTrilhasComTreinamentos();
+    const { trilhasComTreinamentos, trilhas, loading, recarregarTrilhas  } = useTrilhasComTreinamentos();
     const headers_trilhas = ["Título", "Descrição", "Cor", "Data de criação", "Edição", "Remoção"];
     const [formAberto, setFormAberto] = useState(false);
     const [trilhaEditando, setTrilhaEditando] = useState(null);
     const [enviando, setEnviando] = useState(false);
+    const [trilhaParaExcluir, setTrilhaParaExcluir] = useState(null);
 
     const { pesquisa, setPesquisa, opcaoOrdenar, handleOrdenacao, itensOrdenados: trilhasOrdenadas } = useListaOrdenada(trilhas, {
         campoPesquisa: "titulo",
@@ -60,11 +62,13 @@ export default function ManagerTrail() {
 
         if (!resultado) {
             alert(trilhaEditando ? "Não foi possível atualizar a trilha." : "Não foi possível cadastrar a trilha.");
+            console.log(resultado)
 
             setEnviando(false);
             return;
         }
 
+        await recarregarTrilhas();
         setEnviando(false);
         resetarFormulario(formulario);
     }
@@ -72,6 +76,19 @@ export default function ManagerTrail() {
     function onEditar(trilha) {
         setTrilhaEditando(trilha)
         setFormAberto(true)
+    }
+
+    async function handleConfirmarRemocao() {
+        if (!trilhaParaExcluir) return;
+
+        await removerTrilha(trilhaParaExcluir.id);
+
+        await recarregarTrilhas();
+        setTrilhaParaExcluir(null);
+    }
+
+    function handleAbrirRemover(trilha) {
+        setTrilhaParaExcluir(trilha);
     }
 
     return (
@@ -112,8 +129,15 @@ export default function ManagerTrail() {
                         { valor: trilha.descricao },
                         { valor: (<span className={styles.campoCor} style={{ backgroundColor: trilha?.cor }} />) },
                         { valor: formatarDataTabelas(trilha.data_criacao) }]}
-                    acoes={{onEditar}}
+                    acoes={{ onEditar, onRemover: handleAbrirRemover }}
                 />
+                {trilhaParaExcluir && (
+                    <ConfirmModal
+                        mensagem={`Tem certeza que deseja excluir "${trilhaParaExcluir.titulo}"?`}
+                        onCancelar={() => setTrilhaParaExcluir(null)}
+                        onConfirmar={handleConfirmarRemocao}
+                    />
+                )}
             </main>
         </div>
     )

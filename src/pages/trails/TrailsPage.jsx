@@ -9,8 +9,6 @@ export default function TrailsPage() {
     const { trilhasComTreinamentos, erroCarregamento } = useTrilhasComTreinamentos();
     const navigate = useNavigate();
 
-    console.log("Trilhas com Treinamentos:", trilhasComTreinamentos);
-
     function handleTrilha(trilha) {
         navigate(`/trilha/${trilha.id}`, { state: { trilha } });
     }

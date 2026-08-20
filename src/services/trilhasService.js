@@ -17,27 +17,27 @@ const listarTrilhas = async () => {
 }
 
 const inserirTrilha = async (trilha) => {
-    const { data, error } = await supabase.from("trilhas").insert(trilha)
+    const { data, error } = await supabase.from("trilhas").insert(trilha).select().single()
     if (error) {
         console.error(error)
-        return null
+        return error
     }
 
     return data
 }
 
 const atualizarTrilha = async (id, trilhaAtualizada) => {
-    const { data, error } = await supabase.from("trilhas").update(trilhaAtualizada).eq("id", id)
+    const { data, error } = await supabase.from("trilhas").update(trilhaAtualizada).eq("id", id).select().single()
     if (error) {
         console.error(error)
-        return null
+        return error
     }
 
     return data
 }
 
 const removerTrilha = async (id) => {
-    const { data, error } = await supabase.from("trilhas").delete().eq("id", id)
+    const { data, error } = await supabase.from("trilhas").delete().eq("id", id).select()
     if (error) {
         console.error(error)
         return null
