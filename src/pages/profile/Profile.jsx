@@ -27,7 +27,7 @@ export default function Profile() {
     const inicial = usuarioDB?.nome?.split(" ")[0]?.charAt(0).toUpperCase() || "N";
     const nome = usuarioDB?.nome || "Nome não encontrado";
     const email = usuarioDB?.email || "Email não encontrado";
-    const cargo = usuarioDB?.regra || "ND";
+    const cargo = usuarioDB?.regra == "admin" ? "ADMINISTRADOR" : "ND";
     const data = dataCriacaoConta ? new Date(dataCriacaoConta) : null;
     const nomeMes = data ? new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(data) : null;
     const ano = data ? data.getFullYear() : null;
