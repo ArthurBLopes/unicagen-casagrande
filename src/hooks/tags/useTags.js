@@ -17,7 +17,7 @@ export function useTags(id_treinamento) {
             setTags([]);
             setErroCarregamento(true);
         }
-    })
+    }, [])
 
     const carregarTagsTreinamento = useCallback(async () => {
         try {
@@ -29,7 +29,7 @@ export function useTags(id_treinamento) {
             setTagsTreinamentos([]);
             setErroCarregamento(true);
         }
-    })
+    }, [])
 
     useEffect(() => {
         setLoading(true);

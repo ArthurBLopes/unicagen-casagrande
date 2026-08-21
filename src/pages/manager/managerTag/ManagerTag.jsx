@@ -92,7 +92,7 @@ export default function ManagerTag() {
                 <p>Insira, edite ou remova informações das Tags, essa é a página de gerenciamento das tags usadas para classificar os treinamentos.</p>
 
                 <div className={styles.toolbar}>
-                    <button className={styles.botaoAbrirInserir} onClick={handleAbrirInserir}>{formAberto ? "Cancelar" : "+ Inserir Trilha"}</button>
+                    <button className={styles.botaoAbrirInserir} onClick={handleAbrirInserir}>{formAberto ? "Cancelar" : "+ Inserir Tag"}</button>
                 </div>
 
                 {formAberto && (

@@ -95,7 +95,7 @@ const inserirTag = async (tag) => {
 }
 
 const atualizarTag = async (id, tagAtualizada) => {
-    const { data, error } = await supabase.from("tags").update(tagAtualizada).eq("id", id).select().single()
+    const { data, error } = await supabase.from("tags").update(tagAtualizada).eq("id", id).select()
     if (error) {
         console.error(error)
         return error

@@ -1,0 +1,156 @@
+.formInsercao {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--bg-color4);
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 43px;
+}
+
+.linha {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.linha > .campo {
+    flex: 1;
+    min-width: 0;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rotulo {
+    font-family: "Sora", sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+}
+
+.formInsercao input[type="text"],
+.formInsercao textarea {
+    width: 100%;
+    padding: 6px 0 10px;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: "Sora", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.4;
+    box-sizing: border-box;
+    resize: none;
+    transition: border-color 0.2s ease;
+}
+
+.formInsercao textarea {
+    overflow: hidden;
+}
+
+.campoCor {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.campoCor::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.campoCor::-webkit-color-swatch {
+    border: none;
+    border-radius: 7px;
+}
+
+.campoCor::-moz-color-swatch {
+    border: none;
+    border-radius: 7px;
+}
+
+.formInsercao input::placeholder,
+.formInsercao textarea::placeholder {
+    color: var(--text-color);
+    opacity: 0.35;
+}
+
+.formInsercao input:focus,
+.formInsercao textarea:focus,
+.formInsercao select:focus {
+    outline: none;
+    border-bottom-color: var(--text-color2);
+}
+
+.botaoInserir {
+    align-self: stretch;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: 1px solid var(--text-color2);
+    border-radius: 999px;
+    background-color: transparent;
+    color: var(--text-color2);
+    font-family: "Sora", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, opacity 0.2s ease;
+}
+
+.botaoInserir:hover {
+    background-color: var(--text-color2);
+    color: #ffffff;
+}
+
+.seta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botaoInserir:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.botaoInserir:disabled:hover {
+    background-color: transparent;
+    color: var(--text-color2);
+}
+
+@media (min-width: 768px) {
+    .formInsercao {
+        gap: 26px;
+    }
+
+    .linha {
+        flex-direction: row;
+        align-items: center;
+        gap: 32px;
+
+    }
+
+    .campo input[type="text"],
+    .campo .campoCor {
+        margin-top: auto; 
+    }
+
+    .botaoInserir {
+        align-self: flex-start;
+    }
+}
