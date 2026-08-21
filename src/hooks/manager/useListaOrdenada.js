@@ -1,5 +1,10 @@
 import { useMemo, useState } from "react";
 
+// Remove acentuação para permitir pesquisa "acento-insensível".
+function normalizar(texto) {
+    return texto.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 // Pesquisa (por campo de texto) + ordenação (alfabética ou por data) reutilizável nas telas de gerenciamento.
 export function useListaOrdenada(itens, { campoPesquisa = "titulo", campoAlfabetico = campoPesquisa, campoData = "data_publicacao", formatarItem } = {}) {
     const [pesquisa, setPesquisa] = useState("");
@@ -10,7 +15,7 @@ export function useListaOrdenada(itens, { campoPesquisa = "titulo", campoAlfabet
     }
 
     const itensFiltrados = useMemo(() => (
-        itens.filter((item) => (item[campoPesquisa] ?? "").toLowerCase().trim().includes(pesquisa.toLowerCase().trim()))
+        itens.filter((item) => normalizar(item[campoPesquisa] ?? "").includes(normalizar(pesquisa)))
     ), [itens, pesquisa, campoPesquisa]);
 
     const itensOrdenados = useMemo(() => {

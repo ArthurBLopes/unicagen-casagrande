@@ -83,4 +83,34 @@ const sincronizarTagsDoTreinamento = async (id_treinamento, tagsIds) => {
     return data;
 };
 
-export { listarTags, listarTagsTreinamento, listarTagsTreinamentos, sincronizarTagsDoTreinamento };
+const inserirTag = async (tag) => {
+    const { data, error } = await supabase.from("tags").insert(tag).select()
+
+    if (error) {
+        console.error(error)
+        return error
+    }
+
+    return data
+}
+
+const atualizarTag = async (id, tagAtualizada) => {
+    const { data, error } = await supabase.from("tags").update(tagAtualizada).eq("id", id).select().single()
+    if (error) {
+        console.error(error)
+        return error
+    }
+
+    return data
+}
+
+const removerTag = async (id) => {
+    const { data, error } = await supabase.from("tags").delete().eq("id", id).select()
+    if (error) {
+        console.error(error)
+        return null
+    }
+    return data
+}
+
+export { listarTags, listarTagsTreinamento, listarTagsTreinamentos, sincronizarTagsDoTreinamento, atualizarTag, removerTag, inserirTag };

@@ -8,9 +8,9 @@ export default function SearchSortToolbar({ pesquisa, onPesquisaChange, opcaoOrd
                 <Search size={18} />
                 <input type="text" placeholder={placeholder} value={pesquisa} onChange={(e) => onPesquisaChange(e.target.value)} />
             </div>
-            <button className={styles.botaoOrdenador} onClick={onOrdenar}>
+            {onOrdenar && <button className={styles.botaoOrdenador} onClick={onOrdenar}>
                 {opcaoOrdenar ? <span>Ordenar por data <ClockArrowUp /></span> : <span>Ordenar por ordem alfabética <ArrowUpAZ /></span>}
-            </button>
+            </button>}
         </div>
     );
 }

@@ -1,45 +1,40 @@
 import { listarTags, listarTagsTreinamento, listarTagsTreinamentos } from "../../services/tagsService";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export function useTags(id_treinamento) {
     const [tags, setTags] = useState([]);
     const [tagsTreinamentos, setTagsTreinamentos] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [erroCarregamento, setErroCarregamento] = useState(false);
 
-    useEffect(() => {
-        const fetchTags = async () => {
-            setLoading(true);
+    const carregarTags = useCallback(async () => {
+        try {
+            const data = await listarTags();
+            setTags(data);
             setErroCarregamento(false);
-            try {
-                const data = await listarTags();
-                setTags(data);
-            } catch (error) {
-                setErroCarregamento(true);
-            } finally {
-                setLoading(false);
-            }
-        };
+        } catch (error) {
+            console.error("Erro ao carregar tags:", error);
+            setTags([]);
+            setErroCarregamento(true);
+        }
+    })
 
-        fetchTags();
-    }, []);
+    const carregarTagsTreinamento = useCallback(async () => {
+        try {
+            const data = await listarTagsTreinamentos();
+            setTagsTreinamentos(data);
+            setErroCarregamento(false);
+        } catch (error) {
+            console.error("Erro ao carregar tags do treinamento:", error);
+            setTagsTreinamentos([]);
+            setErroCarregamento(true);
+        }
+    })
 
     useEffect(() => {
-        const fetchTagsTreinamentos = async () => {
-            setLoading(true);
-            setErroCarregamento(false);
-            try {
-                const data = await listarTagsTreinamentos();
-                setTagsTreinamentos(data);
-            } catch (error) {
-                setErroCarregamento(true);
-            } finally {
-                setLoading(false);
-            }
-        };
+        setLoading(true);
+        Promise.all([carregarTagsTreinamento(), carregarTags()]).finally(() => setLoading(false));
+    }, [carregarTagsTreinamento, carregarTags]);
 
-        fetchTagsTreinamentos();
-    }, []);
-
-    return { tags, tagsTreinamentos, loading, erroCarregamento };
+    return { tags, tagsTreinamentos, loading, erroCarregamento, recarregarTags: carregarTags };
 }
