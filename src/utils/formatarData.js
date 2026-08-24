@@ -1,5 +1,5 @@
 export function formatarData(data) {
-    const dia = new Date(data).getDay();
+    const dia = new Date(data).getDate();
     const dias = Math.floor((new Date() - new Date(data)) / (1000 * 60 * 60 * 24));
     const mes = new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(data));
     const ano = new Date(data).getFullYear();
@@ -7,7 +7,7 @@ export function formatarData(data) {
 }
 
 export function formatarDataTabelas(data) {
-    const dia = new Date(data).getDay();
+    const dia = new Date(data).getDate();
     const dias = Math.floor((new Date() - new Date(data)) / (1000 * 60 * 60 * 24));
     const mes = new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(new Date(data));
     const ano = new Date(data).getFullYear();
