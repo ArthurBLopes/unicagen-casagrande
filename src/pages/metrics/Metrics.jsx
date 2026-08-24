@@ -1,7 +1,8 @@
 import styles from "./Metrics.module.css"
 import { useAcessos } from "../../hooks/metrics/useAcessos"
 import { useAcessosTreinamentos } from "../../hooks/metrics/useAcessosTreinamentos"
-import { Info, Search, ChevronDown, SlidersHorizontal } from "lucide-react"
+import {  Search } from "lucide-react"
+import {ResponsiveContainer,AreaChart,Area,BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip} from "recharts";
 import { useState } from "react"
 import Table from "../../components/common/table/Table"
 import Alert from "../../components/common/alert/Alert"
