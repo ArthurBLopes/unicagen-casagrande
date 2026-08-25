@@ -3,11 +3,12 @@ import { useAcessos } from "../../hooks/metrics/useAcessos"
 import { useAcessosTreinamentos } from "../../hooks/metrics/useAcessosTreinamentos"
 import { Search } from "lucide-react"
 import { ResponsiveContainer, PieChart, Pie, Tooltip, AreaChart, Area, XAxis, YAxis, CartesianGrid, BarChart, Bar, Legend } from "recharts";
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Table from "../../components/common/table/Table"
 import Alert from "../../components/common/alert/Alert"
 import { formatarUltimoAcesso } from "../../utils/formatarData"
 import { useMetricasDashboard } from "../../hooks/metrics/useMetricasDashboard";
+import { capturarGrafico } from "../../utils/capturarGrafico";
 
 export default function Metricas() {
 
@@ -25,6 +26,12 @@ export default function Metricas() {
 
     const headers_acessos = ["Nome", "Email", "Posição", "Acessos (Últimos 30 dias)", "Frequência (%)", "Último acesso"];
     const headers_treinamentos = ["Curso", "Total de Acessos", "Usuários únicos", "Último acesso"];
+
+    //parte de gerar o relatório ( eu apaguei a opção de power bi )
+    const graficoUsuariosRef = useRef(null);
+    const graficoTreinamentosRef = useRef(null);
+    const graficoEngajamentoRef = useRef(null);
+    const [gerandoRelatorio, setGerandoRelatorio] = useState(false);
 
     const dadosUsuarios = [
         {
@@ -86,12 +93,13 @@ export default function Metricas() {
                             </div>
                         </div>
                         <div className={styles.graficos}>
-                            <div className={styles.graficoUsuarios}>
+
+                            <div ref={graficoUsuariosRef} className={styles.graficoUsuarios}>
                                 <h3>Status dos usuários</h3>
 
                                 <ResponsiveContainer width="100%" height={300}>
                                     <PieChart>
-                                        <Pie
+                                        <Pie 
                                             data={dadosUsuarios}
                                             dataKey="valor"
                                             nameKey="nome"
@@ -115,7 +123,7 @@ export default function Metricas() {
                                 </ResponsiveContainer>
                             </div>
 
-                            <div className={styles.graficoTreinamentos}>
+                            <div ref={graficoTreinamentosRef} className={styles.graficoTreinamentos}>
                                 <h3>Treinamentos mais acessados</h3>
 
                                 <ResponsiveContainer width="100%" height={300}>
@@ -166,7 +174,7 @@ export default function Metricas() {
                                 </ResponsiveContainer>
                             </div>
 
-                            <div className={styles.graficoEngajamento}>
+                            <div ref={graficoEngajamentoRef} className={styles.graficoEngajamento}>
                                 <h3>Engajamento diário na plataforma</h3>
 
                                 <ResponsiveContainer width="100%" height={300}>

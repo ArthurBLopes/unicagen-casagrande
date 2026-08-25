@@ -23,5 +23,5 @@ export function useAcessos() {
         fetchAcessos();
     }, []);
 
-    return { acessos };
+    return { acessos, loading, erroCarregamento };
 }

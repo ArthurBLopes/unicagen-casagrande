@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@mona-health/react-input-mask": "^3.0.3",
+    "@react-pdf/renderer": "^4.8.1",
     "@supabase/supabase-js": "^2.108.2",
     "chart.js": "^4.5.1",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^1.21.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

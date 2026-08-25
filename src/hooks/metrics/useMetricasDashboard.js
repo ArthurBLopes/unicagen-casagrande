@@ -12,6 +12,8 @@ export function useMetricasDashboard() {
     const [loadingAcessaramNovaUnicagen, setLoadingAcessaramNovaUnicagen] = useState(false);
     const [loadingUsuariosEngajamentoTreinamentos, setLoadingUsuariosEngajamentoTreinamentos] = useState(false);
 
+    const loadingMetricas = loadingAtividadeUsuarios || loadingEngajamentoPlataforma || loadingAcessaramNovaUnicagen || loadingUsuariosEngajamentoTreinamentos;
+
     const [erroCarregamento, setErroCarregamento] = useState(false);
 
     useEffect(() => {
@@ -82,5 +84,5 @@ export function useMetricasDashboard() {
         fetchEngajamentoTreinamentos();
     }, []);
 
-    return { atividadeUsuarios, engajamentoPlataforma, acessaramNovaUnicagen, engajamentoTreinamentos };
+    return { atividadeUsuarios, engajamentoPlataforma, acessaramNovaUnicagen, engajamentoTreinamentos, loadingMetricas, erroCarregamento };
 }
