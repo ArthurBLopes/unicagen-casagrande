@@ -9,6 +9,8 @@ import Alert from "../../components/common/alert/Alert"
 import { formatarUltimoAcesso } from "../../utils/formatarData"
 import { useMetricasDashboard } from "../../hooks/metrics/useMetricasDashboard";
 import { capturarGrafico } from "../../utils/capturarGrafico";
+import RelatorioMetricasPDF from "../../components/features/metrics/RelatorioMetricasPDF";
+import { pdf } from "@react-pdf/renderer";
 
 export default function Metricas() {
 
@@ -54,6 +56,132 @@ export default function Metricas() {
         { titulo: "Dynamo", total_acessos: 8 }
     ];
 
+    const handleGerarRelatorio = async () => {
+
+        try {
+
+            setGerandoRelatorio(true);
+
+
+            // ==============================
+            // CAPTURA DOS GRÁFICOS
+            // ==============================
+
+            const imagemUsuarios = await capturarGrafico(
+                graficoUsuariosRef.current
+            );
+
+
+            const imagemTreinamentos = await capturarGrafico(
+                graficoTreinamentosRef.current
+            );
+
+
+            const imagemEngajamento = await capturarGrafico(
+                graficoEngajamentoRef.current
+            );
+
+
+            // ==============================
+            // CRIA O DOCUMENTO PDF
+            // ==============================
+
+            const documento = (
+                <RelatorioMetricasPDF
+
+                    acessaramNovaUnicagen={
+                        acessaramNovaUnicagen
+                    }
+
+                    atividadeUsuarios={
+                        atividadeUsuarios
+                    }
+
+                    treinamentos={
+                        testeTreinamentos
+                    }
+
+                    graficoUsuarios={
+                        imagemUsuarios
+                    }
+
+                    graficoTreinamentos={
+                        imagemTreinamentos
+                    }
+
+                    graficoEngajamento={
+                        imagemEngajamento
+                    }
+
+                />
+            );
+
+
+            // ==============================
+            // CONVERTE PARA BLOB
+            // ==============================
+
+            const blob = await pdf(documento).toBlob();
+
+
+            // ==============================
+            // GERA URL TEMPORÁRIA
+            // ==============================
+
+            const url = URL.createObjectURL(blob);
+
+
+            // ==============================
+            // NOME DO ARQUIVO
+            // ==============================
+
+            const hoje = new Date();
+
+            const dataArquivo = hoje
+                .toLocaleDateString("pt-BR")
+                .replaceAll("/", "-");
+
+
+            const nomeArquivo =
+                `Relatorio_Metricas_UNICAGEN_${dataArquivo}.pdf`;
+
+
+            // ==============================
+            // DOWNLOAD
+            // ==============================
+
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download = nomeArquivo;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+
+            // Libera a memória da URL temporária
+            URL.revokeObjectURL(url);
+
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao gerar relatório:",
+                erro
+            );
+
+
+        } finally {
+
+            setGerandoRelatorio(false);
+
+        }
+
+    };
+
     return (
         <div className={styles.container}>
             <main className={styles.main}>
@@ -65,7 +193,8 @@ export default function Metricas() {
                         <h2 className={styles.secaoTitulo}>Acessos por colaborador</h2>
 
                         <div className={styles.btns}>
-                            <button className={styles.btnPDF}>Gerar relatório</button>
+                            <button className={styles.btnPDF} onClick={handleGerarRelatorio} disabled={gerandoRelatorio}>
+                            {gerandoRelatorio? "Gerando relatório...": "Gerar relatório"}</button>
                         </div>
                     </div>
 
@@ -99,7 +228,7 @@ export default function Metricas() {
 
                                 <ResponsiveContainer width="100%" height={300}>
                                     <PieChart>
-                                        <Pie 
+                                        <Pie
                                             data={dadosUsuarios}
                                             dataKey="valor"
                                             nameKey="nome"
