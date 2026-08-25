@@ -10,27 +10,49 @@ import {
 import logoCasagrande from "../../../assets/logos/horizontal/Logo_Cagen_Horiz__Verde_Escuro_e_Grafite.png";
 
 
+const VERDE = "#4F772D";
+const GRAFITE = "#263238";
+const CINZA = "#777777";
+const BORDA = "#E4E7E2";
+const FUNDO_SUAVE = "#F5F7F3";
+
+const A4_LARGURA = 595.28;
+const A4_ALTURA = 841.89;
+
+
 const styles = StyleSheet.create({
 
+    // =========================================================
+    // PÁGINA PADRÃO
+    // =========================================================
+
     pagina: {
-        paddingTop: 45,
-        paddingBottom: 50,
+        width: A4_LARGURA,
+        height: A4_ALTURA,
+        minHeight: A4_ALTURA,
+        paddingTop: 40,
+        paddingBottom: 48,
         paddingHorizontal: 45,
         fontFamily: "Helvetica",
         backgroundColor: "#FFFFFF",
         color: "#303030",
     },
 
-    // ==========================
+
+    // =========================================================
     // CAPA
-    // ==========================
+    // =========================================================
 
     capa: {
-        padding: 55,
+        width: A4_LARGURA,
+        height: A4_ALTURA,
+        minHeight: A4_ALTURA,
+        paddingHorizontal: 55,
+        paddingTop: 55,
+        paddingBottom: 50,
         fontFamily: "Helvetica",
         backgroundColor: "#FFFFFF",
         color: "#303030",
-        justifyContent: "space-between",
     },
 
     capaTopo: {
@@ -38,25 +60,25 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-        width: 210,
-        height: 65,
+        width: 225,
+        height: 70,
         objectFit: "contain",
     },
 
     capaCentro: {
-        marginTop: 110,
+        marginTop: 185,
     },
 
     linhaVerde: {
         width: 55,
         height: 5,
-        backgroundColor: "#4F772D",
-        marginBottom: 24,
+        backgroundColor: VERDE,
+        marginBottom: 22,
     },
 
     unicagen: {
         fontSize: 15,
-        color: "#4F772D",
+        color: VERDE,
         fontWeight: "bold",
         letterSpacing: 3,
         marginBottom: 12,
@@ -65,22 +87,28 @@ const styles = StyleSheet.create({
     tituloCapa: {
         fontSize: 31,
         fontWeight: "bold",
-        color: "#263238",
+        color: GRAFITE,
         lineHeight: 1.2,
         marginBottom: 12,
     },
 
     subtituloCapa: {
-        fontSize: 13,
+        fontSize: 12,
         color: "#6B6B6B",
         lineHeight: 1.5,
-        maxWidth: 380,
+        maxWidth: 390,
     },
 
     capaRodape: {
+        position: "absolute",
+        left: 55,
+        right: 55,
+        bottom: 52,
+
         borderTopWidth: 1,
         borderTopColor: "#D9D9D9",
-        paddingTop: 16,
+
+        paddingTop: 15,
     },
 
     textoRodapeCapa: {
@@ -89,23 +117,26 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
 
-    // ==========================
+
+    // =========================================================
     // CABEÇALHO
-    // ==========================
+    // =========================================================
 
     cabecalho: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
+
         borderBottomWidth: 1,
         borderBottomColor: "#E4E4E4",
-        paddingBottom: 12,
-        marginBottom: 25,
+
+        paddingBottom: 10,
+        marginBottom: 22,
     },
 
     logoCabecalho: {
         width: 125,
-        height: 36,
+        height: 34,
         objectFit: "contain",
     },
 
@@ -115,7 +146,7 @@ const styles = StyleSheet.create({
 
     cabecalhoTitulo: {
         fontSize: 8,
-        color: "#4F772D",
+        color: VERDE,
         fontWeight: "bold",
         letterSpacing: 1,
     },
@@ -126,117 +157,220 @@ const styles = StyleSheet.create({
         marginTop: 3,
     },
 
-    // ==========================
+
+    // =========================================================
     // TÍTULOS
-    // ==========================
+    // =========================================================
 
     tituloSecao: {
         fontSize: 22,
         fontWeight: "bold",
-        color: "#263238",
-        marginBottom: 6,
+        color: GRAFITE,
+        marginBottom: 5,
     },
 
     descricaoSecao: {
         fontSize: 9,
-        color: "#777777",
-        lineHeight: 1.5,
-        marginBottom: 24,
+        color: CINZA,
+        lineHeight: 1.4,
+        marginBottom: 19,
     },
 
     tituloBloco: {
         fontSize: 13,
         fontWeight: "bold",
-        color: "#263238",
-        marginBottom: 12,
+        color: GRAFITE,
+        marginBottom: 10,
     },
 
-    // ==========================
-    // CARDS
-    // ==========================
+
+    // =========================================================
+    // CARDS - VISÃO GERAL
+    // =========================================================
 
     cardsLinha: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginBottom: 12,
+        marginBottom: 10,
     },
 
     card: {
         width: "31.5%",
+
         borderWidth: 1,
-        borderColor: "#E4E7E2",
+        borderColor: BORDA,
         borderRadius: 7,
-        padding: 14,
-        minHeight: 76,
+
+        padding: 12,
+        minHeight: 68,
     },
 
     cardGrande: {
-        width: "48.5%",
+        width: "48.7%",
+
         borderWidth: 1,
-        borderColor: "#E4E7E2",
+        borderColor: BORDA,
         borderRadius: 7,
-        padding: 14,
-        minHeight: 76,
+
+        padding: 12,
+        minHeight: 68,
     },
 
     cardValor: {
-        fontSize: 23,
-        color: "#4F772D",
+        fontSize: 22,
+        color: VERDE,
         fontWeight: "bold",
-        marginBottom: 5,
+        marginBottom: 4,
     },
 
     cardLabel: {
-        fontSize: 8,
+        fontSize: 7.7,
         color: "#666666",
         lineHeight: 1.3,
     },
 
-    // ==========================
+
+    // =========================================================
     // GRÁFICOS
-    // ==========================
+    // =========================================================
+
+    blocoGraficoResumo: {
+        marginTop: 17,
+    },
 
     graficoContainer: {
         borderWidth: 1,
         borderColor: "#E7E7E7",
         borderRadius: 8,
-        padding: 14,
-        marginTop: 8,
+
+        padding: 12,
+        marginTop: 6,
     },
 
-    grafico: {
+    graficoResumo: {
         width: "100%",
-        height: 275,
+        height: 205,
         objectFit: "contain",
     },
 
-    graficoGrande: {
+    graficoEngajamento: {
         width: "100%",
-        height: 330,
+        height: 290,
         objectFit: "contain",
     },
 
-    // ==========================
+    graficoTreinamentos: {
+        width: "100%",
+        height: 225,
+        objectFit: "contain",
+    },
+
+
+    // =========================================================
+    // INFORMAÇÃO
+    // =========================================================
+
+    informacao: {
+        backgroundColor: FUNDO_SUAVE,
+
+        borderLeftWidth: 4,
+        borderLeftColor: VERDE,
+        borderRadius: 4,
+
+        padding: 10,
+        marginTop: 13,
+    },
+
+    informacaoTexto: {
+        fontSize: 7.5,
+        lineHeight: 1.4,
+        color: "#555555",
+    },
+
+
+    // =========================================================
+    // ENGAJAMENTO - INDICADORES
+    // =========================================================
+
+    indicadoresEngajamento: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 20,
+    },
+
+    indicadorEngajamento: {
+        width: "31.5%",
+
+        backgroundColor: FUNDO_SUAVE,
+
+        borderWidth: 1,
+        borderColor: BORDA,
+        borderRadius: 7,
+
+        paddingVertical: 14,
+        paddingHorizontal: 12,
+
+        minHeight: 70,
+    },
+
+    indicadorValor: {
+        fontSize: 21,
+        color: VERDE,
+        fontWeight: "bold",
+        marginBottom: 5,
+    },
+
+    indicadorLabel: {
+        fontSize: 8,
+        color: "#666666",
+        lineHeight: 1.3,
+    },
+
+    observacaoEngajamento: {
+        marginTop: 17,
+        paddingTop: 12,
+
+        borderTopWidth: 1,
+        borderTopColor: "#EEEEEE",
+    },
+
+    observacaoTitulo: {
+        fontSize: 9,
+        fontWeight: "bold",
+        color: GRAFITE,
+        marginBottom: 5,
+    },
+
+    observacaoTexto: {
+        fontSize: 8,
+        color: "#6D6D6D",
+        lineHeight: 1.5,
+    },
+
+
+    // =========================================================
     // RANKING
-    // ==========================
+    // =========================================================
 
     ranking: {
-        marginTop: 22,
+        marginTop: 18,
     },
 
     rankingLinha: {
         flexDirection: "row",
         alignItems: "center",
+
         borderBottomWidth: 1,
         borderBottomColor: "#EEEEEE",
-        paddingVertical: 9,
+
+        paddingVertical: 8,
     },
 
     rankingPosicao: {
-        width: 35,
+        width: 38,
         fontSize: 11,
         fontWeight: "bold",
-        color: "#4F772D",
+        color: VERDE,
     },
 
     rankingNome: {
@@ -246,64 +380,55 @@ const styles = StyleSheet.create({
     },
 
     rankingValor: {
-        width: 80,
+        width: 85,
         textAlign: "right",
         fontSize: 9,
         fontWeight: "bold",
         color: "#555555",
     },
 
-    // ==========================
-    // INFORMAÇÃO
-    // ==========================
 
-    informacao: {
-        backgroundColor: "#F5F7F3",
-        borderLeftWidth: 4,
-        borderLeftColor: "#4F772D",
-        padding: 13,
-        marginTop: 20,
-        borderRadius: 4,
-    },
-
-    informacaoTexto: {
-        fontSize: 8,
-        lineHeight: 1.5,
-        color: "#555555",
-    },
-
-    // ==========================
+    // =========================================================
     // RODAPÉ
-    // ==========================
+    // =========================================================
 
     rodape: {
         position: "absolute",
+
         left: 45,
         right: 45,
-        bottom: 22,
+        bottom: 20,
+
         flexDirection: "row",
         justifyContent: "space-between",
+
         borderTopWidth: 1,
         borderTopColor: "#E4E4E4",
-        paddingTop: 8,
+
+        paddingTop: 7,
     },
 
     rodapeTexto: {
         fontSize: 7,
         color: "#999999",
     },
+
 });
 
 
 function Cabecalho() {
+
     return (
+
         <View style={styles.cabecalho}>
+
             <Image
                 src={logoCasagrande}
                 style={styles.logoCabecalho}
             />
 
             <View style={styles.cabecalhoDireita}>
+
                 <Text style={styles.cabecalhoTitulo}>
                     UNICAGEN
                 </Text>
@@ -311,15 +436,22 @@ function Cabecalho() {
                 <Text style={styles.cabecalhoSubtitulo}>
                     Relatório de métricas
                 </Text>
+
             </View>
+
         </View>
+
     );
+
 }
 
 
 function Rodape() {
+
     return (
+
         <View style={styles.rodape} fixed>
+
             <Text style={styles.rodapeTexto}>
                 UNICAGEN • Casagrande Engenharia
             </Text>
@@ -330,34 +462,60 @@ function Rodape() {
                     `Página ${pageNumber} de ${totalPages}`
                 }
             />
+
         </View>
+
     );
+
 }
 
 
 export default function RelatorioMetricasPDF({
+
     acessaramNovaUnicagen = 0,
+
     atividadeUsuarios = [],
+
+    engajamentoPlataforma = [],
+
     treinamentos = [],
+
     graficoUsuarios = null,
+
     graficoTreinamentos = null,
+
     graficoEngajamento = null,
+
 }) {
 
+
+    // =========================================================
+    // MÉTRICAS DOS USUÁRIOS
+    // =========================================================
+
     const atividade = atividadeUsuarios?.[0] ?? {};
+
 
     const ativosHoje =
         atividade.ativos_hoje ?? 0;
 
+
     const ativosSemana =
         atividade.ativos_7_dias ?? 0;
+
 
     const ativosMes =
         atividade.ativos_30_dias ?? 0;
 
+
     const inativos =
         atividade.inativos_mais_30_dias ?? 0;
 
+
+
+    // =========================================================
+    // DATA DO RELATÓRIO
+    // =========================================================
 
     const dataGeracao = new Date().toLocaleDateString(
         "pt-BR",
@@ -369,28 +527,84 @@ export default function RelatorioMetricasPDF({
     );
 
 
-    const treinamentosOrdenados = [...treinamentos]
-        .sort(
+
+    // =========================================================
+    // TREINAMENTOS
+    // =========================================================
+
+    const treinamentosOrdenados =
+        [...treinamentos].sort(
             (a, b) =>
                 (b.total_acessos ?? 0) -
                 (a.total_acessos ?? 0)
         );
 
 
+
+    // =========================================================
+    // MÉTRICAS DERIVADAS DO ENGAJAMENTO
+    // =========================================================
+
+    const valoresEngajamento =
+        engajamentoPlataforma.map(
+            (item) =>
+                Number(item.usuarios_ativos) || 0
+        );
+
+
+    const picoUsuarios =
+        valoresEngajamento.length > 0
+            ? Math.max(...valoresEngajamento)
+            : 0;
+
+
+    const totalUsuariosAtivos =
+        valoresEngajamento.reduce(
+            (total, valor) =>
+                total + valor,
+            0
+        );
+
+
+    const mediaDiaria =
+        valoresEngajamento.length > 0
+            ? totalUsuariosAtivos /
+            valoresEngajamento.length
+            : 0;
+
+
+    const diasComAtividade =
+        valoresEngajamento.filter(
+            (valor) => valor > 0
+        ).length;
+
+
+
+    // =========================================================
+    // DOCUMENTO
+    // =========================================================
+
     return (
+
         <Document>
 
-            {/* ===================================== */}
-            {/* CAPA */}
-            {/* ===================================== */}
 
-            <Page size="A4" style={styles.capa}>
+            {/* ================================================= */}
+            {/* PÁGINA 1 - CAPA */}
+            {/* ================================================= */}
+
+            <Page
+    size={{ width: A4_LARGURA, height: A4_ALTURA }}
+    style={styles.capa}
+>
 
                 <View style={styles.capaTopo}>
+
                     <Image
                         src={logoCasagrande}
                         style={styles.logo}
                     />
+
                 </View>
 
 
@@ -398,13 +612,16 @@ export default function RelatorioMetricasPDF({
 
                     <View style={styles.linhaVerde} />
 
+
                     <Text style={styles.unicagen}>
                         UNICAGEN
                     </Text>
 
+
                     <Text style={styles.tituloCapa}>
                         Relatório de Métricas
                     </Text>
+
 
                     <Text style={styles.subtituloCapa}>
                         Visão consolidada da utilização,
@@ -421,9 +638,11 @@ export default function RelatorioMetricasPDF({
                         Casagrande Engenharia
                     </Text>
 
+
                     <Text style={styles.textoRodapeCapa}>
                         Gerado em {dataGeracao}
                     </Text>
+
 
                     <Text style={styles.textoRodapeCapa}>
                         Documento para uso interno
@@ -434,17 +653,23 @@ export default function RelatorioMetricasPDF({
             </Page>
 
 
-            {/* ===================================== */}
-            {/* RESUMO EXECUTIVO */}
-            {/* ===================================== */}
 
-            <Page size="A4" style={styles.pagina}>
+            {/* ================================================= */}
+            {/* PÁGINA 2 - VISÃO GERAL */}
+            {/* ================================================= */}
+
+            <Page
+    size={{ width: A4_LARGURA, height: A4_ALTURA }}
+    style={styles.pagina}
+>
 
                 <Cabecalho />
+
 
                 <Text style={styles.tituloSecao}>
                     Visão geral
                 </Text>
+
 
                 <Text style={styles.descricaoSecao}>
                     Indicadores consolidados de utilização
@@ -452,9 +677,14 @@ export default function RelatorioMetricasPDF({
                 </Text>
 
 
+
+                {/* PRIMEIRA LINHA */}
+
+
                 <View style={styles.cardsLinha}>
 
                     <View style={styles.card}>
+
                         <Text style={styles.cardValor}>
                             {acessaramNovaUnicagen}
                         </Text>
@@ -463,10 +693,12 @@ export default function RelatorioMetricasPDF({
                             Colaboradores que já acessaram
                             a nova UNICAGEN
                         </Text>
+
                     </View>
 
 
                     <View style={styles.card}>
+
                         <Text style={styles.cardValor}>
                             {ativosHoje}
                         </Text>
@@ -474,10 +706,12 @@ export default function RelatorioMetricasPDF({
                         <Text style={styles.cardLabel}>
                             Usuários ativos hoje
                         </Text>
+
                     </View>
 
 
                     <View style={styles.card}>
+
                         <Text style={styles.cardValor}>
                             {ativosSemana}
                         </Text>
@@ -486,14 +720,20 @@ export default function RelatorioMetricasPDF({
                             Usuários ativos nos últimos
                             7 dias
                         </Text>
+
                     </View>
 
                 </View>
 
 
+
+                {/* SEGUNDA LINHA */}
+
+
                 <View style={styles.cardsLinha}>
 
                     <View style={styles.cardGrande}>
+
                         <Text style={styles.cardValor}>
                             {ativosMes}
                         </Text>
@@ -502,10 +742,12 @@ export default function RelatorioMetricasPDF({
                             Usuários ativos nos últimos
                             30 dias
                         </Text>
+
                     </View>
 
 
                     <View style={styles.cardGrande}>
+
                         <Text style={styles.cardValor}>
                             {inativos}
                         </Text>
@@ -514,27 +756,41 @@ export default function RelatorioMetricasPDF({
                             Usuários há mais de 30 dias
                             sem acessar
                         </Text>
+
                     </View>
 
                 </View>
 
 
-                <View style={{ marginTop: 24 }}>
+
+                {/* STATUS DOS USUÁRIOS */}
+
+
+                <View style={styles.blocoGraficoResumo}>
 
                     <Text style={styles.tituloBloco}>
                         Status dos usuários
                     </Text>
 
+
                     {graficoUsuarios && (
+
                         <View style={styles.graficoContainer}>
+
                             <Image
                                 src={graficoUsuarios}
-                                style={styles.grafico}
+                                style={styles.graficoResumo}
                             />
+
                         </View>
+
                     )}
 
                 </View>
+
+
+
+                {/* OBSERVAÇÃO */}
 
 
                 <View style={styles.informacao}>
@@ -554,23 +810,30 @@ export default function RelatorioMetricasPDF({
             </Page>
 
 
-            {/* ===================================== */}
-            {/* ENGAJAMENTO */}
-            {/* ===================================== */}
 
-            <Page size="A4" style={styles.pagina}>
+            {/* ================================================= */}
+            {/* PÁGINA 3 - ENGAJAMENTO */}
+            {/* ================================================= */}
+
+            <Page
+                size={{ width: A4_LARGURA, height: A4_ALTURA }}
+                style={styles.pagina}
+            >
 
                 <Cabecalho />
+
 
                 <Text style={styles.tituloSecao}>
                     Engajamento da plataforma
                 </Text>
 
+
                 <Text style={styles.descricaoSecao}>
                     Evolução diária da quantidade de
                     colaboradores ativos na UNICAGEN
-                    durante o período analisado.
+                    durante os últimos 30 dias.
                 </Text>
+
 
 
                 <Text style={styles.tituloBloco}>
@@ -579,13 +842,85 @@ export default function RelatorioMetricasPDF({
 
 
                 {graficoEngajamento && (
+
                     <View style={styles.graficoContainer}>
+
                         <Image
                             src={graficoEngajamento}
-                            style={styles.graficoGrande}
+                            style={styles.graficoEngajamento}
                         />
+
                     </View>
+
                 )}
+
+
+
+                {/* INDICADORES */}
+
+
+                <View style={styles.indicadoresEngajamento}>
+
+
+                    <View style={styles.indicadorEngajamento}>
+
+                        <Text style={styles.indicadorValor}>
+                            {picoUsuarios}
+                        </Text>
+
+                        <Text style={styles.indicadorLabel}>
+                            Pico de usuários ativos em um dia
+                        </Text>
+
+                    </View>
+
+
+
+                    <View style={styles.indicadorEngajamento}>
+
+                        <Text style={styles.indicadorValor}>
+                            {mediaDiaria.toFixed(1)}
+                        </Text>
+
+                        <Text style={styles.indicadorLabel}>
+                            Média diária de usuários ativos
+                        </Text>
+
+                    </View>
+
+
+
+                    <View style={styles.indicadorEngajamento}>
+
+                        <Text style={styles.indicadorValor}>
+                            {diasComAtividade}
+                        </Text>
+
+                        <Text style={styles.indicadorLabel}>
+                            Dias com atividade registrada
+                        </Text>
+
+                    </View>
+
+
+                </View>
+
+
+
+                <View style={styles.observacaoEngajamento}>
+
+                    <Text style={styles.observacaoTitulo}>
+                        Sobre o indicador
+                    </Text>
+
+                    <Text style={styles.observacaoTexto}>
+                        O gráfico apresenta a quantidade de
+                        colaboradores distintos que utilizaram
+                        a plataforma em cada dia do período
+                        analisado.
+                    </Text>
+
+                </View>
 
 
                 <Rodape />
@@ -593,22 +928,29 @@ export default function RelatorioMetricasPDF({
             </Page>
 
 
-            {/* ===================================== */}
-            {/* TREINAMENTOS */}
-            {/* ===================================== */}
 
-            <Page size="A4" style={styles.pagina}>
+            {/* ================================================= */}
+            {/* PÁGINA 4 - TREINAMENTOS */}
+            {/* ================================================= */}
+
+            <Page
+                size={{ width: A4_LARGURA, height: A4_ALTURA }}
+                style={styles.pagina}
+            >
 
                 <Cabecalho />
+
 
                 <Text style={styles.tituloSecao}>
                     Treinamentos
                 </Text>
 
+
                 <Text style={styles.descricaoSecao}>
                     Visão dos treinamentos com maior
                     quantidade de acessos na plataforma.
                 </Text>
+
 
 
                 <Text style={styles.tituloBloco}>
@@ -617,13 +959,21 @@ export default function RelatorioMetricasPDF({
 
 
                 {graficoTreinamentos && (
+
                     <View style={styles.graficoContainer}>
+
                         <Image
                             src={graficoTreinamentos}
-                            style={styles.grafico}
+                            style={styles.graficoTreinamentos}
                         />
+
                     </View>
+
                 )}
+
+
+
+                {/* RANKING */}
 
 
                 <View style={styles.ranking}>
@@ -645,9 +995,11 @@ export default function RelatorioMetricasPDF({
                                     {index + 1}º
                                 </Text>
 
+
                                 <Text style={styles.rankingNome}>
                                     {treinamento.titulo}
                                 </Text>
+
 
                                 <Text style={styles.rankingValor}>
                                     {treinamento.total_acessos} acessos
@@ -665,6 +1017,9 @@ export default function RelatorioMetricasPDF({
 
             </Page>
 
+
         </Document>
+
     );
+
 }

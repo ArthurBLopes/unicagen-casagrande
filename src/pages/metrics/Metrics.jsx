@@ -97,6 +97,10 @@ export default function Metricas() {
                         atividadeUsuarios
                     }
 
+                    engajamentoPlataforma={
+                        engajamentoPlataforma
+                    }
+
                     treinamentos={
                         testeTreinamentos
                     }
@@ -194,7 +198,7 @@ export default function Metricas() {
 
                         <div className={styles.btns}>
                             <button className={styles.btnPDF} onClick={handleGerarRelatorio} disabled={gerandoRelatorio}>
-                            {gerandoRelatorio? "Gerando relatório...": "Gerar relatório"}</button>
+                                {gerandoRelatorio ? "Gerando relatório..." : "Gerar relatório"}</button>
                         </div>
                     </div>
 
@@ -223,141 +227,146 @@ export default function Metricas() {
                         </div>
                         <div className={styles.graficos}>
 
-                            <div ref={graficoUsuariosRef} className={styles.graficoUsuarios}>
+                            <div className={styles.graficoUsuarios}>
                                 <h3>Status dos usuários</h3>
+                                <div ref={graficoUsuariosRef} >
+                                    <ResponsiveContainer width="100%" height={300}>
+                                        <PieChart>
+                                            <Pie
+                                                data={dadosUsuarios}
+                                                dataKey="valor"
+                                                nameKey="nome"
+                                                cx="50%"
+                                                cy="45%"
+                                                innerRadius={60}
+                                                outerRadius={90}
+                                                paddingAngle={2}
+                                                label={({ name, percent }) =>
+                                                    `${name} ${(percent * 100).toFixed(0)}%`
+                                                }
+                                            />
 
-                                <ResponsiveContainer width="100%" height={300}>
-                                    <PieChart>
-                                        <Pie
-                                            data={dadosUsuarios}
-                                            dataKey="valor"
-                                            nameKey="nome"
-                                            cx="50%"
-                                            cy="45%"
-                                            innerRadius={60}
-                                            outerRadius={90}
-                                            paddingAngle={2}
-                                            label={({ name, percent }) =>
-                                                `${name} ${(percent * 100).toFixed(0)}%`
-                                            }
-                                        />
+                                            <Tooltip />
 
-                                        <Tooltip />
-
-                                        <Legend
-                                            verticalAlign="bottom"
-                                            align="center"
-                                        />
-                                    </PieChart>
-                                </ResponsiveContainer>
+                                            <Legend
+                                                verticalAlign="bottom"
+                                                align="center"
+                                            />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </div>
                             </div>
 
-                            <div ref={graficoTreinamentosRef} className={styles.graficoTreinamentos}>
+                            <div className={styles.graficoTreinamentos}>
                                 <h3>Treinamentos mais acessados</h3>
 
-                                <ResponsiveContainer width="100%" height={300}>
-                                    <BarChart
-                                        data={testeTreinamentos}
-                                        layout="vertical"
-                                        margin={{
-                                            top: 10,
-                                            right: 20,
-                                            left: 0,
-                                            bottom: 10
-                                        }}
-                                    >
-                                        <CartesianGrid
-                                            strokeDasharray="3 3"
-                                            horizontal={false}
-                                        />
+                                <div ref={graficoTreinamentosRef}>
+                                    <ResponsiveContainer width="100%" height={300}>
+                                        <BarChart
+                                            data={testeTreinamentos}
+                                            layout="vertical"
+                                            margin={{
+                                                top: 10,
+                                                right: 20,
+                                                left: 0,
+                                                bottom: 10
+                                            }}
+                                        >
+                                            <CartesianGrid
+                                                strokeDasharray="3 3"
+                                                horizontal={false}
+                                            />
 
-                                        <XAxis
-                                            type="number"
-                                            allowDecimals={false}
-                                            axisLine={false}
-                                            tickLine={false}
-                                        />
+                                            <XAxis
+                                                type="number"
+                                                allowDecimals={false}
+                                                axisLine={false}
+                                                tickLine={false}
+                                            />
 
-                                        <YAxis
-                                            type="category"
-                                            dataKey="titulo"
-                                            width={80}
-                                            axisLine={false}
-                                            tickLine={false}
-                                            tickFormatter={(titulo) =>
-                                                titulo.length > 12
-                                                    ? `${titulo.substring(0, 12)}...`
-                                                    : titulo
-                                            }
-                                        />
+                                            <YAxis
+                                                type="category"
+                                                dataKey="titulo"
+                                                width={80}
+                                                axisLine={false}
+                                                tickLine={false}
+                                                tickFormatter={(titulo) =>
+                                                    titulo.length > 12
+                                                        ? `${titulo.substring(0, 12)}...`
+                                                        : titulo
+                                                }
+                                            />
 
-                                        <Tooltip />
+                                            <Tooltip />
 
-                                        <Bar
-                                            dataKey="total_acessos"
-                                            name="Acessos"
-                                            fill="#4f772d"
-                                            radius={[0, 6, 6, 0]}
-                                        />
-                                    </BarChart>
-                                </ResponsiveContainer>
+                                            <Bar
+                                                dataKey="total_acessos"
+                                                name="Acessos"
+                                                fill="#4f772d"
+                                                radius={[0, 6, 6, 0]}
+                                            />
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
                             </div>
 
-                            <div ref={graficoEngajamentoRef} className={styles.graficoEngajamento}>
+                            <div className={styles.graficoEngajamento}>
                                 <h3>Engajamento diário na plataforma</h3>
 
-                                <ResponsiveContainer width="100%" height={300}>
-                                    <AreaChart
-                                        data={engajamentoPlataforma}
-                                        margin={{
-                                            top: 10,
-                                            right: 20,
-                                            left: 0,
-                                            bottom: 10
-                                        }}
-                                    >
-
-                                        <CartesianGrid
-                                            strokeDasharray="3 3"
-                                            vertical={false}
-                                        />
-
-                                        <XAxis
-                                            dataKey="data"
-                                            interval={4}
-                                            tickFormatter={(data) => {
-                                                const [ano, mes, dia] = data.split("-");
-                                                return `${dia}/${mes}`;
+                                <div ref={graficoEngajamentoRef}>
+                                    <ResponsiveContainer width="100%" height={300}>
+                                        <AreaChart
+                                            data={engajamentoPlataforma}
+                                            margin={{
+                                                top: 10,
+                                                right: 20,
+                                                left: 0,
+                                                bottom: 10
                                             }}
-                                            tickMargin={10}
-                                            axisLine={false}
-                                            tickLine={false}
-                                        />
+                                        >
 
-                                        <YAxis
-                                            allowDecimals={false}
-                                            axisLine={false}
-                                            tickLine={false}
-                                        />
+                                            <CartesianGrid
+                                                strokeDasharray="3 3"
+                                                vertical={false}
+                                            />
 
-                                        <Tooltip
-                                            labelFormatter={(data) => {
-                                                const [ano, mes, dia] = data.split("-");
-                                                return `${dia}/${mes}/${ano}`;
-                                            }}
-                                        />
+                                            <XAxis
+                                                dataKey="data"
+                                                interval={4}
+                                                tickFormatter={(data) => {
+                                                    const [ano, mes, dia] = data.split("-");
+                                                    return `${dia}/${mes}`;
+                                                }}
+                                                tickMargin={10}
+                                                axisLine={false}
+                                                tickLine={false}
+                                            />
 
-                                        <Area
-                                            type="monotone"
-                                            dataKey="usuarios_ativos"
-                                            name="Usuários ativos"
-                                            stroke="#4f772d"
-                                            fill="#4f772d"
-                                            fillOpacity={0.25}
-                                        />
+                                            <YAxis
+                                                allowDecimals={false}
+                                                axisLine={false}
+                                                tickLine={false}
+                                            />
 
-                                    </AreaChart>
-                                </ResponsiveContainer>
+                                            <Tooltip
+                                                labelFormatter={(data) => {
+                                                    const [ano, mes, dia] = data.split("-");
+                                                    return `${dia}/${mes}/${ano}`;
+                                                }}
+                                            />
+
+                                            <Area
+                                                type="monotone"
+                                                dataKey="usuarios_ativos"
+                                                name="Usuários ativos"
+                                                stroke="#4f772d"
+                                                fill="#4f772d"
+                                                fillOpacity={0.25}
+                                            />
+
+                                        </AreaChart>
+                                    </ResponsiveContainer>
+                                </div>
                             </div>
                         </div>
                     </div>
