@@ -48,14 +48,6 @@ export default function Metricas() {
         }
     ];
 
-    const testeTreinamentos = [
-        { titulo: "AutoCAD", total_acessos: 32 },
-        { titulo: "SAP2000", total_acessos: 25 },
-        { titulo: "Excel", total_acessos: 19 },
-        { titulo: "Revit", total_acessos: 14 },
-        { titulo: "Dynamo", total_acessos: 8 }
-    ];
-
     const handleGerarRelatorio = async () => {
 
         try {
@@ -102,7 +94,11 @@ export default function Metricas() {
                     }
 
                     treinamentos={
-                        testeTreinamentos
+                        engajamentoTreinamentos
+                    }
+
+                    colaboradores={
+                        acessosOrdenados
                     }
 
                     graficoUsuarios={
@@ -146,8 +142,7 @@ export default function Metricas() {
                 .replaceAll("/", "-");
 
 
-            const nomeArquivo =
-                `Relatorio_Metricas_UNICAGEN_${dataArquivo}.pdf`;
+            const nomeArquivo = `Relatorio_Metricas_UNICAGEN_${dataArquivo}.pdf`;
 
 
             // ==============================
@@ -263,7 +258,7 @@ export default function Metricas() {
                                 <div ref={graficoTreinamentosRef}>
                                     <ResponsiveContainer width="100%" height={300}>
                                         <BarChart
-                                            data={testeTreinamentos}
+                                            data={engajamentoTreinamentos}
                                             layout="vertical"
                                             margin={{
                                                 top: 10,

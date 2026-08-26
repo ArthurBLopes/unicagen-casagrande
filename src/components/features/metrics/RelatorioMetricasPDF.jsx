@@ -389,6 +389,146 @@ const styles = StyleSheet.create({
 
 
     // =========================================================
+    // PÁGINA 5 - COLABORADORES
+    // =========================================================
+
+    resumoColaboradores: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 14,
+    },
+
+    resumoColaboradorCard: {
+        width: "31.5%",
+        minHeight: 58,
+        backgroundColor: FUNDO_SUAVE,
+        borderWidth: 1,
+        borderColor: BORDA,
+        borderRadius: 7,
+        paddingVertical: 9,
+        paddingHorizontal: 10,
+    },
+
+    resumoColaboradorValor: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: VERDE,
+        marginBottom: 3,
+    },
+
+    resumoColaboradorValorNome: {
+        fontSize: 9.5,
+        fontWeight: "bold",
+        color: VERDE,
+        marginBottom: 3,
+        lineHeight: 1.15,
+    },
+
+    resumoColaboradorLabel: {
+        fontSize: 7,
+        color: "#666666",
+        lineHeight: 1.2,
+    },
+
+    listaColaboradores: {
+        marginTop: 2,
+    },
+
+    colaboradorCard: {
+        borderWidth: 1,
+        borderColor: BORDA,
+        borderRadius: 7,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        marginBottom: 7,
+        backgroundColor: "#FFFFFF",
+    },
+
+    colaboradorTopo: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+
+    colaboradorPosicao: {
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        backgroundColor: VERDE,
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: 9,
+    },
+
+    colaboradorPosicaoTexto: {
+        fontSize: 8.5,
+        fontWeight: "bold",
+        color: "#FFFFFF",
+    },
+
+    colaboradorIdentificacao: {
+        flex: 1,
+        paddingRight: 10,
+    },
+
+    colaboradorNome: {
+        fontSize: 9,
+        fontWeight: "bold",
+        color: GRAFITE,
+        marginBottom: 2,
+    },
+
+    colaboradorEmail: {
+        fontSize: 7,
+        color: CINZA,
+    },
+
+    colaboradorAcessos: {
+        width: 58,
+        alignItems: "flex-end",
+    },
+
+    colaboradorAcessosValor: {
+        fontSize: 15,
+        fontWeight: "bold",
+        color: VERDE,
+        marginBottom: 1,
+    },
+
+    colaboradorAcessosLabel: {
+        fontSize: 6.2,
+        color: CINZA,
+        textTransform: "uppercase",
+        letterSpacing: 0.25,
+    },
+
+    colaboradorDetalhes: {
+        flexDirection: "row",
+        marginTop: 7,
+        paddingTop: 5,
+        borderTopWidth: 1,
+        borderTopColor: "#EEEEEE",
+    },
+
+    colaboradorDetalhe: {
+        width: "50%",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+
+    colaboradorDetalheLabel: {
+        fontSize: 6.7,
+        color: CINZA,
+        marginRight: 4,
+    },
+
+    colaboradorDetalheValor: {
+        fontSize: 7.3,
+        fontWeight: "bold",
+        color: "#444444",
+    },
+
+
+    // =========================================================
     // RODAPÉ
     // =========================================================
 
@@ -414,6 +554,12 @@ const styles = StyleSheet.create({
     },
 
 });
+
+
+function formatarUltimoAcessoPdf(data) {
+    if (!data) return "—";
+    return data.slice(0, 10).split("-").reverse().join("/");
+}
 
 
 function Cabecalho() {
@@ -480,6 +626,8 @@ export default function RelatorioMetricasPDF({
 
     treinamentos = [],
 
+    colaboradores = [],
+
     graficoUsuarios = null,
 
     graficoTreinamentos = null,
@@ -526,20 +674,58 @@ export default function RelatorioMetricasPDF({
         }
     );
 
-
-
     // =========================================================
     // TREINAMENTOS
     // =========================================================
 
-    const treinamentosOrdenados =
-        [...treinamentos].sort(
-            (a, b) =>
-                (b.total_acessos ?? 0) -
-                (a.total_acessos ?? 0)
+    const treinamentosOrdenados = [...treinamentos].sort((a, b) => (b.total_acessos ?? 0) - (a.total_acessos ?? 0));
+
+    // =========================================================
+    // TOP 5 COLABORADORES COM MAIS ACESSOS
+    // =========================================================
+
+    const colaboradoresOrdenados =
+        [...colaboradores]
+            .sort((a, b) => {
+
+                const acessosA =
+                    Number(a.total_acessos) || 0;
+
+                const acessosB =
+                    Number(b.total_acessos) || 0;
+
+
+                if (acessosB !== acessosA) {
+                    return acessosB - acessosA;
+                }
+
+
+                return (a.nome ?? "").localeCompare(
+                    b.nome ?? "",
+                    "pt-BR"
+                );
+
+            })
+            .slice(0, 5);
+
+    const totalAcessosTop5 =
+        colaboradoresOrdenados.reduce(
+            (total, colaborador) =>
+                total + (Number(colaborador.total_acessos) || 0),
+            0
         );
 
+    const mediaFrequenciaTop5 =
+        colaboradoresOrdenados.length > 0
+            ? colaboradoresOrdenados.reduce(
+                (total, colaborador) =>
+                    total + (Number(colaborador.frequencia_pct) || 0),
+                0
+            ) / colaboradoresOrdenados.length
+            : 0;
 
+    const liderColaborador =
+        colaboradoresOrdenados[0] ?? null;
 
     // =========================================================
     // MÉTRICAS DERIVADAS DO ENGAJAMENTO
@@ -594,9 +780,9 @@ export default function RelatorioMetricasPDF({
             {/* ================================================= */}
 
             <Page
-    size={{ width: A4_LARGURA, height: A4_ALTURA }}
-    style={styles.capa}
->
+                size={{ width: A4_LARGURA, height: A4_ALTURA }}
+                style={styles.capa}
+            >
 
                 <View style={styles.capaTopo}>
 
@@ -659,9 +845,9 @@ export default function RelatorioMetricasPDF({
             {/* ================================================= */}
 
             <Page
-    size={{ width: A4_LARGURA, height: A4_ALTURA }}
-    style={styles.pagina}
->
+                size={{ width: A4_LARGURA, height: A4_ALTURA }}
+                style={styles.pagina}
+            >
 
                 <Cabecalho />
 
@@ -1004,6 +1190,165 @@ export default function RelatorioMetricasPDF({
                                 <Text style={styles.rankingValor}>
                                     {treinamento.total_acessos} acessos
                                 </Text>
+
+                            </View>
+
+                        )
+                    )}
+
+                </View>
+
+
+                <Rodape />
+
+            </Page>
+
+
+
+            {/* ================================================= */}
+            {/* PÁGINA 5 - ACESSOS POR COLABORADOR */}
+            {/* ================================================= */}
+
+            <Page
+                size={{ width: A4_LARGURA, height: A4_ALTURA }}
+                style={styles.pagina}
+            >
+
+                <Cabecalho />
+
+                <Text style={[styles.tituloSecao, { marginBottom: 3 }]}>
+                    Acessos por colaborador
+                </Text>
+
+                <Text style={[styles.descricaoSecao, { marginBottom: 14 }]}>
+                    Os 5 colaboradores com maior número de acessos à plataforma
+                    nos últimos 30 dias, considerando no máximo 1 acesso por
+                    colaborador a cada dia.
+                </Text>
+
+
+                {/* RESUMO DO TOP 5 */}
+
+                <View style={styles.resumoColaboradores}>
+
+                    <View style={styles.resumoColaboradorCard}>
+                        <Text style={styles.resumoColaboradorValor}>
+                            {totalAcessosTop5}
+                        </Text>
+
+                        <Text style={styles.resumoColaboradorLabel}>
+                            Acessos somados entre os 5 colaboradores em destaque
+                        </Text>
+                    </View>
+
+
+                    <View style={styles.resumoColaboradorCard}>
+                        <Text style={styles.resumoColaboradorValor}>
+                            {mediaFrequenciaTop5.toFixed(1)}%
+                        </Text>
+
+                        <Text style={styles.resumoColaboradorLabel}>
+                            Frequência média dos colaboradores do Top 5
+                        </Text>
+                    </View>
+
+
+                    <View style={styles.resumoColaboradorCard}>
+                        <Text style={styles.resumoColaboradorValorNome}>
+                            {liderColaborador?.nome ?? "—"}
+                        </Text>
+
+                        <Text style={styles.resumoColaboradorLabel}>
+                            Colaborador com maior número de acessos
+                        </Text>
+                    </View>
+
+                </View>
+
+
+                <Text style={[styles.tituloBloco, { marginBottom: 7 }]}>
+                    Ranking de colaboradores
+                </Text>
+
+
+                <View style={styles.listaColaboradores}>
+
+                    {colaboradoresOrdenados.map(
+                        (colaborador, index) => (
+
+                            <View
+                                key={colaborador.email ?? index}
+                                style={styles.colaboradorCard}
+                                wrap={false}
+                            >
+
+                                <View style={styles.colaboradorTopo}>
+
+                                    <View style={styles.colaboradorPosicao}>
+                                        <Text style={styles.colaboradorPosicaoTexto}>
+                                            {index + 1}º
+                                        </Text>
+                                    </View>
+
+
+                                    <View style={styles.colaboradorIdentificacao}>
+
+                                        <Text style={styles.colaboradorNome}>
+                                            {colaborador.nome}
+                                        </Text>
+
+                                        <Text style={styles.colaboradorEmail}>
+                                            {colaborador.email}
+                                        </Text>
+
+                                    </View>
+
+
+                                    <View style={styles.colaboradorAcessos}>
+
+                                        <Text style={styles.colaboradorAcessosValor}>
+                                            {colaborador.total_acessos ?? 0}
+                                        </Text>
+
+                                        <Text style={styles.colaboradorAcessosLabel}>
+                                            acessos
+                                        </Text>
+
+                                    </View>
+
+                                </View>
+
+
+                                <View style={styles.colaboradorDetalhes}>
+
+                                    <View style={styles.colaboradorDetalhe}>
+
+                                        <Text style={styles.colaboradorDetalheLabel}>
+                                            Frequência:
+                                        </Text>
+
+                                        <Text style={styles.colaboradorDetalheValor}>
+                                            {colaborador.frequencia_pct ?? 0}%
+                                        </Text>
+
+                                    </View>
+
+
+                                    <View style={styles.colaboradorDetalhe}>
+
+                                        <Text style={styles.colaboradorDetalheLabel}>
+                                            Último acesso:
+                                        </Text>
+
+                                        <Text style={styles.colaboradorDetalheValor}>
+                                            {formatarUltimoAcessoPdf(
+                                                colaborador.ultimo_acesso
+                                            )}
+                                        </Text>
+
+                                    </View>
+
+                                </View>
 
                             </View>
 
