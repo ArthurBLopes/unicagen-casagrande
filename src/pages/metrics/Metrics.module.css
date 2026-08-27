@@ -78,6 +78,20 @@
     color: color-mix(in srgb, var(--text-color) 46%, transparent);
 }
 
+.selectUsuario {
+    width: 100%;
+    max-width: 360px;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background-color: var(--bg-color3);
+    color: var(--text-color);
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 @media (min-width: 600px) {
     .container {
         padding: 126px 49px 64px;

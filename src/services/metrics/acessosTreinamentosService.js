@@ -44,4 +44,18 @@ const listarAcessosView = async () => {
     return data;
 };
 
-export { registrarAcessoTreinamento, buscarAcessosTreinamento, listarAcessosView };
+const listarAcessosPorUsuario = async (id_usuario) => {
+    const { data, error } = await supabase
+        .from("acessos_treinamento")
+        .select("*, treinamentos(titulo)")
+        .eq("id_usuario", id_usuario)
+
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+    return data;
+};
+
+export { registrarAcessoTreinamento, buscarAcessosTreinamento, listarAcessosView, listarAcessosPorUsuario };

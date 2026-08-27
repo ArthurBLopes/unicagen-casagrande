@@ -8,6 +8,9 @@ import Table from "../../components/common/table/Table"
 import Alert from "../../components/common/alert/Alert"
 import { formatarUltimoAcesso } from "../../utils/formatarData"
 import { useMetricasDashboard } from "../../hooks/metrics/useMetricasDashboard";
+import { useEngajamentoVideos } from "../../hooks/metrics/useEngajamentoVideos";
+import { useUsuarios } from "../../hooks/metrics/useUsuarios";
+import { useTreinamentosVistosPorUsuario } from "../../hooks/metrics/useTreinamentosVistosPorUsuario";
 import { capturarGrafico } from "../../utils/capturarGrafico";
 import RelatorioMetricasPDF from "../../components/features/metrics/RelatorioMetricasPDF";
 import { pdf } from "@react-pdf/renderer";
@@ -16,18 +19,30 @@ export default function Metricas() {
 
     const { acessos, loading } = useAcessos();
     const { acessosTreinamentos, loadingTreinamentos } = useAcessosTreinamentos();
+    const { engajamentoVideos, loadingVideos } = useEngajamentoVideos();
+    const { usuarios } = useUsuarios();
     const [pesquisa, setPesquisa] = useState("");
     const [pesquisaTreinamentos, setPesquisaTreinamentos] = useState("");
+    const [pesquisaVideos, setPesquisaVideos] = useState("");
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState("");
+    const { treinamentosVistos, loadingTreinamentosVistos } = useTreinamentosVistosPorUsuario(usuarioSelecionado);
     const { atividadeUsuarios, engajamentoPlataforma, acessaramNovaUnicagen, engajamentoTreinamentos } = useMetricasDashboard()
 
     const acessosTreinamentosOrdenados = acessosTreinamentos.sort((a, b) => b.total_acessos - a.total_acessos);
     const acessosTreinamentosFiltrados = acessosTreinamentosOrdenados.filter(acesso => acesso.titulo.toLowerCase().includes(pesquisaTreinamentos.toLowerCase()));
 
+    const engajamentoVideosOrdenado = engajamentoVideos.sort((a, b) => b.iniciaram - a.iniciaram);
+    const engajamentoVideosFiltrado = engajamentoVideosOrdenado.filter(video => video.titulo.toLowerCase().includes(pesquisaVideos.toLowerCase()));
+
     const acessosOrdenados = acessos.sort((a, b) => a.nome.localeCompare(b.nome));
     const acessosFiltrados = acessosOrdenados.filter(acesso => acesso.nome.toLowerCase().includes(pesquisa.toLowerCase()) || acesso.email.toLowerCase().includes(pesquisa.toLowerCase()));
 
-    const headers_acessos = ["Nome", "Email", "Posição", "Acessos (Últimos 30 dias)", "Frequência (%)", "Último acesso"];
+    const usuariosOrdenados = usuarios.slice().sort((a, b) => a.nome.localeCompare(b.nome));
+
+    const headers_acessos = ["Nome", "Email", "Perfil", "Acessos (Últimos 30 dias)", "Frequência (%)", "Último acesso"];
     const headers_treinamentos = ["Curso", "Total de Acessos", "Usuários únicos", "Último acesso"];
+    const headers_videos = ["Curso", "Iniciaram", "Concluíram", "Taxa de conclusão"];
+    const headers_treinamentos_vistos = ["Curso", "Tipo", "Status", "Progresso"];
 
     //parte de gerar o relatório ( eu apaguei a opção de power bi )
     const graficoUsuariosRef = useRef(null);
@@ -197,6 +212,8 @@ export default function Metricas() {
                         </div>
                     </div>
 
+                    <p>Veja quantos colaboradores estão ativos na plataforma e, mais abaixo, o detalhamento individual: quantas vezes cada um acessou, com que frequência e quando foi a última vez.</p>
+
                     <div className={styles.dashboard}>
                         <div className={styles.ResumoAtividadesUsuarios}>
                             <div className={styles.cardMetrica}>
@@ -253,7 +270,7 @@ export default function Metricas() {
                             </div>
 
                             <div className={styles.graficoTreinamentos}>
-                                <h3>Treinamentos mais acessados</h3>
+                                <h3>Cursos mais acessados</h3>
 
                                 <div ref={graficoTreinamentosRef}>
                                     <ResponsiveContainer width="100%" height={300}>
@@ -421,6 +438,68 @@ export default function Metricas() {
                         ]}
                         columns="2.7fr 1.5fr 1.4fr 1.3fr"
                     />
+                </section>
+
+                <section className={styles.secao}>
+                    <div className={styles.secaoCabecalho}>
+                        <h2 className={styles.secaoTitulo}>Engajamento com vídeos</h2>
+                    </div>
+
+                    <Alert mensagem={"Confira quantos colaboradores iniciaram e concluíram os treinamentos em vídeo."} />
+
+                    <div className={styles.searchArea}>
+                        <div className={styles.searchBox}>
+                            <Search size={18} />
+                            <input type="text" placeholder="Buscar curso..." value={pesquisaVideos} onChange={(e) => setPesquisaVideos(e.target.value)} />
+                        </div>
+                    </div>
+
+                    <Table
+                        loading={loadingVideos}
+                        headers={headers_videos}
+                        dados={engajamentoVideosOrdenado}
+                        dadosFiltrados={engajamentoVideosFiltrado}
+                        colunas={(registro) => [
+                            { valor: registro.titulo },
+                            { valor: registro.iniciaram },
+                            { valor: registro.concluiram },
+                            { valor: `${Math.round((registro.concluiram / registro.iniciaram) * 100)}%` },
+                        ]}
+                        columns="2.7fr 1.5fr 1.5fr 1.3fr"
+                    />
+                </section>
+
+                <section className={styles.secao}>
+                    <div className={styles.secaoCabecalho}>
+                        <h2 className={styles.secaoTitulo}>Treinamentos por colaborador</h2>
+                    </div>
+
+                    <Alert mensagem={"Selecione um colaborador para ver quais treinamentos ele assistiu ou acessou."} />
+
+                    <div className={styles.searchArea}>
+                        <select className={styles.selectUsuario} value={usuarioSelecionado} onChange={(e) => setUsuarioSelecionado(e.target.value)}>
+                            <option value="">Selecione um colaborador...</option>
+                            {usuariosOrdenados.map((usuario) => (
+                                <option key={usuario.id} value={usuario.id}>{usuario.nome}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {usuarioSelecionado && (
+                        <Table
+                            loading={loadingTreinamentosVistos}
+                            headers={headers_treinamentos_vistos}
+                            dados={treinamentosVistos}
+                            dadosFiltrados={treinamentosVistos}
+                            colunas={(registro) => [
+                                { valor: registro.titulo },
+                                { valor: registro.tipo },
+                                { valor: registro.status },
+                                { valor: registro.detalhe },
+                            ]}
+                            columns="2.7fr 1.3fr 1.3fr 1.3fr"
+                        />
+                    )}
                 </section>
             </main>
         </div>
