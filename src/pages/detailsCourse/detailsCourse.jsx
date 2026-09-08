@@ -72,6 +72,9 @@ export default function DetailsCourse() {
                             {treinamento?.link_material && (
                                 <button className={styles.botaoAcessarMaterial} onClick={() => window.open(treinamento.link_material, "_blank")}>Acessar Material</button>
                             )}
+                            {treinamento?.link_formulario && (
+                                <button className={styles.botaoAcessarMaterial} onClick={() => window.open(treinamento.link_formulario, "_blank")}>Questionário</button>
+                            )}
                             <button 
                                 className={styles.botaoSalvar} 
                                 onClick={() => toggleSalvo(treinamento?.id)}
