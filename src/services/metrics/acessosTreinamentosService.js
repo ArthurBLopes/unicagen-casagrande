@@ -1,20 +1,17 @@
 import { supabase } from "../../lib/supabase"
 
 const registrarAcessoTreinamento = async (id_usuario, id_treinamento) => {
- 
-    const { data, error } = await supabase
+    const { error } = await supabase
         .from("acessos_treinamento")
-        .insert({ id_usuario, id_treinamento })
-        .select()
-        .single()
+        .insert({ id_usuario, id_treinamento });
 
     if (error) {
-        console.error(error)
-        return null
+        console.error("Erro ao registrar acesso ao treinamento:", error);
+        return false;
     }
 
-    return data
-}
+    return true;
+};
 
 const buscarAcessosTreinamento = async (id_treinamento) => {
     const { data, error } = await supabase
