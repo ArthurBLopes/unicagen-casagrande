@@ -78,6 +78,26 @@
     color: color-mix(in srgb, var(--text-color) 46%, transparent);
 }
 
+.selectUsuario {
+    width: 100%;
+    max-width: 360px;
+    height: 48px;
+    padding: 0 44px 0 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background-color: var(--bg-color3);
+    color: var(--text-color);
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23808080' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+}
+
 @media (min-width: 600px) {
     .container {
         padding: 126px 49px 64px;
@@ -90,7 +110,15 @@
     flex-direction: column;
 }
 
-.main > h1 {
+.cabecalhoPagina {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.cabecalhoPagina h1 {
     position: relative;
     max-width: 860px;
     margin: 0;
@@ -102,7 +130,7 @@
     color: var(--text-color);
 }
 
-.main > h1::before {
+.cabecalhoPagina h1::before {
     content: "Painel administrativo";
     display: block;
     margin-bottom: 12px;
@@ -115,7 +143,7 @@
     color: var(--text-color2);
 }
 
-.main > h1::after {
+.cabecalhoPagina h1::after {
     content: "";
     display: block;
     width: 46px;
@@ -126,12 +154,16 @@
     opacity: 0.75;
 }
 
-.main > p {
+.cabecalhoPagina p {
     max-width: 760px;
-    margin: 18px 0 8px;
+    margin: 18px 0 0;
     font-size: 13.8px;
     line-height: 1.72;
     color: color-mix(in srgb, var(--text-color) 64%, transparent);
+}
+
+.cabecalhoPagina .btnPDF {
+    flex-shrink: 0;
 }
 
 .secao {
@@ -271,6 +303,7 @@
     display: flex;
     flex-direction: column;
     gap: 28px;
+    margin-top: 20px;
     margin-bottom: 32px;
 }
 
@@ -395,5 +428,128 @@
 .graficos :global(.recharts-cartesian-grid-vertical) line {
     stroke: var(--border-color);
 }
+
+.gradeTreinamentos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+@media (min-width: 640px) {
+    .gradeTreinamentos {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+    }
+}
+
+.cardTreinamento {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background-color: var(--bg-color4);
+    box-shadow: 0 10px 26px -22px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.cardTreinamento:hover {
+    border-color: color-mix(in srgb, var(--text-color2) 30%, var(--border-color));
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -20px rgba(0, 0, 0, 0.45);
+}
+
+.cardTreinamentoTopo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.tagTipo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+}
+
+.tagStatus {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tagStatusConcluido {
+    background-color: color-mix(in srgb, var(--text-color2) 20%, transparent);
+    color: var(--text-color2);
+}
+
+.tagStatusAndamento {
+    background-color: transparent;
+    border: 1px solid color-mix(in srgb, var(--text-color2) 40%, var(--border-color));
+    color: var(--text-color2);
+}
+
+.tagStatusAcessado {
+    background-color: color-mix(in srgb, var(--text-color) 10%, transparent);
+    color: color-mix(in srgb, var(--text-color) 70%, transparent);
+}
+
+.cardTreinamentoTitulo {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text-color);
+}
+
+.cardTreinamentoIcone {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--text-color2);
+}
+
+.cardTreinamentoDetalhe {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--text-color) 62%, transparent);
+}
+
+.cardTreinamentoProgresso {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.barraProgresso {
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--text-color2) 16%, transparent);
+    overflow: hidden;
+}
+
+.barraProgressoPreenchida {
+    height: 100%;
+    border-radius: 999px;
+    background-color: var(--text-color2);
+    transition: width 0.3s ease;
+}
+
 
 

@@ -87,6 +87,11 @@
     display: block;
 }
 
+.cursoVideo > div {
+    width: 100%;
+    height: 100%;
+}
+
 .cursoConteudo {
     display: flex;
     flex-direction: column;

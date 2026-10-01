@@ -1,20 +1,17 @@
 import { supabase } from "../../lib/supabase"
 
 const registrarAcessoTreinamento = async (id_usuario, id_treinamento) => {
- 
-    const { data, error } = await supabase
+    const { error } = await supabase
         .from("acessos_treinamento")
-        .insert({ id_usuario, id_treinamento })
-        .select()
-        .single()
+        .insert({ id_usuario, id_treinamento });
 
     if (error) {
-        console.error(error)
-        return null
+        console.error("Erro ao registrar acesso ao treinamento:", error);
+        return false;
     }
 
-    return data
-}
+    return true;
+};
 
 const buscarAcessosTreinamento = async (id_treinamento) => {
     const { data, error } = await supabase
@@ -44,4 +41,18 @@ const listarAcessosView = async () => {
     return data;
 };
 
-export { registrarAcessoTreinamento, buscarAcessosTreinamento, listarAcessosView };
+const listarAcessosPorUsuario = async (id_usuario) => {
+    const { data, error } = await supabase
+        .from("acessos_treinamento")
+        .select("*, treinamentos(titulo)")
+        .eq("id_usuario", id_usuario)
+
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+    return data;
+};
+
+export { registrarAcessoTreinamento, buscarAcessosTreinamento, listarAcessosView, listarAcessosPorUsuario };

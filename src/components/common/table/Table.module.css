@@ -19,6 +19,31 @@
     border-bottom: none;
 }
 
+.linha > span[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 3px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-color2);
+    text-align: left;
+}
+
+@media (min-width: 800px) {
+    .linha > span[data-label]::before {
+        content: none;
+    }
+}
+
+@media (max-width: 799px) {
+    .linha > .valor,
+    .linha > .valorPrincipal {
+        text-align: left;
+    }
+}
+
 .tabelaCabecalho {
     display: none;
 }

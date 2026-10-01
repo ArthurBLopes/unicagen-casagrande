@@ -23,7 +23,7 @@ export default function Table({ loading, headers, dados, dadosFiltrados = [], co
                         {dadosFiltrados.length > 0 ? dadosFiltrados.map((dado, i) => (
                             <div className={styles.linha} key={dado.id ?? i}>
                                 {colunas(dado).map((coluna, j) => (
-                                    <span key={j} className={coluna.className ?? styles.valor}>
+                                    <span key={j} className={coluna.className ?? styles.valor} data-label={headers[j]}>
                                         {coluna.valor}
                                     </span>
                                 ))}

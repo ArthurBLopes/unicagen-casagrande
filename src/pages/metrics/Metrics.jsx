@@ -1,13 +1,16 @@
 import styles from "./Metrics.module.css"
 import { useAcessos } from "../../hooks/metrics/useAcessos"
 import { useAcessosTreinamentos } from "../../hooks/metrics/useAcessosTreinamentos"
-import { Search } from "lucide-react"
+import { Search, Video, FileText, CheckCircle2, Clock, Eye, GraduationCap } from "lucide-react"
 import { ResponsiveContainer, PieChart, Pie, Tooltip, AreaChart, Area, XAxis, YAxis, CartesianGrid, BarChart, Bar, Legend } from "recharts";
 import { useState, useRef } from "react"
 import Table from "../../components/common/table/Table"
 import Alert from "../../components/common/alert/Alert"
 import { formatarUltimoAcesso } from "../../utils/formatarData"
 import { useMetricasDashboard } from "../../hooks/metrics/useMetricasDashboard";
+import { useEngajamentoVideos } from "../../hooks/metrics/useEngajamentoVideos";
+import { useUsuarios } from "../../hooks/metrics/useUsuarios";
+import { useTreinamentosVistosPorUsuario } from "../../hooks/metrics/useTreinamentosVistosPorUsuario";
 import { capturarGrafico } from "../../utils/capturarGrafico";
 import RelatorioMetricasPDF from "../../components/features/metrics/RelatorioMetricasPDF";
 import { pdf } from "@react-pdf/renderer";
@@ -16,18 +19,29 @@ export default function Metricas() {
 
     const { acessos, loading } = useAcessos();
     const { acessosTreinamentos, loadingTreinamentos } = useAcessosTreinamentos();
+    const { engajamentoVideos, loadingVideos } = useEngajamentoVideos();
+    const { usuarios } = useUsuarios();
     const [pesquisa, setPesquisa] = useState("");
     const [pesquisaTreinamentos, setPesquisaTreinamentos] = useState("");
+    const [pesquisaVideos, setPesquisaVideos] = useState("");
+    const [usuarioSelecionado, setUsuarioSelecionado] = useState("");
+    const { treinamentosVistos, loadingTreinamentosVistos } = useTreinamentosVistosPorUsuario(usuarioSelecionado);
     const { atividadeUsuarios, engajamentoPlataforma, acessaramNovaUnicagen, engajamentoTreinamentos } = useMetricasDashboard()
 
     const acessosTreinamentosOrdenados = acessosTreinamentos.sort((a, b) => b.total_acessos - a.total_acessos);
     const acessosTreinamentosFiltrados = acessosTreinamentosOrdenados.filter(acesso => acesso.titulo.toLowerCase().includes(pesquisaTreinamentos.toLowerCase()));
 
+    const engajamentoVideosOrdenado = engajamentoVideos.sort((a, b) => b.iniciaram - a.iniciaram);
+    const engajamentoVideosFiltrado = engajamentoVideosOrdenado.filter(video => video.titulo.toLowerCase().includes(pesquisaVideos.toLowerCase()));
+
     const acessosOrdenados = acessos.sort((a, b) => a.nome.localeCompare(b.nome));
     const acessosFiltrados = acessosOrdenados.filter(acesso => acesso.nome.toLowerCase().includes(pesquisa.toLowerCase()) || acesso.email.toLowerCase().includes(pesquisa.toLowerCase()));
 
-    const headers_acessos = ["Nome", "Email", "Posição", "Acessos (Últimos 30 dias)", "Frequência (%)", "Último acesso"];
+    const usuariosOrdenados = usuarios.slice().sort((a, b) => a.nome.localeCompare(b.nome));
+
+    const headers_acessos = ["Nome", "Email", "Perfil", "Acessos (Últimos 30 dias)", "Frequência (%)", "Último acesso"];
     const headers_treinamentos = ["Curso", "Total de Acessos", "Usuários únicos", "Último acesso"];
+    const headers_videos = ["Curso", "Iniciaram", "Concluíram", "Taxa de conclusão"];
 
     //parte de gerar o relatório ( eu apaguei a opção de power bi )
     const graficoUsuariosRef = useRef(null);
@@ -184,18 +198,23 @@ export default function Metricas() {
     return (
         <div className={styles.container}>
             <main className={styles.main}>
-                <h1>Métricas</h1>
-                <p>Acompanhe o engajamento dos colaboradores com a plataforma.</p>
+                <div className={styles.cabecalhoPagina}>
+                    <div>
+                        <h1>Métricas</h1>
+                        <p>Acompanhe o engajamento dos colaboradores com a plataforma: quem está ativo, quais cursos são mais acessados e o progresso individual de cada um.</p>
+                    </div>
+
+                    <button className={styles.btnPDF} onClick={handleGerarRelatorio} disabled={gerandoRelatorio}>
+                        {gerandoRelatorio ? "Gerando relatório..." : "Gerar relatório em PDF"}
+                    </button>
+                </div>
 
                 <section className={styles.secao}>
                     <div className={styles.secaoCabecalho}>
-                        <h2 className={styles.secaoTitulo}>Acessos por colaborador</h2>
-
-                        <div className={styles.btns}>
-                            <button className={styles.btnPDF} onClick={handleGerarRelatorio} disabled={gerandoRelatorio}>
-                                {gerandoRelatorio ? "Gerando relatório..." : "Gerar relatório"}</button>
-                        </div>
+                        <h2 className={styles.secaoTitulo}>Visão geral de acessos</h2>
                     </div>
+
+                    <Alert mensagem={"Panorama de quem está usando a plataforma agora: quantos colaboradores já acessaram a nova Unicagen, quantos estiveram ativos hoje, nesta semana, neste mês, e quantos estão inativos há mais de 30 dias sem acessar."} />
 
                     <div className={styles.dashboard}>
                         <div className={styles.ResumoAtividadesUsuarios}>
@@ -253,7 +272,7 @@ export default function Metricas() {
                             </div>
 
                             <div className={styles.graficoTreinamentos}>
-                                <h3>Treinamentos mais acessados</h3>
+                                <h3>Cursos mais acessados</h3>
 
                                 <div ref={graficoTreinamentosRef}>
                                     <ResponsiveContainer width="100%" height={300}>
@@ -365,10 +384,14 @@ export default function Metricas() {
                             </div>
                         </div>
                     </div>
+                </section>
 
+                <section className={styles.secao}>
+                    <div className={styles.secaoCabecalho}>
+                        <h2 className={styles.secaoTitulo}>Acessos por colaborador</h2>
+                    </div>
 
-
-                    <Alert mensagem={"Colaboradores que nunca acessaram a nova Unicagen não aparecem nesta lista, pois o cadastro só é criado no primeiro login."} />
+                    <Alert mensagem={"Detalhamento por colaborador: quantas vezes cada um acessou a plataforma nos últimos 30 dias, com que frequência e quando foi o último acesso. Colaboradores que nunca acessaram a nova Unicagen não aparecem nesta lista, pois o cadastro só é criado no primeiro login."} />
 
                     <div className={styles.searchArea}>
                         <div className={styles.searchBox}>
@@ -399,7 +422,7 @@ export default function Metricas() {
                         <h2 className={styles.secaoTitulo}>Acessos por curso</h2>
                     </div>
 
-                    <Alert mensagem={"Confira os cursos mais procurados pelos colaboradores da Casagrande."} />
+                    <Alert mensagem={"Ranking dos cursos mais acessados pelos colaboradores: total de acessos, quantos colaboradores distintos acessaram cada curso e a data do acesso mais recente."} />
 
                     <div className={styles.searchArea}>
                         <div className={styles.searchBox}>
@@ -421,6 +444,101 @@ export default function Metricas() {
                         ]}
                         columns="2.7fr 1.5fr 1.4fr 1.3fr"
                     />
+                </section>
+
+                <section className={styles.secao}>
+                    <div className={styles.secaoCabecalho}>
+                        <h2 className={styles.secaoTitulo}>Engajamento com vídeos</h2>
+                    </div>
+
+                    <Alert mensagem={"Para cada curso em vídeo, veja quantos colaboradores iniciaram a reprodução, quantos concluíram até o fim e qual a taxa de conclusão (percentual de quem concluiu em relação a quem iniciou)."} />
+
+                    <div className={styles.searchArea}>
+                        <div className={styles.searchBox}>
+                            <Search size={18} />
+                            <input type="text" placeholder="Buscar curso..." value={pesquisaVideos} onChange={(e) => setPesquisaVideos(e.target.value)} />
+                        </div>
+                    </div>
+
+                    <Table
+                        loading={loadingVideos}
+                        headers={headers_videos}
+                        dados={engajamentoVideosOrdenado}
+                        dadosFiltrados={engajamentoVideosFiltrado}
+                        colunas={(registro) => [
+                            { valor: registro.titulo },
+                            { valor: registro.iniciaram },
+                            { valor: registro.concluiram },
+                            { valor: `${Math.round((registro.concluiram / registro.iniciaram) * 100)}%` },
+                        ]}
+                        columns="2.7fr 1.5fr 1.5fr 1.3fr"
+                    />
+                </section>
+
+                <section className={styles.secao}>
+                    <div className={styles.secaoCabecalho}>
+                        <h2 className={styles.secaoTitulo}>Treinamentos por colaborador</h2>
+                    </div>
+
+                    <Alert mensagem={"Selecione um colaborador para ver todos os cursos e trilhas que ele já assistiu ou acessou, com o tipo de conteúdo, o status atual e o progresso registrado."} />
+
+                    <div className={styles.searchArea}>
+                        <select className={styles.selectUsuario} value={usuarioSelecionado} onChange={(e) => setUsuarioSelecionado(e.target.value)}>
+                            <option value="">Selecione um colaborador...</option>
+                            {usuariosOrdenados.map((usuario) => (
+                                <option key={usuario.id} value={usuario.id}>{usuario.nome}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {usuarioSelecionado && (
+                        loadingTreinamentosVistos ? (
+                            <p className={styles.carregando}>Carregando dados...</p>
+                        ) : treinamentosVistos.length === 0 ? (
+                            <p className={styles.estadoVazio}>Este colaborador ainda não assistiu ou acessou nenhum curso.</p>
+                        ) : (
+                            <div className={styles.gradeTreinamentos}>
+                                {treinamentosVistos.map((item) => {
+                                    const progresso = parseInt(item.detalhe, 10);
+                                    const temProgresso = !Number.isNaN(progresso);
+
+                                    return (
+                                        <div className={styles.cardTreinamento} key={item.id}>
+                                            <div className={styles.cardTreinamentoTopo}>
+                                                <span className={styles.tagTipo}>
+                                                    {item.tipo === "Vídeo" ? <Video size={14} /> : <FileText size={14} />}
+                                                    {item.tipo}
+                                                </span>
+
+                                                <span className={`${styles.tagStatus} ${item.status === "Concluído" ? styles.tagStatusConcluido : item.status === "Em andamento" ? styles.tagStatusAndamento : styles.tagStatusAcessado}`}>
+                                                    {item.status === "Concluído" ? <CheckCircle2 size={12} /> : item.status === "Em andamento" ? <Clock size={12} /> : <Eye size={12} />}
+                                                    {item.status}
+                                                </span>
+                                            </div>
+
+                                            <h4 className={styles.cardTreinamentoTitulo}>
+                                                <GraduationCap size={16} className={styles.cardTreinamentoIcone} />
+                                                {item.titulo}
+                                            </h4>
+
+                                            {item.detalhe !== "-" && (
+                                                temProgresso ? (
+                                                    <div className={styles.cardTreinamentoProgresso}>
+                                                        <div className={styles.barraProgresso}>
+                                                            <div className={styles.barraProgressoPreenchida} style={{ width: `${progresso}%` }} />
+                                                        </div>
+                                                        <span className={styles.cardTreinamentoDetalhe}>{item.detalhe}</span>
+                                                    </div>
+                                                ) : (
+                                                    <span className={styles.cardTreinamentoDetalhe}>{item.detalhe}</span>
+                                                )
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )
+                    )}
                 </section>
             </main>
         </div>

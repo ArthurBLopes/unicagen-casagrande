@@ -8,9 +8,12 @@ import { formatarData } from "../../utils/formatarData";
 import { FaRegClock } from "react-icons/fa";
 import { Bookmark } from "lucide-react";
 import { useSaved } from "../../hooks/saved/useSaved";
-import { getYouTubeEmbedUrl } from "../../utils/formatar_url"
+import { getYouTubeVideoId } from "../../utils/formatar_url"
 import { useTreinamentos } from "../../hooks/courses/useTreinamentos";
 import { useTagsDoTreinamento } from "../../hooks/tags/useTagsDoTreinamento";
+import { useYouTubePlayer } from "../../hooks/youtube/useYouTubePlayer";
+import { useProgressoVideoTreinamento } from "../../hooks/metrics/useProgressoVideoTreinamento";
+import { registrarAcessoTreinamento } from "../../services/metrics/acessosTreinamentosService";
 
 export default function DetailsCourse() {
     const { id } = useParams();
@@ -21,8 +24,11 @@ export default function DetailsCourse() {
     const treinamento = treinamentos.find(treinamento => treinamento.id === parseInt(id));
     const dataPublicacaoFormatada = treinamento ? formatarData(new Date(treinamento.data_publicacao)) : "";
     const linkVideo = treinamento?.link_conteudo?.includes("https://youtu.be") ? "video" : "outro";
+    const videoId = linkVideo === "video" ? getYouTubeVideoId(treinamento.link_conteudo) : "";
     const { usuario } = useAuth();
     const id_usuario = usuario?.id;
+    const { onStart, onProgress, onEnded } = useProgressoVideoTreinamento(id_usuario, treinamento?.id);
+    const { containerRef: videoRef } = useYouTubePlayer(videoId, { onStart, onProgress, onEnded });
     const { toggleSalvo, estaSalvo, carregandoInicial } = useSaved(id_usuario);
     const cursoSalvo = treinamento?.id ? estaSalvo(treinamento.id) : false;
     
@@ -36,13 +42,7 @@ export default function DetailsCourse() {
                 <div className={styles.cursoContainer}>
                      {linkVideo === "video" && (
                         <div className={styles.cursoVideo}>
-                            <iframe
-                                src={getYouTubeEmbedUrl(treinamento.link_conteudo)}
-                                title={treinamento.titulo}
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
+                            <div ref={videoRef}></div>
                         </div>
                     )}
                     {linkVideo === "outro" && (
@@ -63,9 +63,17 @@ export default function DetailsCourse() {
                             </div>
                         )}
                         <div className={styles.acoes}>
-                            <button className={styles.botaoAcessarConteudo} onClick={() => window.open(treinamento?.link_conteudo, "_blank")}>Acessar Conteúdo</button>
+                            {linkVideo !== "video" && (
+                                <button className={styles.botaoAcessarConteudo} onClick={() => {
+                                    if (id_usuario) registrarAcessoTreinamento(id_usuario, treinamento.id);
+                                    window.open(treinamento?.link_conteudo, "_blank");
+                                }}>Acessar Conteúdo</button>
+                            )}
                             {treinamento?.link_material && (
                                 <button className={styles.botaoAcessarMaterial} onClick={() => window.open(treinamento.link_material, "_blank")}>Acessar Material</button>
+                            )}
+                            {treinamento?.link_formulario && (
+                                <button className={styles.botaoAcessarMaterial} onClick={() => window.open(treinamento.link_formulario, "_blank")}>Questionário</button>
                             )}
                             <button 
                                 className={styles.botaoSalvar} 
