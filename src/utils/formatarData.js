@@ -19,7 +19,7 @@ export function removerItensDuplicados(array) {
 }
 
 export function formatarUltimoAcesso(data) {
-    if (!data) return { valor: "Não encontrado" };
+    if (!data) return { valor: "Sem acessos" };
     return { valor: data.slice(0, 10).split("-").reverse().join("/") };
 }
 
